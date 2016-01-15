@@ -1,1 +1,1 @@
-###react zhihudaily
+###react zhihudaily dev channel
