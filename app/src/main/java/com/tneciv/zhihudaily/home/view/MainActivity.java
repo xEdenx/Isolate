@@ -25,23 +25,35 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
-public class HomeActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+//    @InjectView(R.id.toolbar)
+//    Toolbar toolbar;
+//    @InjectView(R.id.fab)
+//    FloatingActionButton fab;
+//    @InjectView(R.id.nav_view)
+//    NavigationView navigationView;
+//    @InjectView(R.id.drawer_layout)
+//    DrawerLayout drawer;
+//    @InjectView(R.id.tab_home)
+//    TabLayout tabHome;
+//    @InjectView(R.id.viewpager_home)
+//    ViewPager viewpagerHome;
+
+    List<Fragment> fragmentList;
     @InjectView(R.id.toolbar)
     Toolbar toolbar;
+    @InjectView(R.id.tab_home)
+    TabLayout tabHome;
+    @InjectView(R.id.viewpager_home)
+    ViewPager viewpagerHome;
     @InjectView(R.id.fab)
     FloatingActionButton fab;
     @InjectView(R.id.nav_view)
     NavigationView navigationView;
     @InjectView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @InjectView(R.id.tab_home)
-    TabLayout tabHome;
-    @InjectView(R.id.viewpager_home)
-    ViewPager viewpagerHome;
-
-    List<Fragment> fragmentList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +64,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initView() {
-        fragmentList = new ArrayList<Fragment>(Arrays.asList(new ListFragment(), new ListFragment()));
+        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new NewsFragmnt()));
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
