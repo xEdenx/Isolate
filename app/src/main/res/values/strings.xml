@@ -12,4 +12,5 @@
         <item>最新日报</item>
         <item>主题日报</item>
     </string-array>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>

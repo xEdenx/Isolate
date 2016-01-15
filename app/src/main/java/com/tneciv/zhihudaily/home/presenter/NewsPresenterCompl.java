@@ -35,9 +35,9 @@ public class NewsPresenterCompl implements INewsPresenter {
         Log.d("NewsPresenterCompl", "news");
         String url = ZhihuApi.NEWS_LATEST;
         Request request = new Request.Builder().get().url(url).build();
-        OkHttpClient okHttpClient = new OkHttpClient();
+//        OkHttpClient okHttpClient = new OkHttpClient();
 
-        okHttpClient.newCall(request).enqueue(new Callback() {
+        OkhttpUtils.getInstance().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Request request, IOException e) {
 
