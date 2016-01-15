@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">Zhihudaily</string>
+    <string name="app_name">看看日报</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="title_tab">
+        <item>最新日报</item>
+        <item>主题日报</item>
+    </string-array>
 </resources>
