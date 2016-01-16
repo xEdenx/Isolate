@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initView() {
-        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new NewsFragmnt()));
+        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {

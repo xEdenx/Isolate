@@ -10,7 +10,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="title_tab">
         <item>最新日报</item>
-        <item>主题日报</item>
+        <item>热门消息</item>
     </string-array>
     <string name="title_activity_detail">DetailActivity</string>
 </resources>
