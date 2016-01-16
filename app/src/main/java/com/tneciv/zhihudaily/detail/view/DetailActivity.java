@@ -18,12 +18,12 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
+        getSupportActionBar().setTitle(title);
         int id = intent.getIntExtra("id", 0);
         Toast.makeText(this, "id:" + id, Toast.LENGTH_SHORT).show();
-        getSupportActionBar().setTitle(title);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
