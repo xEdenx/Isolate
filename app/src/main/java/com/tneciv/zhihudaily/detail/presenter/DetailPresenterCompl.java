@@ -43,6 +43,5 @@ public class DetailPresenterCompl implements IDetailPresenter {
             }
         });
 
-
     }
 }

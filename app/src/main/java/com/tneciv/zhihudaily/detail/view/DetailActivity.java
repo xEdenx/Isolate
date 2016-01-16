@@ -1,14 +1,21 @@
 package com.tneciv.zhihudaily.detail.view;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
 import com.tneciv.zhihudaily.detail.presenter.DetailPresenterCompl;
@@ -29,6 +36,14 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     @Bind(R.id.fab)
     FloatingActionButton fab;
     IDetailPresenter iDetailPresenter;
+    @Bind(R.id.imgContent)
+    ImageView imgContent;
+    @Bind(R.id.collapsingToolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.bodyContent)
+    TextView bodyContent;
+    @Bind(R.id.custTitle)
+    TextView custTitle;
 
 
     @Override
@@ -42,11 +57,15 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         iDetailPresenter.requestNewsContent(id);
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
+        Window window = getWindow();
+        window.setStatusBarColor(Color.TRANSPARENT);
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
-        getSupportActionBar().setTitle(title);
+        collapsingToolbar.setTitle(title);
+        custTitle.setText(title);
         id = intent.getIntExtra("id", 0);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,13 +75,19 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void showContent(ContentEntity entity) {
         String shareUrl = entity.getShare_url();
-        Toast.makeText(this, "Url" + shareUrl, Toast.LENGTH_SHORT).show();
+        String image = entity.getImage();
+        String body = entity.getBody();
+        String title = entity.getTitle();
+        custTitle.setText(title);
+        bodyContent.setText(body);
+        Picasso.with(this).load(image).into(imgContent);
     }
 
     @Override
