@@ -30,7 +30,10 @@ public class NewsPresenterCompl implements INewsPresenter {
 
     public NewsPresenterCompl(INewsView iNewsView) {
         this.iNewsView = iNewsView;
-        Log.d("NewsPresenterCompl", "news");
+    }
+
+    @Override
+    public void requestUrl() {
         String url = ZhihuApi.NEWS_LATEST;
         Request build = new Request.Builder().get().url(url).build();
         OkhttpUtils.getInstance().newCall(build).enqueue(new Callback() {
@@ -50,11 +53,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                 EventBus.getDefault().post(list);
             }
         });
-
     }
 
-    @Override
-    public void getNews() {
-    }
 
 }

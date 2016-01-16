@@ -45,6 +45,7 @@ public class NewsFragmnt extends Fragment implements INewsView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iNewsPresenter = new NewsPresenterCompl(this);
+        iNewsPresenter.requestUrl();
     }
 
     @Override
@@ -70,18 +71,11 @@ public class NewsFragmnt extends Fragment implements INewsView {
     }
 
     @Override
-    public void showResult(List<NewsEntity> list) {
-
-        Log.d("NewsFragmnt", "show");
-    }
-
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void setNewsEntityList(List<NewsEntity> list) {
-        Log.d("NewsFragmnt", "list:" + list);
+    public void showResult(List<NewsEntity> list) {
         newsEntityList.clear();
         newsEntityList.addAll(list);
         homeRecyclerAdapter.notifyDataSetChanged();
     }
-
 
 }
