@@ -11,13 +11,25 @@ import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
+        initView();
+    }
+
+    private void initView() {
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
@@ -25,11 +37,10 @@ public class DetailActivity extends AppCompatActivity {
         int id = intent.getIntExtra("id", 0);
         Toast.makeText(this, "id:" + id, Toast.LENGTH_SHORT).show();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Replace with your own here", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
