@@ -12,9 +12,13 @@
     tools:context="com.tneciv.zhihudaily.detail.view.DetailActivity"
     tools:showIn="@layout/activity_detail">
 
-    <TextView
-        android:id="@+id/bodyContent"
+    <!--<TextView-->
+    <!--android:id="@+id/bodyContent"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content" />-->
+    <WebView
+        android:id="@+id/webView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"></WebView>
 
 </android.support.v4.widget.NestedScrollView>

@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,10 +42,12 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     ImageView imgContent;
     @Bind(R.id.collapsingToolbar)
     CollapsingToolbarLayout collapsingToolbar;
-    @Bind(R.id.bodyContent)
-    TextView bodyContent;
+    //    @Bind(R.id.bodyContent)
+//    TextView bodyContent;
     @Bind(R.id.custTitle)
     TextView custTitle;
+    @Bind(R.id.webView)
+    WebView webView;
 
 
     @Override
@@ -81,12 +85,15 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     @Override
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void showContent(ContentEntity entity) {
-        String shareUrl = entity.getShare_url();
         String image = entity.getImage();
         String body = entity.getBody();
         String title = entity.getTitle();
         custTitle.setText(title);
-        bodyContent.setText(body);
+        WebSettings settings = webView.getSettings();
+        settings.setUseWideViewPort(false);
+        String css = "<style>img{display: inline;height: auto;max-width: 100%;}span{font-size:18px}</style>";
+        webView.setDrawingCacheEnabled(true);
+        webView.loadDataWithBaseURL(null, css + body, "text/html", "utf-8", null);
         Picasso.with(this).load(image).into(imgContent);
     }
 
