@@ -1,12 +1,10 @@
 package com.tneciv.zhihudaily.home.presenter;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.tneciv.zhihudaily.Costants.ZhihuApi;
+import com.tneciv.zhihudaily.Api.ZhihuApi;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.view.INewsView;
 import com.tneciv.zhihudaily.utils.OkhttpUtils;
