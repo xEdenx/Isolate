@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.view.DetailActivity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
@@ -17,8 +17,8 @@ import com.tneciv.zhihudaily.home.model.NewsEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
@@ -46,6 +46,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         NewsEntity entity = list.get(position);
         holder.titleNews.setText(entity.getTitle());
+        Picasso.with(context).load(entity.getImages().get(0)).into(holder.imgNews);
     }
 
     @Override
@@ -54,14 +55,14 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.img_news)
+        @Bind(R.id.img_news)
         ImageView imgNews;
-        @InjectView(R.id.title_news)
+        @Bind(R.id.title_news)
         TextView titleNews;
 
         public NewsViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         @OnClick(R.id.item_container)

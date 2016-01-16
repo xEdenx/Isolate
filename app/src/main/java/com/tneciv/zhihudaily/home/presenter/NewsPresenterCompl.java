@@ -3,15 +3,9 @@ package com.tneciv.zhihudaily.home.presenter;
 import android.util.Log;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 import com.tneciv.zhihudaily.Costants.ZhihuApi;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.view.INewsView;
@@ -22,6 +16,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  * Created by Tneciv on 1-15-0015.
@@ -34,17 +32,15 @@ public class NewsPresenterCompl implements INewsPresenter {
         this.iNewsView = iNewsView;
         Log.d("NewsPresenterCompl", "news");
         String url = ZhihuApi.NEWS_LATEST;
-        Request request = new Request.Builder().get().url(url).build();
-//        OkHttpClient okHttpClient = new OkHttpClient();
-
-        OkhttpUtils.getInstance().newCall(request).enqueue(new Callback() {
+        Request build = new Request.Builder().get().url(url).build();
+        OkhttpUtils.getInstance().newCall(build).enqueue(new Callback() {
             @Override
-            public void onFailure(Request request, IOException e) {
+            public void onFailure(Call call, IOException e) {
 
             }
 
             @Override
-            public void onResponse(Response response) throws IOException {
+            public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
                 String s = response.body().string();
                 Type type = new TypeToken<List<NewsEntity>>() {
@@ -54,6 +50,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                 EventBus.getDefault().post(list);
             }
         });
+
     }
 
     @Override

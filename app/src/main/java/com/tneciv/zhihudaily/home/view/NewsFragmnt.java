@@ -12,19 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tneciv.zhihudaily.Costants.OperatorTag;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
 import com.tneciv.zhihudaily.home.presenter.NewsPresenterCompl;
-import com.tneciv.zhihudaily.utils.OkhttpUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
@@ -36,7 +33,7 @@ public class NewsFragmnt extends Fragment implements INewsView {
 
     INewsPresenter iNewsPresenter;
 
-    @InjectView(R.id.home_container)
+    @Bind(R.id.home_container)
     RecyclerView recyclerView;
     List<NewsEntity> newsEntityList = new ArrayList<>();
     HomeRecyclerAdapter homeRecyclerAdapter;
@@ -54,7 +51,7 @@ public class NewsFragmnt extends Fragment implements INewsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
 
 //        EventBus.getDefault().post(OperatorTag.REFRESH);
@@ -68,7 +65,7 @@ public class NewsFragmnt extends Fragment implements INewsView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+        ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
     }
 

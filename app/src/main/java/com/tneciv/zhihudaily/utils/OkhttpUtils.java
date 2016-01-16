@@ -1,6 +1,7 @@
 package com.tneciv.zhihudaily.utils;
 
-import com.squareup.okhttp.OkHttpClient;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Tneciv on 1-15-0015.

@@ -22,44 +22,32 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-//    @InjectView(R.id.toolbar)
-//    Toolbar toolbar;
-//    @InjectView(R.id.fab)
-//    FloatingActionButton fab;
-//    @InjectView(R.id.nav_view)
-//    NavigationView navigationView;
-//    @InjectView(R.id.drawer_layout)
-//    DrawerLayout drawer;
-//    @InjectView(R.id.tab_home)
-//    TabLayout tabHome;
-//    @InjectView(R.id.viewpager_home)
-//    ViewPager viewpagerHome;
-
     List<Fragment> fragmentList;
-    @InjectView(R.id.toolbar)
+
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.tab_home)
+    @Bind(R.id.tab_home)
     TabLayout tabHome;
-    @InjectView(R.id.viewpager_home)
+    @Bind(R.id.viewpager_home)
     ViewPager viewpagerHome;
-    @InjectView(R.id.fab)
+    @Bind(R.id.fab)
     FloatingActionButton fab;
-    @InjectView(R.id.nav_view)
+    @Bind(R.id.nav_view)
     NavigationView navigationView;
-    @InjectView(R.id.drawer_layout)
+    @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
         initView();
     }
 
@@ -133,5 +121,11 @@ public class MainActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
     }
 }
