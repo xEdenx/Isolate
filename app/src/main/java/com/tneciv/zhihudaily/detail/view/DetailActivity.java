@@ -91,7 +91,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         custTitle.setText(title);
         WebSettings settings = webView.getSettings();
         settings.setUseWideViewPort(false);
-        String css = "<style>img{display: inline;height: auto;max-width: 100%;}span{font-size:18px}</style>";
+        String css = "<style>img{display: inline;height: auto;max-width: 100%;}.author{font-size:25px}.bio{font-size:15px}</style>";
         webView.setDrawingCacheEnabled(true);
         webView.loadDataWithBaseURL(null, css + body, "text/html", "utf-8", null);
         Picasso.with(this).load(image).into(imgContent);
