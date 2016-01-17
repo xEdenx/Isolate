@@ -1,81 +1,78 @@
-package com.tneciv.zhihudaily.home.view;
+package com.tneciv.zhihudaily;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
+import android.support.annotation.LayoutRes;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
-import com.tneciv.zhihudaily.BaseActivity;
-import com.tneciv.zhihudaily.R;
-import com.tneciv.zhihudaily.TestActivity;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.tneciv.zhihudaily.home.view.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    List<Fragment> fragmentList;
 
-    @Bind(R.id.toolbar)
+    @Bind(R.id.toolbar_base)
     Toolbar toolbar;
-    @Bind(R.id.tab_home)
-    TabLayout tabHome;
-    @Bind(R.id.viewpager_home)
-    ViewPager viewpagerHome;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
-    @Bind(R.id.nav_view)
+    @Bind(R.id.nav_view_base)
     NavigationView navigationView;
-    @Bind(R.id.drawer_layout)
+    @Bind(R.id.drawer_layout_base)
     DrawerLayout drawer;
+    @Bind(R.id.containerBase)
+    FrameLayout containerBase;
+    @Bind(R.id.appBarBase)
+    AppBarLayout appBarBase;
+    @Bind(R.id.baseCoordLayout)
+    CoordinatorLayout baseCoordLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        initView();
+        initContentView(R.layout.activity_base);
     }
 
     private void initView() {
-        fragmentList = new ArrayList<>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         navigationView.setNavigationItemSelectedListener(this);
-        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, fragmentList);
-        viewpagerHome.setAdapter(viewpagerAdapter);
-        tabHome.setupWithViewPager(viewpagerHome);
-        tabHome.setTabMode(TabLayout.MODE_FIXED);
+    }
+
+    private void initContentView(@LayoutRes int layoutResID) {
+        getDelegate().setContentView(layoutResID);
+        ButterKnife.bind(this);
+        initView();
+    }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        LayoutInflater.from(this).inflate(layoutResID, containerBase, true);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        containerBase.addView(view);
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        containerBase.addView(view, params);
     }
 
     @Override
@@ -129,6 +126,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+    }
+
     void startActivityByName(Class<?> activityName, Boolean isFinish) {
         Intent intent = new Intent(this, activityName);
         startActivity(intent);
@@ -136,11 +139,5 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
         return;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
     }
 }

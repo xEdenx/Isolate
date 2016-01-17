@@ -4,13 +4,14 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">设置</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="title_tab">
         <item>最新日报</item>
         <item>热门消息</item>
     </string-array>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail">日报详情</string>
+    <string name="share">分享</string>
+    <string name="about">关于</string>
+    <string name="action_settings">设置</string>
 </resources>
