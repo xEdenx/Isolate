@@ -7,12 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tneciv.zhihudaily.Api.ZhihuApi;
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
 import com.tneciv.zhihudaily.home.presenter.NewsPresenterCompl;
@@ -36,7 +37,7 @@ public class NewsFragmnt extends Fragment implements INewsView {
     @Bind(R.id.home_container)
     RecyclerView recyclerView;
     List<NewsEntity> newsEntityList = new ArrayList<>();
-    HomeRecyclerAdapter homeRecyclerAdapter;
+    NewsRecyclerAdapter newsRecyclerAdapter;
 
     public NewsFragmnt() {
     }
@@ -45,7 +46,7 @@ public class NewsFragmnt extends Fragment implements INewsView {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         iNewsPresenter = new NewsPresenterCompl(this);
-        iNewsPresenter.requestUrl();
+        iNewsPresenter.requestUrl(ZhihuApi.NEWS_LATEST);
     }
 
     @Override
@@ -56,8 +57,8 @@ public class NewsFragmnt extends Fragment implements INewsView {
         EventBus.getDefault().register(this);
 
 //        EventBus.getDefault().post(OperatorTag.REFRESH);
-        homeRecyclerAdapter = new HomeRecyclerAdapter(getContext(), newsEntityList);
-        recyclerView.setAdapter(homeRecyclerAdapter);
+        newsRecyclerAdapter = new NewsRecyclerAdapter(getContext(), newsEntityList);
+        recyclerView.setAdapter(newsRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         return view;
@@ -70,12 +71,13 @@ public class NewsFragmnt extends Fragment implements INewsView {
         EventBus.getDefault().unregister(this);
     }
 
+
     @Override
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void showResult(List<NewsEntity> list) {
-        newsEntityList.clear();
-        newsEntityList.addAll(list);
-        homeRecyclerAdapter.notifyDataSetChanged();
+    public void showResult(HomeEventEntity.NewEntityList entityList) {
+        List<NewsEntity> list = entityList.getNewsEntityList();
+        this.newsEntityList.clear();
+        this.newsEntityList.addAll(list);
+        newsRecyclerAdapter.notifyDataSetChanged();
     }
-
 }

@@ -33,7 +33,7 @@
             <item
                 android:id="@+id/nav_gitHub"
                 android:icon="@drawable/ic_action_github"
-                android:title="@string/about" />
+                android:title="Gtihub" />
         </menu>
     </item>
 

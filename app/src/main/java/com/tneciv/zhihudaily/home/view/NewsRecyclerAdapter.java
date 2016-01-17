@@ -24,12 +24,12 @@ import butterknife.OnClick;
 /**
  * Created by Tneciv on 1-15-0015.
  */
-public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.NewsViewHolder> {
+public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHolder> {
     List<NewsEntity> list = new ArrayList<>();
     Context context;
     LayoutInflater inflater;
 
-    public HomeRecyclerAdapter(Context context, List<NewsEntity> list) {
+    public NewsRecyclerAdapter(Context context, List<NewsEntity> list) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);

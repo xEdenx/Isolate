@@ -93,7 +93,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own here", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

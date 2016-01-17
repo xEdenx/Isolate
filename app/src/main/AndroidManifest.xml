@@ -25,9 +25,9 @@
             android:label="@string/title_activity_detail"
             android:parentActivityName=".home.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="com.tneciv.zhihudaily.home.view.MainActivity" />-->
         </activity>
         <activity
             android:name=".BaseActivity"
