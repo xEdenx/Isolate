@@ -10,7 +10,8 @@
         android:layout_height="@dimen/image_height"
         android:layout_marginLeft="@dimen/normal_margin"
         android:layout_marginRight="@dimen/normal_margin"
-        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/white"
         android:orientation="horizontal">
 

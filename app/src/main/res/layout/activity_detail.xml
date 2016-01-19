@@ -17,7 +17,6 @@
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             app:contentScrim="@color/primary"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleStyle.Transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
