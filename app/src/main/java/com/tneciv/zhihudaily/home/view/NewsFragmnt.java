@@ -34,6 +34,7 @@ import de.greenrobot.event.ThreadMode;
 public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayout.OnRefreshListener {
 
     INewsPresenter iNewsPresenter;
+    String url;
 
     @Bind(R.id.home_container)
     RecyclerView recyclerView;
@@ -63,7 +64,14 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.accent);
-//        onRefresh();
+
+        if (this.getArguments() == null) {
+            url = ZhihuApi.NEWS_LATEST;
+        } else {
+            url = this.getArguments().getString("historyUrl");
+        }
+
+        iNewsPresenter.requestUrl(url);
         return view;
     }
 
@@ -93,7 +101,7 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
-        iNewsPresenter.requestUrl(ZhihuApi.NEWS_LATEST);
+        iNewsPresenter.requestUrl(url);
         swipeRefresh.setRefreshing(true);
     }
 }

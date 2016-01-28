@@ -43,8 +43,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     ImageView imgContent;
     @Bind(R.id.collapsingToolbar)
     CollapsingToolbarLayout collapsingToolbar;
-    //    @Bind(R.id.bodyContent)
-//    TextView bodyContent;
     @Bind(R.id.custTitle)
     TextView custTitle;
     @Bind(R.id.webView)
@@ -97,7 +95,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
                         .setAction("Action", null).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 

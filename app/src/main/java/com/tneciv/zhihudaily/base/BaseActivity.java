@@ -1,4 +1,4 @@
-package com.tneciv.zhihudaily;
+package com.tneciv.zhihudaily.base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.view.MainActivity;
 

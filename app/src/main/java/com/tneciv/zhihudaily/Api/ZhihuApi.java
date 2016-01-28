@@ -7,8 +7,14 @@ public class ZhihuApi {
     public static final String NEWS_LATEST = "http://news-at.zhihu.com/api/4/news/latest";
     public static final String NEWS_CONTENT = "http://news-at.zhihu.com/api/4/news/";
     public static final String NEWS_HOT = "http://news-at.zhihu.com/api/3/news/hot";
+    public static final String NEWS_HISTORY = "http://news.at.zhihu.com/api/4/news/before/";
 
     public static String getNewsContentUrl(int id) {
         return NEWS_CONTENT + id;
     }
+
+    public static String getHistoryNewsUrl(String date) {
+        return NEWS_HISTORY + date;
+    }
+
 }

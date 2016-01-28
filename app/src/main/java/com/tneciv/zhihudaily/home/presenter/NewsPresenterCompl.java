@@ -51,14 +51,12 @@ public class NewsPresenterCompl implements INewsPresenter {
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
 
-
-                if (url == ZhihuApi.NEWS_LATEST) {
+                if (url == ZhihuApi.NEWS_LATEST || url.contains(ZhihuApi.NEWS_HISTORY)) {
                     String callback = response.body().string();
                     Type type = new TypeToken<List<NewsEntity>>() {
                     }.getType();
                     JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
                     List<NewsEntity> newsEntities = gson.fromJson(jsonElement, type);
-//                    EventBus.getDefault().post(newsEntities);
                     EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
 
                 } else if (url == ZhihuApi.NEWS_HOT) {
@@ -68,7 +66,6 @@ public class NewsPresenterCompl implements INewsPresenter {
                     JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
                     List<HotEntity> hotEntities = gson.fromJson(jsonElement, type);
                     EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
-//                    EventBus.getDefault().post(hotEntities);
                 }
 
             }

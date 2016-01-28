@@ -23,16 +23,7 @@
         <activity
             android:name=".detail.view.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <meta-data -->
-            <!-- android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value="com.tneciv.zhihudaily.home.view.MainActivity" /> -->
-        </activity>
-        <!--<activity-->
-            <!--android:name=".BaseActivity"-->
-            <!--android:label="@string/app_name"-->
-            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".history.view.HistoryActivity"
             android:label="@string/HistoryDaily"

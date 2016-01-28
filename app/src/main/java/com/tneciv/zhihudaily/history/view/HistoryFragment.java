@@ -3,6 +3,7 @@ package com.tneciv.zhihudaily.history.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.home.view.NewsFragmnt;
 
 import butterknife.Bind;
@@ -51,9 +53,15 @@ public class HistoryFragment extends Fragment {
         int month = datePicker.getMonth() + 1;
         int day = datePicker.getDayOfMonth();
         String s = new StringBuilder().append(year).append(month > 10 ? month : "0" + month).append(day > 10 ? day : "0" + day).toString();
-        btnShowTime.setText(s);
-        tvHistory.setText(s);
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_base, new NewsFragmnt()).commit();
+        NewsFragmnt newsFragmnt = new NewsFragmnt();
+        Bundle bundle = new Bundle();
+        String url = ZhihuApi.getHistoryNewsUrl(s);
+        bundle.putString("historyUrl", url);
+        newsFragmnt.setArguments(bundle);
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_base, newsFragmnt);
+        transaction.addToBackStack(s);
+        transaction.commit();
     }
 
     @Override
