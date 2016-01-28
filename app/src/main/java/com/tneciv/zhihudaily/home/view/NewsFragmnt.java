@@ -4,6 +4,7 @@ package com.tneciv.zhihudaily.home.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tneciv.zhihudaily.Api.ZhihuApi;
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
@@ -30,7 +31,7 @@ import de.greenrobot.event.ThreadMode;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragmnt extends Fragment implements INewsView {
+public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayout.OnRefreshListener {
 
     INewsPresenter iNewsPresenter;
 
@@ -38,6 +39,8 @@ public class NewsFragmnt extends Fragment implements INewsView {
     RecyclerView recyclerView;
     List<NewsEntity> newsEntityList = new ArrayList<>();
     NewsRecyclerAdapter newsRecyclerAdapter;
+    @Bind(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefresh;
 
     public NewsFragmnt() {
     }
@@ -45,8 +48,8 @@ public class NewsFragmnt extends Fragment implements INewsView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         iNewsPresenter = new NewsPresenterCompl(this);
-        iNewsPresenter.requestUrl(ZhihuApi.NEWS_LATEST);
     }
 
     @Override
@@ -54,14 +57,20 @@ public class NewsFragmnt extends Fragment implements INewsView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
-
-//        EventBus.getDefault().post(OperatorTag.REFRESH);
         newsRecyclerAdapter = new NewsRecyclerAdapter(getContext(), newsEntityList);
         recyclerView.setAdapter(newsRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        swipeRefresh.setOnRefreshListener(this);
+        swipeRefresh.setColorSchemeResources(R.color.accent);
+//        onRefresh();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        onRefresh();
     }
 
     @Override
@@ -79,5 +88,12 @@ public class NewsFragmnt extends Fragment implements INewsView {
         this.newsEntityList.clear();
         this.newsEntityList.addAll(list);
         newsRecyclerAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        iNewsPresenter.requestUrl(ZhihuApi.NEWS_LATEST);
+        swipeRefresh.setRefreshing(true);
     }
 }

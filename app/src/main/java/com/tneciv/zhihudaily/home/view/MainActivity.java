@@ -17,9 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.tneciv.zhihudaily.BaseActivity;
 import com.tneciv.zhihudaily.R;
-import com.tneciv.zhihudaily.TestActivity;
+import com.tneciv.zhihudaily.history.view.HistoryActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initView() {
-        fragmentList = new ArrayList<>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
+        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -112,9 +111,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_recent) {
             startActivityByName(MainActivity.class, true);
         } else if (id == R.id.nav_theme) {
-            startActivityByName(BaseActivity.class, true);
+//            startActivityByName(BaseActivity.class, true);
         } else if (id == R.id.nav_slideshow) {
-            startActivityByName(TestActivity.class, true);
+            startActivityByName(HistoryActivity.class, true);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    void startActivityByName(Class<?> activityName, Boolean isFinish) {
+    protected void startActivityByName(Class<?> activityName, Boolean isFinish) {
         Intent intent = new Intent(this, activityName);
         startActivity(intent);
         if (isFinish) {

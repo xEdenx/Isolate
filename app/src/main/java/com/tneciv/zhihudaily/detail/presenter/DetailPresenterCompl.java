@@ -1,7 +1,7 @@
 package com.tneciv.zhihudaily.detail.presenter;
 
 import com.google.gson.Gson;
-import com.tneciv.zhihudaily.Api.ZhihuApi;
+import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
 import com.tneciv.zhihudaily.detail.view.IDeatilView;
 import com.tneciv.zhihudaily.utils.OkhttpUtils;

@@ -14,4 +14,6 @@
     <string name="share">分享</string>
     <string name="about">关于</string>
     <string name="action_settings">设置</string>
+    <string name="HistoryDaily">历史日报</string>
+    <string name="title_activity_drawer">DrawerActivity</string>
 </resources>
