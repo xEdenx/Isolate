@@ -37,4 +37,20 @@ public class HomeEventEntity {
             this.newsEntityList = newsEntityList;
         }
     }
+
+    public static class OperatorType {
+        private String operatorType;
+
+        public OperatorType(String operatorType) {
+            this.operatorType = operatorType;
+        }
+
+        public String getOperatorType() {
+            return operatorType;
+        }
+
+        public void setOperatorType(String operatorType) {
+            this.operatorType = operatorType;
+        }
+    }
 }

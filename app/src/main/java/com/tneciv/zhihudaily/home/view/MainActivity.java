@@ -7,6 +7,7 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +20,8 @@ import android.view.View;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
+import com.tneciv.zhihudaily.home.model.HomeEventEntity;
+import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +29,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -50,6 +56,7 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
@@ -60,8 +67,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                EventBus.getDefault().post(new HomeEventEntity.OperatorType("refresh"));
             }
         });
 
@@ -111,12 +117,14 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_recent) {
             startActivityByName(MainActivity.class, true);
         } else if (id == R.id.nav_theme) {
-//            startActivityByName(BaseActivity.class, true);
+            startActivityByName(ThemeActivity.class, true);
         } else if (id == R.id.nav_slideshow) {
-            startActivityByName(HistoryActivity.class, false);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+            startActivityByName(HistoryActivity.class, true);
+        }
+//        else if (id == R.id.nav_manage) {
+//
+//        }
+        else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
@@ -141,5 +149,10 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.BackgroundThread)
+    public void operator(HomeEventEntity.OperatorType type) {
     }
 }

@@ -16,4 +16,5 @@
     <string name="action_settings">设置</string>
     <string name="HistoryDaily">历史日报</string>
     <string name="title_activity_drawer">DrawerActivity</string>
+    <string name="themeList">主题日报</string>
 </resources>

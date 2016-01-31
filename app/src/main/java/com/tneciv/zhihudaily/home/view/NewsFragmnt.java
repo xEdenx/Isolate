@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,14 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
 
     @Override
     public void onRefresh() {
-        iNewsPresenter.requestUrl(url);
         swipeRefresh.setRefreshing(true);
+        iNewsPresenter.requestUrl(url);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void operator(HomeEventEntity.OperatorType type) {
+        if (type.getOperatorType() == "refresh") {
+            onRefresh();
+        }
     }
 }

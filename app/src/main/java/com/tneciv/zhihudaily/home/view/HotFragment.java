@@ -92,7 +92,14 @@ public class HotFragment extends Fragment implements IHotView, SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
         swipeRefresh.setRefreshing(true);
+        iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void operator(HomeEventEntity.OperatorType type) {
+        if (type.getOperatorType() == "refresh") {
+            onRefresh();
+        }
     }
 }

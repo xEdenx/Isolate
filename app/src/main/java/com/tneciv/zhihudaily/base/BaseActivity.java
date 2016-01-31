@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.view.MainActivity;
+import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -81,12 +82,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         if (id == R.id.nav_recent) {
             startActivityByName(MainActivity.class, true);
         } else if (id == R.id.nav_theme) {
-//            startActivityByName(BaseActivity.class, true);
+            startActivityByName(ThemeActivity.class, true);
         } else if (id == R.id.nav_slideshow) {
             startActivityByName(HistoryActivity.class, true);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
+        }
+//        else if (id == R.id.nav_manage) {
+//
+//        }
+        else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 

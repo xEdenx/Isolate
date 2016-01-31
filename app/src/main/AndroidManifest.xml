@@ -23,10 +23,14 @@
         <activity
             android:name=".detail.view.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".history.view.HistoryActivity"
             android:label="@string/HistoryDaily"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".theme.view.ThemeActivity"
+            android:label="@string/themeList"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
