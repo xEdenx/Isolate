@@ -17,4 +17,8 @@
     <string name="HistoryDaily">历史日报</string>
     <string name="title_activity_drawer">DrawerActivity</string>
     <string name="themeList">主题日报</string>
+
+    <string name="title_activity_wait">施工中，请绕行</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

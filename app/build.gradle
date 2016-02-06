@@ -8,8 +8,8 @@ android {
         applicationId "com.tneciv.zhihudaily"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 20160130
-        versionName "3.0"
+        versionCode 20160205
+        versionName "3.1"
     }
     buildTypes {
         release {

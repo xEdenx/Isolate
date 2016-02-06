@@ -8,17 +8,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.about.AboutActivity;
+import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.view.MainActivity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -59,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -67,9 +75,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -88,13 +96,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         }
 //        else if (id == R.id.nav_manage) {
 //
+//        } else if (id == R.id.nav_share) {
+//
 //        }
-        else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        else if (id == R.id.nav_send) {
+            startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
-
+            startActivityByName(GithubActivity.class, true);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -105,6 +113,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     public void startActivityByName(Class<?> activityName, Boolean isFinish) {
@@ -115,4 +124,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         }
         return;
     }
+
+    @Subscribe(threadMode = ThreadMode.BackgroundThread)
+    public void errorHandler(ErrorEntity errorEntity) {
+        String msg = errorEntity.getMsg();
+        Log.d("BaseActivity", msg);
+    }
+
 }

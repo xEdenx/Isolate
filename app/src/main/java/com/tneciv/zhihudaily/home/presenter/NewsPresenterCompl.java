@@ -1,10 +1,15 @@
 package com.tneciv.zhihudaily.home.presenter;
 
+import android.content.Intent;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 import com.tneciv.zhihudaily.api.ZhihuApi;
+import com.tneciv.zhihudaily.base.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
@@ -55,16 +60,32 @@ public class NewsPresenterCompl implements INewsPresenter {
                     String callback = response.body().string();
                     Type type = new TypeToken<List<NewsEntity>>() {
                     }.getType();
-                    JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
-                    List<NewsEntity> newsEntities = gson.fromJson(jsonElement, type);
+                    List<NewsEntity> newsEntities = null;
+                    try {
+                        JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
+                        newsEntities = gson.fromJson(jsonElement, type);
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                        ErrorEntity entity = new ErrorEntity();
+                        entity.setMsg("服务器返回数据异常");
+                        EventBus.getDefault().post(entity);
+                    }
                     EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
 
                 } else if (url == ZhihuApi.NEWS_HOT) {
                     String responseCallback = response.body().string();
                     Type type = new TypeToken<List<HotEntity>>() {
                     }.getType();
-                    JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
-                    List<HotEntity> hotEntities = gson.fromJson(jsonElement, type);
+                    List<HotEntity> hotEntities = null;
+                    try {
+                        JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
+                        hotEntities = gson.fromJson(jsonElement, type);
+                    } catch (JsonSyntaxException e) {
+                        e.printStackTrace();
+                        ErrorEntity entity = new ErrorEntity();
+                        entity.setMsg("服务器返回数据异常");
+                        EventBus.getDefault().post(entity);
+                    }
                     EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
                 }
 

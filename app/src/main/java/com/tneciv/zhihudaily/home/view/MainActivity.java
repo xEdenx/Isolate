@@ -14,11 +14,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.about.AboutActivity;
+import com.tneciv.zhihudaily.base.ErrorEntity;
+import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
@@ -94,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -102,9 +107,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -123,13 +128,13 @@ public class MainActivity extends AppCompatActivity
         }
 //        else if (id == R.id.nav_manage) {
 //
+//        } else if (id == R.id.nav_share) {
+//
 //        }
-        else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        else if (id == R.id.nav_send) {
+            startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
-
+            startActivityByName(GithubActivity.class, true);
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -152,7 +157,38 @@ public class MainActivity extends AppCompatActivity
         EventBus.getDefault().unregister(this);
     }
 
-    @Subscribe(threadMode = ThreadMode.BackgroundThread)
-    public void operator(HomeEventEntity.OperatorType type) {
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void errorNotify(ErrorEntity errorEntity) {
+        String msg = errorEntity.getMsg();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        startActivityByName(MainActivity.class, true);
+    }
+
+    /**
+     * 实现再按一次退出提醒
+     */
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            if ((System.currentTimeMillis() - exitTime) > 3000) {
+                Snackbar.make(fab, "再按一次退出", Snackbar.LENGTH_SHORT).setAction("立即退出", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).show();
+//                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

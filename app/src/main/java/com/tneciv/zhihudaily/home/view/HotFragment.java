@@ -70,14 +70,8 @@ public class HotFragment extends Fragment implements IHotView, SwipeRefreshLayou
         recyclerView.setAdapter(recyclerAdapter);
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.accent);
-//        onRefresh();
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
         onRefresh();
+        return view;
     }
 
     @Override

@@ -60,7 +60,6 @@ public class HistoryFragment extends Fragment {
         newsFragmnt.setArguments(bundle);
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_base, newsFragmnt);
-        transaction.addToBackStack(s);
         transaction.commit();
     }
 
