@@ -41,7 +41,7 @@ public class ThemeFragment extends Fragment implements IThemeView {
         ButterKnife.bind(this, view);
         iThemePresenter = new ThemePresenterCompl(this);
         String url = ZhihuApi.THEME_LIST;
-        iThemePresenter.getThemeList(url);
+        iThemePresenter.handleRequestUrl(url);
         return view;
     }
 

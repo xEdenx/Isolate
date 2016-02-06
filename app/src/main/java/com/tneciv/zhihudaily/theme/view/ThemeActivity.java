@@ -14,19 +14,19 @@ import com.tneciv.zhihudaily.history.view.HistoryFragment;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
 
-public class ThemeActivity extends WaitActivity {
+public class ThemeActivity extends BaseActivity {
 
-//    @Override
-//    public void initView() {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frame_base, new ThemeFragment());
-//        transaction.commit();
-//    }
-//
-//    @Subscribe(threadMode = ThreadMode.MainThread)
-//    public void errorHandler(ErrorEntity errorEntity) {
-//        String msg = errorEntity.getMsg();
-//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-//        startActivityByName(ThemeActivity.class, true);
-//    }
+    @Override
+    public void initView() {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_base, new ThemeFragment());
+        transaction.commit();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void errorHandler(ErrorEntity errorEntity) {
+        String msg = errorEntity.getMsg();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        startActivityByName(ThemeActivity.class, true);
+    }
 }

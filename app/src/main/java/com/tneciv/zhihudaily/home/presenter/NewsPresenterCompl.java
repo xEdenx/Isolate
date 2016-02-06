@@ -49,7 +49,9 @@ public class NewsPresenterCompl implements INewsPresenter {
         OkhttpUtils.getInstance().newCall(build).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-
+                ErrorEntity entity = new ErrorEntity();
+                entity.setMsg("网络连接异常");
+                EventBus.getDefault().post(entity);
             }
 
             @Override

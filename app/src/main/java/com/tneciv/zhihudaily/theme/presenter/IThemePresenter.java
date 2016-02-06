@@ -4,5 +4,5 @@ package com.tneciv.zhihudaily.theme.presenter;
  * Created by Tneciv on 1-31-0031.
  */
 public interface IThemePresenter {
-    void getThemeList(String url);
+    void handleRequestUrl(String url);
 }
