@@ -49,8 +49,7 @@ public class NewsPresenterCompl implements INewsPresenter {
         OkhttpUtils.getInstance().newCall(build).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                ErrorEntity entity = new ErrorEntity();
-                entity.setMsg("网络连接异常");
+                ErrorEntity entity = new ErrorEntity("网络连接异常", "net error");
                 EventBus.getDefault().post(entity);
             }
 
@@ -68,8 +67,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                         newsEntities = gson.fromJson(jsonElement, type);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
-                        ErrorEntity entity = new ErrorEntity();
-                        entity.setMsg("服务器返回数据异常");
+                        ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                         EventBus.getDefault().post(entity);
                     }
                     EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
@@ -84,8 +82,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                         hotEntities = gson.fromJson(jsonElement, type);
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
-                        ErrorEntity entity = new ErrorEntity();
-                        entity.setMsg("服务器返回数据异常");
+                        ErrorEntity entity = new ErrorEntity("服务器返回数据异常","server error");
                         EventBus.getDefault().post(entity);
                     }
                     EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));

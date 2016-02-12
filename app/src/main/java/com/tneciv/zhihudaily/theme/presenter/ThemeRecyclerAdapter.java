@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 
@@ -42,6 +43,7 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
         ThemeEntity themeEntity = entities.get(position);
         holder.themeTitle.setText(themeEntity.getName());
         holder.themeDesc.setText(themeEntity.getDescription());
+        Picasso.with(context).load(themeEntity.getThumbnail()).into(holder.imageTheme);
 
     }
 

@@ -7,6 +7,11 @@ public class ErrorEntity {
     String msg;
     String type;
 
+    public ErrorEntity(String msg, String type) {
+        this.msg = msg;
+        this.type = type;
+    }
+
     public String getMsg() {
         return msg;
     }
