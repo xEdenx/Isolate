@@ -12,12 +12,14 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
+import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by Tneciv on 2-6-0006.
@@ -72,8 +74,8 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
             int position = getLayoutPosition();
             ThemeEntity entity = entities.get(position);
             int id = entity.getId();
-            String name = entity.getName();
-            Toast.makeText(context, "id:" + id + ", name:" + name, Toast.LENGTH_SHORT).show();
+            ThemeResultEntity.ThemeId themeId = new ThemeResultEntity.ThemeId(id);
+            EventBus.getDefault().post(themeId);
         }
     }
 }

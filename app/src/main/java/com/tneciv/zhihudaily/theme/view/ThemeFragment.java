@@ -3,6 +3,7 @@ package com.tneciv.zhihudaily.theme.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.api.ZhihuApi;
+import com.tneciv.zhihudaily.home.view.NewsFragmnt;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 import com.tneciv.zhihudaily.theme.presenter.IThemePresenter;
@@ -91,4 +94,16 @@ public class ThemeFragment extends Fragment implements IThemeView, SwipeRefreshL
         iThemePresenter.handleRequestUrl(url);
     }
 
+//    @Subscribe(threadMode = ThreadMode.MainThread)
+//    public void getThemeItem(ThemeResultEntity.ThemeId themeId) {
+//        int themeIdId = themeId.getId();
+//        String themeNewsUrl = ZhihuApi.getThemeNewsUrl(themeIdId);
+//        NewsFragmnt fragmnt = new NewsFragmnt();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("themeIdUrl", themeNewsUrl);
+//        fragmnt.setArguments(bundle);
+//        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.frame_base, fragmnt);
+//        transaction.commit();
+//    }
 }

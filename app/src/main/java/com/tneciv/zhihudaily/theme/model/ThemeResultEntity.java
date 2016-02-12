@@ -22,4 +22,19 @@ public class ThemeResultEntity {
         }
     }
 
+    public static class ThemeId {
+        private int id;
+
+        public ThemeId(int id) {
+            this.id = id;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }
 }

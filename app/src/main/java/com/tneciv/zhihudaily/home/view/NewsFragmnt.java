@@ -69,7 +69,11 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
         if (this.getArguments() == null) {
             url = ZhihuApi.NEWS_LATEST;
         } else {
-            url = this.getArguments().getString("historyUrl");
+            if (this.getArguments().getString("historyUrl") != null) {
+                url = this.getArguments().getString("historyUrl");
+            } else if (this.getArguments().getString("themeIdUrl") != null) {
+                url = this.getArguments().getString("themeIdUrl");
+            }
         }
 
         iNewsPresenter.requestUrl(url);

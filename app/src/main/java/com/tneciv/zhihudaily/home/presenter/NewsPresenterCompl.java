@@ -57,7 +57,7 @@ public class NewsPresenterCompl implements INewsPresenter {
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
 
-                if (url == ZhihuApi.NEWS_LATEST || url.contains(ZhihuApi.NEWS_HISTORY)) {
+                if (url == ZhihuApi.NEWS_LATEST || url.contains(ZhihuApi.NEWS_HISTORY) || url.contains(ZhihuApi.THEME_NEWS_LIST)) {
                     String callback = response.body().string();
                     Type type = new TypeToken<List<NewsEntity>>() {
                     }.getType();
@@ -65,13 +65,12 @@ public class NewsPresenterCompl implements INewsPresenter {
                     try {
                         JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
                         newsEntities = gson.fromJson(jsonElement, type);
+                        EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
                         ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                         EventBus.getDefault().post(entity);
                     }
-                    EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
-
                 } else if (url == ZhihuApi.NEWS_HOT) {
                     String responseCallback = response.body().string();
                     Type type = new TypeToken<List<HotEntity>>() {
@@ -80,12 +79,13 @@ public class NewsPresenterCompl implements INewsPresenter {
                     try {
                         JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
                         hotEntities = gson.fromJson(jsonElement, type);
+                        EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
                     } catch (JsonSyntaxException e) {
                         e.printStackTrace();
-                        ErrorEntity entity = new ErrorEntity("服务器返回数据异常","server error");
+                        ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                         EventBus.getDefault().post(entity);
                     }
-                    EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
+
                 }
 
             }

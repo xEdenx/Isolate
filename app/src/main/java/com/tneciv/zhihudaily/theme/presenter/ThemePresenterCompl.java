@@ -65,7 +65,6 @@ public class ThemePresenterCompl implements IThemePresenter {
                 themeEntities = gson.fromJson(jsonElement, type);
                 ThemeResultEntity.ThemeList list = new ThemeResultEntity.ThemeList(themeEntities);
                 EventBus.getDefault().post(list);
-                Log.d("ThemePresenterCompl", "themeEntities:" + themeEntities);
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
                 ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");

@@ -46,7 +46,11 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     public void onBindViewHolder(NewsViewHolder holder, int position) {
         NewsEntity entity = list.get(position);
         holder.titleNews.setText(entity.getTitle());
-        Picasso.with(context).load(entity.getImages().get(0)).into(holder.imgNews);
+        if (entity.getImages() == null || entity.getImages().size() == 0) {
+
+        } else {
+            Picasso.with(context).load(entity.getImages().get(0)).into(holder.imgNews);
+        }
     }
 
     @Override
