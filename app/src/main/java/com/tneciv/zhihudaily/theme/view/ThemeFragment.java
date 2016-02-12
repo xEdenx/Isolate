@@ -79,7 +79,6 @@ public class ThemeFragment extends Fragment implements IThemeView, SwipeRefreshL
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void updateView(ThemeResultEntity.ThemeList themeList) {
         List<ThemeEntity> themeListEntities = themeList.getEntities();
-        Log.d("ThemeFragment", "themeListEntities:" + themeListEntities);
         this.entities.clear();
         this.entities.addAll(themeListEntities);
         adapter.notifyDataSetChanged();
