@@ -22,7 +22,7 @@
             android:layout_height="@dimen/image_height"
             android:background="?android:attr/selectableItemBackground"
             android:scaleType="fitXY"
-            android:src="@drawable/drawer_header" />
+            android:src="@drawable/ic_action_github" />
 
         <TextView
             android:id="@+id/title_news"
