@@ -1,8 +1,3 @@
-##「壁上观」是一个Material Design知乎日报阅读app
-### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
+##「壁上观」dev分支
 
----
-![](https://github.com/Tneciv/ZhihuDaily/raw/dev/screenshots/content.png)
-![](https://github.com/Tneciv/ZhihuDaily/raw/dev/screenshots/history.png)
-![](https://github.com/Tneciv/ZhihuDaily/raw/dev/screenshots/home.png)
-![](https://github.com/Tneciv/ZhihuDaily/raw/dev/screenshots/nav.png)
+### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
