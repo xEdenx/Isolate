@@ -23,20 +23,22 @@
         <activity
             android:name=".detail.view.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".home.view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--<meta-data-->
-                <!--android:name="android.support.PARENT_ACTIVITY"-->
-                <!--android:value="com.tneciv.zhihudaily.home.view.MainActivity" />-->
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".BaseActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".history.view.HistoryActivity"
+            android:label="@string/HistoryDaily"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".TestActivity"
-            android:label="测试"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".theme.view.ThemeActivity"
+            android:label="@string/themeList"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".about.AboutActivity" />
+        <activity android:name=".github.GithubActivity" />
+        <activity
+            android:name=".WaitActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_wait"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.tneciv.zhihudaily.Costants;
+package com.tneciv.zhihudaily.costants;
 
 /**
  * Created by Tneciv on 1-16-0016.

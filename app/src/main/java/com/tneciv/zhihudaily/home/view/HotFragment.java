@@ -4,14 +4,15 @@ package com.tneciv.zhihudaily.home.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tneciv.zhihudaily.Api.ZhihuApi;
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
@@ -29,7 +30,7 @@ import de.greenrobot.event.ThreadMode;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HotFragment extends Fragment implements IHotView {
+public class HotFragment extends Fragment implements IHotView, SwipeRefreshLayout.OnRefreshListener {
 
     INewsPresenter iNewsPresenter;
 
@@ -38,6 +39,8 @@ public class HotFragment extends Fragment implements IHotView {
 
     List<HotEntity> hotEntities = new ArrayList<>();
     HotRecyclerAdapter recyclerAdapter;
+    @Bind(R.id.swipeRefresh)
+    SwipeRefreshLayout swipeRefresh;
 
     public HotFragment() {
     }
@@ -52,9 +55,8 @@ public class HotFragment extends Fragment implements IHotView {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        iNewsPresenter = new NewsPresenterCompl(this);
-        iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
         EventBus.getDefault().register(this);
+        iNewsPresenter = new NewsPresenterCompl(this);
     }
 
     @Override
@@ -66,6 +68,9 @@ public class HotFragment extends Fragment implements IHotView {
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
+        swipeRefresh.setOnRefreshListener(this);
+        swipeRefresh.setColorSchemeResources(R.color.accent);
+        onRefresh();
         return view;
     }
 
@@ -76,5 +81,19 @@ public class HotFragment extends Fragment implements IHotView {
         this.hotEntities.clear();
         this.hotEntities.addAll(hotEntities);
         recyclerAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefresh.setRefreshing(true);
+        iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void operator(HomeEventEntity.OperatorType type) {
+        if (type.getOperatorType() == "refresh") {
+            onRefresh();
+        }
     }
 }

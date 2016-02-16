@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".BaseActivity">
+    tools:context=".base.BaseActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarBase"
@@ -26,6 +26,7 @@
     <FrameLayout
         android:id="@+id/containerBase"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize" />
 
 </android.support.design.widget.CoordinatorLayout>

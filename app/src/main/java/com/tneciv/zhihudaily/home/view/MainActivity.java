@@ -7,19 +7,26 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import com.tneciv.zhihudaily.BaseActivity;
 import com.tneciv.zhihudaily.R;
-import com.tneciv.zhihudaily.TestActivity;
+import com.tneciv.zhihudaily.about.AboutActivity;
+import com.tneciv.zhihudaily.base.ErrorEntity;
+import com.tneciv.zhihudaily.github.GithubActivity;
+import com.tneciv.zhihudaily.history.view.HistoryActivity;
+import com.tneciv.zhihudaily.home.model.HomeEventEntity;
+import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +34,9 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+import de.greenrobot.event.Subscribe;
+import de.greenrobot.event.ThreadMode;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,18 +61,18 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        EventBus.getDefault().register(this);
         initView();
     }
 
     private void initView() {
-        fragmentList = new ArrayList<>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
+        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                EventBus.getDefault().post(new HomeEventEntity.OperatorType("refresh"));
             }
         });
 
@@ -89,7 +99,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -97,9 +107,9 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -112,24 +122,26 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_recent) {
             startActivityByName(MainActivity.class, true);
         } else if (id == R.id.nav_theme) {
-            startActivityByName(BaseActivity.class, true);
+            startActivityByName(ThemeActivity.class, true);
         } else if (id == R.id.nav_slideshow) {
-            startActivityByName(TestActivity.class, true);
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            startActivityByName(HistoryActivity.class, true);
+        }
+//        else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        }
+        else if (id == R.id.nav_send) {
+            startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
-
+            startActivityByName(GithubActivity.class, true);
         }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    void startActivityByName(Class<?> activityName, Boolean isFinish) {
+    protected void startActivityByName(Class<?> activityName, Boolean isFinish) {
         Intent intent = new Intent(this, activityName);
         startActivity(intent);
         if (isFinish) {
@@ -142,5 +154,41 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void errorNotify(ErrorEntity errorEntity) {
+        String msg = errorEntity.getMsg();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        startActivityByName(MainActivity.class, true);
+    }
+
+    /**
+     * 实现再按一次退出提醒
+     */
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            if ((System.currentTimeMillis() - exitTime) > 3000) {
+                Snackbar.make(fab, "再按一次退出", Snackbar.LENGTH_SHORT).setAction("立即退出", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).show();
+//                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
