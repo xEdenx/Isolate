@@ -60,6 +60,13 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         iDetailPresenter.requestNewsContent(id);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
+    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
         Window window = getWindow();
@@ -95,10 +102,4 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         Picasso.with(this).load(image).into(imgContent);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-        ButterKnife.unbind(this);
-    }
 }

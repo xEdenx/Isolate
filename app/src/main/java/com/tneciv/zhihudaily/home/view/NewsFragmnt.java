@@ -44,9 +44,6 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
 
-    public NewsFragmnt() {
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +88,9 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
         super.onDestroyView();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+    }
+
+    public NewsFragmnt() {
     }
 
 
