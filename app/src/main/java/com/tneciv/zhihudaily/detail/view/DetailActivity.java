@@ -10,6 +10,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -92,7 +94,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     public void showContent(ContentEntity entity) {
         String image = entity.getImage();
         String body = entity.getBody();
-        String title = entity.getTitle();
+        title = entity.getTitle();
         custTitle.setText(title);
         WebSettings settings = webView.getSettings();
         StringBuffer stringBuffer = new StringBuffer();
@@ -104,6 +106,28 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         webView.setDrawingCacheEnabled(true);
         webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
         Picasso.with(this).load(image).into(imgContent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.action_share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+            intent.putExtra(Intent.EXTRA_TEXT, "分享来自「壁上观」的文章：" + title + "，http://daily.zhihu.com/story/" + id);
+            startActivity(Intent.createChooser(intent, getTitle()));
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
