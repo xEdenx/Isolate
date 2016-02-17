@@ -24,8 +24,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:fitsSystemWindows="true"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
 
                 <ImageView
                     android:id="@+id/imgContent"
@@ -38,11 +38,11 @@
                     app:layout_collapseParallaxMultiplier="0.7" />
 
                 <TextView
-                    android:fitsSystemWindows="true"
                     android:id="@+id/custTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="160dp"
+                    android:fitsSystemWindows="true"
                     android:padding="@dimen/normal_margin"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
             </RelativeLayout>
