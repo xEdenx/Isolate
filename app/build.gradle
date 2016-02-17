@@ -21,6 +21,12 @@ android {
     }
     productFlavors {
     }
+
+    android.applicationVariants.all { variant ->
+        def file = variant.outputs[0].outputFile
+        variant.outputs[0].outputFile = new File(file.parent, file.name.replace("app-release.apk", defaultConfig.applicationId + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode + ".apk"))
+    }
+
 }
 
 dependencies {
