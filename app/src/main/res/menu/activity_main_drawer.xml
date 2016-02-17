@@ -4,15 +4,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_recent"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_action_line_chart"
             android:title="热门日报" />
         <item
             android:id="@+id/nav_theme"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_action_mustache"
             android:title="主题日报" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_action_knight"
             android:title="历史日报" />
         <!--<item-->
             <!--android:id="@+id/nav_manage"-->
@@ -33,7 +33,7 @@
             <item
                 android:id="@+id/nav_gitHub"
                 android:icon="@drawable/ic_action_github"
-                android:title="Github" />
+                android:title="GitHub" />
         </menu>
     </item>
 

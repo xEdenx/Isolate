@@ -65,6 +65,13 @@ public class MainActivity extends AppCompatActivity
         initView();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
+    }
+
     private void initView() {
         fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
@@ -125,13 +132,7 @@ public class MainActivity extends AppCompatActivity
             startActivityByName(ThemeActivity.class, true);
         } else if (id == R.id.nav_slideshow) {
             startActivityByName(HistoryActivity.class, true);
-        }
-//        else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        }
-        else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_send) {
             startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
             startActivityByName(GithubActivity.class, true);
@@ -148,13 +149,6 @@ public class MainActivity extends AppCompatActivity
             finish();
         }
         return;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MainThread)
@@ -181,8 +175,6 @@ public class MainActivity extends AppCompatActivity
                         finish();
                     }
                 }).show();
-//                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();

@@ -7,8 +7,8 @@ android {
         applicationId "com.tneciv.zhihudaily"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 20160212
-        versionName '3.2'
+        versionCode 20160218
+        versionName '3.31'
     }
     buildTypes {
         release {
@@ -21,6 +21,12 @@ android {
     }
     productFlavors {
     }
+
+    android.applicationVariants.all { variant ->
+        def file = variant.outputs[0].outputFile
+        variant.outputs[0].outputFile = new File(file.parent, file.name.replace("app-release.apk", defaultConfig.applicationId + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode + ".apk"))
+    }
+
 }
 
 dependencies {
