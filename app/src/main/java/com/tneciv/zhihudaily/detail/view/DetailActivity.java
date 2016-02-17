@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     int id;
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-//    @Bind(R.id.fab)
+    //    @Bind(R.id.fab)
 //    FloatingActionButton fab;
     IDetailPresenter iDetailPresenter;
     @Bind(R.id.imgContent)
@@ -95,10 +95,14 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         String title = entity.getTitle();
         custTitle.setText(title);
         WebSettings settings = webView.getSettings();
+        StringBuffer stringBuffer = new StringBuffer();
         settings.setUseWideViewPort(false);
-        String css = "<style>img{display: inline;height: auto;max-width: 100%;}.author{font-size:25px}.bio{font-size:18px}</style>";
+        stringBuffer.append("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"css/detail.css\" ></head>");
+        stringBuffer.append("<body>");
+        stringBuffer.append(body);
+        stringBuffer.append("</body></html>");
         webView.setDrawingCacheEnabled(true);
-        webView.loadDataWithBaseURL(null, css + body, "text/html", "utf-8", null);
+        webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
         Picasso.with(this).load(image).into(imgContent);
     }
 
