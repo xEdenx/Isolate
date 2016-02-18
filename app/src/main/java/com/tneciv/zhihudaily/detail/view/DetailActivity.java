@@ -5,20 +5,23 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
@@ -35,12 +38,15 @@ import de.greenrobot.event.ThreadMode;
 public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     String title;
+
     int id;
+
+    IDetailPresenter iDetailPresenter;
+
     @Bind(R.id.toolbar)
     Toolbar toolbar;
-    //    @Bind(R.id.fab)
-//    FloatingActionButton fab;
-    IDetailPresenter iDetailPresenter;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
     @Bind(R.id.imgContent)
     ImageView imgContent;
     @Bind(R.id.collapsingToolbar)
@@ -49,6 +55,12 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     TextView custTitle;
     @Bind(R.id.webView)
     WebView webView;
+    @Bind(R.id.appBarLayout)
+    AppBarLayout appBarLayout;
+    @Bind(R.id.nested)
+    NestedScrollView nested;
+    @Bind(R.id.coor)
+    CoordinatorLayout coor;
 
 
     @Override
@@ -79,13 +91,22 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         collapsingToolbar.setTitle(title);
         custTitle.setText(title);
         id = intent.getIntExtra("id", 0);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "别瞎点", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                share();
+            }
+        });
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (verticalOffset <= -550) {
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
     }
 
@@ -110,7 +131,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -118,16 +139,20 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-        if (itemId == R.id.action_share) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
-            intent.putExtra(Intent.EXTRA_TEXT, "分享来自「壁上观」的文章：" + title + "，http://daily.zhihu.com/story/" + id);
-            startActivity(Intent.createChooser(intent, getTitle()));
-            return true;
-        }
+//        if (itemId == R.id.action_share) {
+//            share();
+//            return true;
+//        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void share() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "分享");
+        intent.putExtra(Intent.EXTRA_TEXT, "来自「壁上观」的分享：" + title + "，http://daily.zhihu.com/story/" + id);
+        startActivity(Intent.createChooser(intent, getTitle()));
     }
 
 }
