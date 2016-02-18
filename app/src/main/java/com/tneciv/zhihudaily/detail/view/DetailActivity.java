@@ -100,7 +100,8 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
             public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (verticalOffset <= -550) {
+                int i = imgContent.getHeight() - toolbar.getHeight() * 2;
+                if (verticalOffset <= -i) {
                     fab.setVisibility(View.GONE);
                 } else {
                     fab.setVisibility(View.VISIBLE);
