@@ -83,8 +83,12 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
-        Window window = getWindow();
-        window.setStatusBarColor(Color.TRANSPARENT);
+
+        if (android.os.Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
