@@ -1,4 +1,5 @@
-##「壁上观」是一个Material Design知乎日报阅读app [![Build Status](https://travis-ci.org/Tneciv/ZhihuDaily.svg?branch=master)](https://travis-ci.org/Tneciv/ZhihuDaily)
+##「壁上观」是一个Material Design知乎日报阅读app 
+  [![Build Status](https://travis-ci.org/Tneciv/ZhihuDaily.svg?branch=master)](https://travis-ci.org/Tneciv/ZhihuDaily)
 ### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
 
 ### 历史版本：
