@@ -355,6 +355,10 @@ ol {
   margin-right: 0;
 }
 
+.headline .img-place-holder {
+  height: 20px;
+}
+
 .from-column {
   width: 280px;
   line-height: 30px;
@@ -365,6 +369,7 @@ ol {
   box-sizing: border-box;
   margin: 0 20px 20px;
 }
+
 .from-column:active {
   background-image: url(http://static.daily.zhihu.com/img/News_Column_Entrance_Highlight.png);
 }

@@ -3,8 +3,12 @@
     package="com.tneciv.zhihudaily">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -39,6 +43,10 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_wait"
             android:theme="@style/FullscreenTheme"></activity>
+
+        <meta-data
+            android:name="BUG_HD_SDK_GENERAL_KEY"
+            android:value="f6ca063d703f8e69a7a6f501de3373fc" />
     </application>
 
 </manifest>

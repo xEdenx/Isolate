@@ -7,8 +7,8 @@ android {
         applicationId "com.tneciv.zhihudaily"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 20160218
-        versionName '3.31'
+        versionCode 20160220
+        versionName '3.33'
     }
     buildTypes {
         release {
@@ -24,7 +24,7 @@ android {
 
     android.applicationVariants.all { variant ->
         def file = variant.outputs[0].outputFile
-        variant.outputs[0].outputFile = new File(file.parent, file.name.replace("app-release.apk", defaultConfig.applicationId + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode + ".apk"))
+        variant.outputs[0].outputFile = new File(file.parent, file.name.replace("app-release.apk", defaultConfig.applicationId + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode + "-release" + ".apk"))
     }
 
 }
@@ -46,4 +46,5 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.paolorotolo:appintro:3.3.0'
+    compile files('libs/Bughd_android_sdk_v1.3.7.jar')
 }
