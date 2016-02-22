@@ -27,6 +27,10 @@ android {
         variant.outputs[0].outputFile = new File(file.parent, file.name.replace("app-release.apk", defaultConfig.applicationId + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode + "-release" + ".apk"))
     }
 
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {
