@@ -1,4 +1,4 @@
-##「壁上观」dev分支
+##「壁上观」dev分支[![Build Status](https://travis-ci.org/Tneciv/ZhihuDaily.svg?branch=dev)](https://travis-ci.org/Tneciv/ZhihuDaily)
 
 ### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
 
