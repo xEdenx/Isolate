@@ -19,6 +19,7 @@
             android:id="@+id/collapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/primary"
             app:expandedTitleTextAppearance="@style/CollapsingToolbarTitleStyle.Transparent"
