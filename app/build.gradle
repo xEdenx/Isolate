@@ -45,6 +45,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp-urlconnection:3.0.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:7.0.1'
-    compile 'com.github.paolorotolo:appintro:3.3.0'
+    compile 'com.github.paolorotolo:appintro:3.2.0'
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
 }
