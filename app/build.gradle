@@ -7,8 +7,8 @@ android {
         applicationId "com.tneciv.zhihudaily"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 20160225
-        versionName '3.35'
+        versionCode 20160228
+        versionName '3.36'
     }
     buildTypes {
         release {
@@ -46,5 +46,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.github.paolorotolo:appintro:3.4.0'
+    compile 'com.larswerkman:LicenseView:1.1'
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
 }

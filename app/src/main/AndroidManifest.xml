@@ -39,9 +39,23 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".about.AboutActivity"
-            android:label="欢迎使用"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".github.GithubActivity" />
+            android:label="Welcome"
+            android:parentActivityName=".home.view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".github.GithubActivity"
+            android:icon="@drawable/ic_action_github"
+            android:label="Github"
+            android:parentActivityName=".home.view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+        </activity>
         <activity
             android:name=".WaitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -51,6 +65,7 @@
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="f6ca063d703f8e69a7a6f501de3373fc" />
+
     </application>
 
 </manifest>
