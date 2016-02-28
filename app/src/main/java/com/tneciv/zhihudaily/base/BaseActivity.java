@@ -3,14 +3,17 @@ package com.tneciv.zhihudaily.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -129,6 +132,32 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     public void errorHandler(ErrorEntity errorEntity) {
         String msg = errorEntity.getMsg();
         Log.d("BaseActivity", msg);
+    }
+
+    /**
+     * 实现再按一次退出提醒
+     */
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+
+            if ((System.currentTimeMillis() - exitTime) > 3000) {
+                Snackbar.make(frameLayout, "再按一次退出", Snackbar.LENGTH_SHORT).setAction("立即退出", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                }).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

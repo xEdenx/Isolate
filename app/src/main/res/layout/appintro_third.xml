@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="10"
-    android:background="@color/accent"
+    android:background="#673A7B"
     android:orientation="vertical">
 
     <TextView
@@ -45,7 +45,7 @@
         android:gravity="center"
         android:paddingLeft="64dp"
         android:paddingRight="64dp"
-        android:text="「壁上观」"
+        android:text="「壁上观」\n\n @Tneciv"
         android:textColor="#ffffff"
         android:textSize="16sp" />
 

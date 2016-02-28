@@ -17,10 +17,10 @@ public class AboutActivity extends AppIntro {
         addSlide(SampleSlide.newInstance(R.layout.appintro_second));
         addSlide(SampleSlide.newInstance(R.layout.appintro_third));
 
+        showStatusBar(false);
         setProgressIndicator();
         setZoomAnimation();
         showSkipButton(true);
-        showDoneButton(true);
 
         setSkipText("忽略");
         setDoneText("开始");
@@ -32,8 +32,18 @@ public class AboutActivity extends AppIntro {
     }
 
     @Override
+    public void onNextPressed() {
+
+    }
+
+    @Override
     public void onDonePressed() {
         loadMainActivity();
+    }
+
+    @Override
+    public void onSlideChanged() {
+
     }
 
     private void loadMainActivity() {
