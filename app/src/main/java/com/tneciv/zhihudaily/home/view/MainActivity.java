@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.about.AboutActivity;
 import com.tneciv.zhihudaily.base.ErrorEntity;
+import com.tneciv.zhihudaily.base.NeterrorFragment;
 import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
@@ -63,6 +64,8 @@ public class MainActivity extends AppCompatActivity
     DrawerLayout drawer;
 
     SharedPreferences config;
+
+    ViewpagerAdapter viewpagerAdapter;
 
     private int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
 
@@ -110,7 +113,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, fragmentList);
+        viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, fragmentList);
         viewpagerHome.setAdapter(viewpagerAdapter);
         tabHome.setupWithViewPager(viewpagerHome);
         tabHome.setTabMode(TabLayout.MODE_FIXED);
@@ -231,6 +234,11 @@ public class MainActivity extends AppCompatActivity
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void errorNotify(ErrorEntity errorEntity) {
         String msg = errorEntity.getMsg();
+//        fragmentList.clear();
+//        List<Fragment> netErroeFragments = new ArrayList<Fragment>(Arrays.asList(new NeterrorFragment(), new NeterrorFragment()));
+//        fragmentList.addAll(netErroeFragments);
+//        viewpagerAdapter.notifyDataSetChanged();
+
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
