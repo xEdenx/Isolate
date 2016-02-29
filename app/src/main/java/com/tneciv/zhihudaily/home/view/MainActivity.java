@@ -1,7 +1,9 @@
 package com.tneciv.zhihudaily.home.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,15 +11,19 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
@@ -56,24 +62,19 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
 
+    SharedPreferences config;
+
+    private int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        isNeedToShowIntro();
+        config = getSharedPreferences("config", Context.MODE_PRIVATE);
+        showIntro();
         initView();
-    }
-
-    private void isNeedToShowIntro() {
-        SharedPreferences preferences = getSharedPreferences("config", MODE_PRIVATE);
-        Boolean flag = preferences.getBoolean("isIntroed", false);
-        if (flag == false) {
-            Intent intent = new Intent(this, AboutActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     @Override
@@ -81,6 +82,15 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+    }
+
+    private void showIntro() {
+        Boolean flag = config.getBoolean("showIntro", false);
+        if (!flag) {
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void initView() {
@@ -104,6 +114,58 @@ public class MainActivity extends AppCompatActivity
         viewpagerHome.setAdapter(viewpagerAdapter);
         tabHome.setupWithViewPager(viewpagerHome);
         tabHome.setTabMode(TabLayout.MODE_FIXED);
+
+        drawerSetting();
+
+    }
+
+    private void drawerSetting() {
+
+        MenuItem noImageItem = navigationView.getMenu().findItem(R.id.noImagesSwitch);
+        SwitchCompat noImagesSwitch = (SwitchCompat) MenuItemCompat.getActionView(noImageItem).findViewById(R.id.noImagesSwitch);
+        boolean noImagesMode = config.getBoolean("noImagesMode", false);
+        if (noImagesMode) {
+            noImagesSwitch.setChecked(true);
+        } else {
+            noImagesSwitch.setChecked(false);
+        }
+        noImagesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    config.edit().putBoolean("noImagesMode", true).apply();
+                } else {
+                    config.edit().putBoolean("noImagesMode", false).apply();
+                }
+            }
+        });
+
+        MenuItem dayNightItem = navigationView.getMenu().findItem(R.id.dayNightSwitch);
+        SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat.getActionView(dayNightItem).findViewById(R.id.dayNightSwitch);
+        boolean nightMode = config.getBoolean("dayNightMode", false);
+        if (nightMode) {
+            dayNightSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            dayNightSwitch.setChecked(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    config.edit().putBoolean("dayNightMode", true).apply();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    recreate();
+                } else {
+                    config.edit().putBoolean("dayNightMode", false).apply();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    recreate();
+                }
+            }
+        });
     }
 
     @Override
@@ -147,6 +209,10 @@ public class MainActivity extends AppCompatActivity
             startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
             startActivityByName(GithubActivity.class, true);
+        } else if (id == R.id.noImagesSwitch) {
+            drawerSetting();
+        } else if (id == R.id.dayNightSwitch) {
+            drawerSetting();
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -166,7 +232,6 @@ public class MainActivity extends AppCompatActivity
     public void errorNotify(ErrorEntity errorEntity) {
         String msg = errorEntity.getMsg();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        startActivityByName(MainActivity.class, true);
     }
 
     /**

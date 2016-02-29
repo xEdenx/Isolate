@@ -1,10 +1,13 @@
 package com.tneciv.zhihudaily.detail.view;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -62,6 +65,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     @Bind(R.id.coor)
     CoordinatorLayout coor;
 
+    boolean noImagesMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +73,8 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        SharedPreferences preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
+        noImagesMode = preferences.getBoolean("noImagesMode", false);
         initView();
         iDetailPresenter = new DetailPresenterCompl(this);
         iDetailPresenter.requestNewsContent(id);
@@ -118,15 +124,42 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         title = entity.getTitle();
         custTitle.setText(title);
         WebSettings settings = webView.getSettings();
+        webviewSettings(settings);
+        StringBuffer stringBuffer = handleHtml(body);
+        webView.setDrawingCacheEnabled(true);
+        webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
+        if (!noImagesMode) {
+            Picasso.with(this).load(image).into(imgContent);
+        }
+    }
+
+    @NonNull
+    private StringBuffer handleHtml(String body) {
         StringBuffer stringBuffer = new StringBuffer();
-        settings.setUseWideViewPort(false);
         stringBuffer.append("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"css/detail.css\" ></head>");
         stringBuffer.append("<body>");
         stringBuffer.append(body);
         stringBuffer.append("</body></html>");
-        webView.setDrawingCacheEnabled(true);
-        webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
-        Picasso.with(this).load(image).into(imgContent);
+        return stringBuffer;
+    }
+
+    private void webviewSettings(WebSettings settings) {
+        settings.setJavaScriptEnabled(true);
+        settings.setDatabaseEnabled(true);
+
+        if (noImagesMode) {
+            Picasso.with(this).load(R.drawable.smile_handmaking).into(imgContent);
+            settings.setLoadsImagesAutomatically(false);
+        } else {
+            settings.setLoadsImagesAutomatically(true);
+        }
+
+//        String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
+        String dbPath = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
+        settings.setDomStorageEnabled(true);
+        settings.setAppCachePath(dbPath);
+        settings.setAllowFileAccess(true);
+        settings.setAppCacheEnabled(true);
     }
 
     @Override

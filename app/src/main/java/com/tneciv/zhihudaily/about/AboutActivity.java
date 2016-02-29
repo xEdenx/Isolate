@@ -1,5 +1,6 @@
 package com.tneciv.zhihudaily.about;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
@@ -50,8 +51,8 @@ public class AboutActivity extends AppIntro {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
-        SharedPreferences preferences = getSharedPreferences("config", MODE_PRIVATE);
-        preferences.edit().putBoolean("isIntroed", true).commit();
+        SharedPreferences preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
+        preferences.edit().putBoolean("showIntro", true).apply();
 
         finish();
     }

@@ -15,17 +15,13 @@
             android:icon="@drawable/ic_action_knight"
             android:title="历史日报" />
         <!--<item-->
-            <!--android:id="@+id/nav_manage"-->
-            <!--android:icon="@drawable/ic_menu_manage"-->
-            <!--android:title="Tools" />-->
+        <!--android:id="@+id/nav_manage"-->
+        <!--android:icon="@drawable/ic_menu_manage"-->
+        <!--android:title="Tools" />-->
     </group>
 
     <item android:title="@string/app_name">
         <menu>
-            <!--<item-->
-                <!--android:id="@+id/nav_share"-->
-                <!--android:icon="@drawable/ic_menu_share"-->
-                <!--android:title="@string/share" />-->
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_fingerprint"
@@ -36,5 +32,22 @@
                 android:title="GitHub" />
         </menu>
     </item>
+
+    <group
+        android:id="@+id/drawerSetting"
+        android:checkableBehavior="single">
+
+        <item xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/noImagesSwitch"
+            android:title="@string/noImages"
+            app:actionLayout="@layout/drawer_setting"
+            app:showAsAction="always" />
+
+        <item xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/dayNightSwitch"
+            android:title="@string/dayNightMode"
+            app:actionLayout="@layout/drawer_setting"
+            app:showAsAction="always" />
+    </group>
 
 </menu>

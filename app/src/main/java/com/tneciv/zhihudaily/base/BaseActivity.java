@@ -1,19 +1,27 @@
 package com.tneciv.zhihudaily.base;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -42,19 +50,49 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     @Bind(R.id.toolbar_base)
     Toolbar toolbar;
 
+    SharedPreferences config;
+
+    public int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        config = getSharedPreferences("config", Context.MODE_PRIVATE);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        drawerSetting();
         initView();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        int uiMode = getResources().getConfiguration().uiMode;
+        int dayNightUiMode = uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+        if (dayNightUiMode == Configuration.UI_MODE_NIGHT_NO) {
+            mDayNightMode = AppCompatDelegate.MODE_NIGHT_NO;
+        } else if (dayNightUiMode == Configuration.UI_MODE_NIGHT_YES) {
+            mDayNightMode = AppCompatDelegate.MODE_NIGHT_YES;
+        } else {
+            mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ButterKnife.unbind(this);
+        EventBus.getDefault().unregister(this);
     }
 
     public abstract void initView();
@@ -96,27 +134,18 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             startActivityByName(ThemeActivity.class, true);
         } else if (id == R.id.nav_slideshow) {
             startActivityByName(HistoryActivity.class, true);
-        }
-//        else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        }
-        else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_send) {
             startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
             startActivityByName(GithubActivity.class, true);
+        } else if (id == R.id.noImagesSwitch) {
+            drawerSetting();
+        } else if (id == R.id.dayNightSwitch) {
+            drawerSetting();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ButterKnife.unbind(this);
-        EventBus.getDefault().unregister(this);
     }
 
     public void startActivityByName(Class<?> activityName, Boolean isFinish) {
@@ -126,12 +155,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             finish();
         }
         return;
-    }
-
-    @Subscribe(threadMode = ThreadMode.BackgroundThread)
-    public void errorHandler(ErrorEntity errorEntity) {
-        String msg = errorEntity.getMsg();
-        Log.d("BaseActivity", msg);
     }
 
     /**
@@ -158,6 +181,64 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void errorHandler(ErrorEntity errorEntity) {
+        String msg = errorEntity.getMsg();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.frame_base, fragmnt).commit();
+    }
+
+    public void drawerSetting() {
+
+        MenuItem noImageItem = navigationView.getMenu().findItem(R.id.noImagesSwitch);
+        SwitchCompat noImagesSwitch = (SwitchCompat) MenuItemCompat.getActionView(noImageItem).findViewById(R.id.noImagesSwitch);
+        boolean noImagesMode = config.getBoolean("noImagesMode", false);
+        if (noImagesMode) {
+            noImagesSwitch.setChecked(true);
+        } else {
+            noImagesSwitch.setChecked(false);
+        }
+        noImagesSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    config.edit().putBoolean("noImagesMode", true).apply();
+                } else {
+                    config.edit().putBoolean("noImagesMode", false).apply();
+                }
+            }
+        });
+
+        MenuItem dayNightItem = navigationView.getMenu().findItem(R.id.dayNightSwitch);
+        SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat.getActionView(dayNightItem).findViewById(R.id.dayNightSwitch);
+        boolean nightMode = config.getBoolean("dayNightMode", false);
+        if (nightMode) {
+            dayNightSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            dayNightSwitch.setChecked(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    config.edit().putBoolean("dayNightMode", true).apply();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    recreate();
+                } else {
+                    config.edit().putBoolean("dayNightMode", false).apply();
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    recreate();
+                }
+            }
+        });
+
     }
 
 }
