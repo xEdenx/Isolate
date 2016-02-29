@@ -3,7 +3,6 @@
 ### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
 
 ###历史版本：
-com.tneciv.zhihudaily-3.35-20160225-release.apk
 * [3.36](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.36-20160229-release.apk)
 * [3.35](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.35-20160225-release.apk)
 * [3.33](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.33-20160220-release.apk)
