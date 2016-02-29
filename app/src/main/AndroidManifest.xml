@@ -49,7 +49,7 @@
         <activity
             android:name=".github.GithubActivity"
             android:icon="@drawable/ic_action_github"
-            android:label="Github"
+            android:label="开源协议"
             android:parentActivityName=".home.view.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
