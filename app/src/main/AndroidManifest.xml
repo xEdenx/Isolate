@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".MyApplication"
@@ -36,17 +37,35 @@
             android:name=".theme.view.ThemeActivity"
             android:label="@string/themeList"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".about.AboutActivity" />
-        <activity android:name=".github.GithubActivity" />
+        <activity
+            android:name=".about.AboutActivity"
+            android:label="Welcome"
+            android:parentActivityName=".home.view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+        </activity>
+        <activity
+            android:name=".github.GithubActivity"
+            android:icon="@drawable/ic_action_github"
+            android:label="开源协议"
+            android:parentActivityName=".home.view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+        </activity>
         <activity
             android:name=".WaitActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_wait"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:theme="@style/FullscreenTheme" />
 
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
             android:value="f6ca063d703f8e69a7a6f501de3373fc" />
+
     </application>
 
 </manifest>

@@ -27,13 +27,6 @@ public class ThemeActivity extends BaseActivity {
     }
 
     @Subscribe(threadMode = ThreadMode.MainThread)
-    public void errorHandler(ErrorEntity errorEntity) {
-        String msg = errorEntity.getMsg();
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        startActivityByName(ThemeActivity.class, true);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MainThread)
     public void getThemeItem(ThemeResultEntity.ThemeId themeId) {
         int themeIdId = themeId.getId();
         String themeNewsUrl = ZhihuApi.getThemeNewsUrl(themeIdId);

@@ -42,7 +42,21 @@ public class HotFragment extends Fragment implements IHotView, SwipeRefreshLayou
     @Bind(R.id.swipeRefresh)
     SwipeRefreshLayout swipeRefresh;
 
-    public HotFragment() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        EventBus.getDefault().register(this);
+        ButterKnife.bind(this, view);
+        iNewsPresenter = new NewsPresenterCompl(this);
+        recyclerAdapter = new HotRecyclerAdapter(getContext(), hotEntities);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(recyclerAdapter);
+        swipeRefresh.setOnRefreshListener(this);
+        swipeRefresh.setColorSchemeResources(R.color.accent);
+        onRefresh();
+        return view;
     }
 
     @Override
@@ -52,26 +66,7 @@ public class HotFragment extends Fragment implements IHotView, SwipeRefreshLayou
         ButterKnife.unbind(this);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-        iNewsPresenter = new NewsPresenterCompl(this);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
-        ButterKnife.bind(this, view);
-        recyclerAdapter = new HotRecyclerAdapter(getContext(), hotEntities);
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(recyclerAdapter);
-        swipeRefresh.setOnRefreshListener(this);
-        swipeRefresh.setColorSchemeResources(R.color.accent);
-        onRefresh();
-        return view;
+    public HotFragment() {
     }
 
     @Override

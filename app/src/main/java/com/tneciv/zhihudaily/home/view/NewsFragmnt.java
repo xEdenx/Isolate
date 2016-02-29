@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.api.ZhihuApi;
+import com.tneciv.zhihudaily.base.DividerItemDecoration;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
@@ -45,21 +46,19 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
     SwipeRefreshLayout swipeRefresh;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
-        iNewsPresenter = new NewsPresenterCompl(this);
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         ButterKnife.bind(this, view);
+        EventBus.getDefault().register(this);
+        iNewsPresenter = new NewsPresenterCompl(this);
         newsRecyclerAdapter = new NewsRecyclerAdapter(getContext(), newsEntityList);
         recyclerView.setAdapter(newsRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //添加分割线
+        recyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL_LIST));
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.accent);
 
@@ -77,11 +76,11 @@ public class NewsFragmnt extends Fragment implements INewsView, SwipeRefreshLayo
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        onRefresh();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        onRefresh();
+//    }
 
     @Override
     public void onDestroyView() {

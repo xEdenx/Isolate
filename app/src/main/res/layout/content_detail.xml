@@ -5,6 +5,10 @@
     android:id="@+id/nested"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical"
+    android:verticalScrollbarPosition="right"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.tneciv.zhihudaily.detail.view.DetailActivity"
     tools:showIn="@layout/activity_detail">

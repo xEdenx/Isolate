@@ -40,11 +40,4 @@ public class HistoryActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void errorHandler(ErrorEntity errorEntity) {
-        String msg = errorEntity.getMsg();
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-        startActivityByName(HistoryActivity.class, true);
-    }
-
 }
