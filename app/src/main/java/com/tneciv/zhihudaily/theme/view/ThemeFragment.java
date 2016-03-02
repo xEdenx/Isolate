@@ -3,20 +3,17 @@ package com.tneciv.zhihudaily.theme.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.api.ZhihuApi;
-import com.tneciv.zhihudaily.home.view.NewsFragmnt;
+import com.tneciv.zhihudaily.base.GridSpacingItemDecoration;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 import com.tneciv.zhihudaily.theme.presenter.IThemePresenter;
@@ -64,7 +61,12 @@ public class ThemeFragment extends Fragment implements IThemeView, SwipeRefreshL
         iThemePresenter.handleRequestUrl(url);
         adapter = new ThemeRecyclerAdapter(getContext(), entities);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        int spanCount = 2;
+        int spacing = 8;
+        boolean includeEdge = false;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), spanCount);
+        recyclerView.addItemDecoration(new GridSpacingItemDecoration(spanCount, spacing, includeEdge));
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         swipeRefresh.setColorSchemeResources(R.color.accent);
         swipeRefresh.setOnRefreshListener(this);

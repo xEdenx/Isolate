@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#673AB7</color>
+    <color name="primary_dark">#512DA8</color>
+    <color name="accent">#FF4081</color>
+    <color name="cardBackground">#1E1E1E</color>
+    <color name="transBackOfTheme">#99FFFFFF</color>
+
+    <color name="colorPrimaryNight">#212121</color>
+    <color name="colorPrimaryDarkNight">#000000</color>
+    <color name="colorAccentNight">#c51162</color>
+    <color name="dayNightBackground">#60FFFFFF</color>
+    <color name="colorDivider">#60ffffff</color>
+</resources>
