@@ -61,7 +61,7 @@ public class ThemePresenterCompl implements IThemePresenter {
             }.getType();
             List<ThemeEntity> themeEntities = new ArrayList<>();
             try {
-                JsonElement jsonElement = new JsonParser().parse(response).getAsJsonObject().get("others");
+                JsonElement jsonElement = new JsonParser().parse(response).getAsJsonObject().get("data");
                 themeEntities = gson.fromJson(jsonElement, type);
                 ThemeResultEntity.ThemeList list = new ThemeResultEntity.ThemeList(themeEntities);
                 EventBus.getDefault().post(list);

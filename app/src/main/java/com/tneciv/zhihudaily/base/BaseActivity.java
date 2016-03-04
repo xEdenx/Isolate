@@ -64,7 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
         drawerSetting();
@@ -137,7 +137,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         } else if (id == R.id.nav_send) {
             startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
-            startActivityByName(GithubActivity.class, true);
+            startActivityByName(GithubActivity.class, false);
         } else if (id == R.id.noImagesSwitch) {
             drawerSetting();
         } else if (id == R.id.dayNightSwitch) {
@@ -157,38 +157,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         return;
     }
 
-    /**
-     * 实现再按一次退出提醒
-     */
-    private long exitTime = 0;
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK
-                && event.getAction() == KeyEvent.ACTION_DOWN) {
-
-            if ((System.currentTimeMillis() - exitTime) > 3000) {
-                Snackbar.make(frameLayout, "再按一次退出", Snackbar.LENGTH_SHORT).setAction("立即退出", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        finish();
-                    }
-                }).show();
-                exitTime = System.currentTimeMillis();
-            } else {
-                finish();
-            }
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
-
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void errorHandler(ErrorEntity errorEntity) {
         String msg = errorEntity.getMsg();
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frame_base, fragmnt).commit();
     }
 
     public void drawerSetting() {
@@ -218,11 +190,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         if (nightMode) {
             dayNightSwitch.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             dayNightSwitch.setChecked(false);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

@@ -2,8 +2,10 @@ package com.tneciv.zhihudaily.github;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import com.larswerkman.licenseview.LicenseView;
 import com.tneciv.zhihudaily.R;
@@ -27,7 +29,6 @@ public class GithubActivity extends AppCompatActivity {
         setContentView(R.layout.activity_github);
         ButterKnife.bind(this);
         setSupportActionBar(toolbarGit);
-//        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         try {
             licenseView.setLicenses(R.xml.license);
@@ -37,4 +38,5 @@ public class GithubActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 }
