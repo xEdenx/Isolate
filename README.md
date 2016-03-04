@@ -40,9 +40,12 @@
 
 项目重构为MVP架构，第三方库也基本全部更换，为了更深入理解 Material Design , 重新学习 Google guide , 坑挖的太大，仍在努力填坑中。
 
-### 应用截图
+### 应用预览
+
 ![](https://github.com/Tneciv/ZhihuDaily/raw/master/screenshots/main.gif)
+
 ![](https://github.com/Tneciv/ZhihuDaily/raw/master/screenshots/second.gif)
+
 ![](https://github.com/Tneciv/ZhihuDaily/raw/master/screenshots/third.gif)
 
 
