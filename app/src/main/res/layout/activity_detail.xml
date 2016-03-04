@@ -60,7 +60,14 @@
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
+
     </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_detail" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -71,6 +78,5 @@
         app:layout_anchor="@+id/imgContent"
         app:layout_anchorGravity="bottom|end" />
 
-    <include layout="@layout/content_detail" />
 
 </android.support.design.widget.CoordinatorLayout>

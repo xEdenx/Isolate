@@ -2,9 +2,9 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- rewrite for night -->
-        <item name="colorPrimary">@color/colorPrimaryNight</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
-        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

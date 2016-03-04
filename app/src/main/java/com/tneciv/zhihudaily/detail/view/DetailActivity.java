@@ -70,6 +70,8 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     boolean noImagesMode;
 
+    boolean nightMode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         EventBus.getDefault().register(this);
         SharedPreferences preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
         noImagesMode = preferences.getBoolean("noImagesMode", false);
+        nightMode = preferences.getBoolean("dayNightMode", false);
         initView();
         iDetailPresenter = new DetailPresenterCompl(this);
         iDetailPresenter.requestNewsContent(id);
@@ -141,7 +144,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     private StringBuffer handleHtml(String body) {
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"css/detail.css\" ></head>");
-        stringBuffer.append("<body>");
+        stringBuffer.append(nightMode ? "<body class=\"night\">" : "<body>");
         stringBuffer.append(body);
         stringBuffer.append("</body></html>");
         return stringBuffer;

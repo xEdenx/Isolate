@@ -20,6 +20,6 @@
 
     <string name="title_activity_opensource">开源协议</string>
     <string name="noImages">无图模式</string>
-    <string name="dayNightMode">夜间模式(开发中)</string>
+    <string name="dayNightMode">夜间模式</string>
     <string name="allSections">栏目概览</string>
 </resources>
