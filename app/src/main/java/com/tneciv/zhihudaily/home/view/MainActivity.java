@@ -3,7 +3,6 @@ package com.tneciv.zhihudaily.home.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -29,7 +28,6 @@ import android.widget.Toast;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.about.AboutActivity;
 import com.tneciv.zhihudaily.base.ErrorEntity;
-import com.tneciv.zhihudaily.base.NeterrorFragment;
 import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity
 
     ViewpagerAdapter viewpagerAdapter;
 
-    private int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
+    boolean nightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +74,7 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         config = getSharedPreferences("config", Context.MODE_PRIVATE);
+        nightMode = config.getBoolean("dayNightMode", false);
         showIntro();
         initView();
     }
@@ -109,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -124,6 +123,46 @@ public class MainActivity extends AppCompatActivity
 
     private void drawerSetting() {
 
+        setNoImageMode();
+
+        setNightMode();
+    }
+
+    private void setNightMode() {
+        MenuItem dayNightItem = navigationView.getMenu().findItem(R.id.dayNightSwitch);
+        SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat.getActionView(dayNightItem).findViewById(R.id.dayNightSwitch);
+        if (nightMode) {
+            dayNightSwitch.setChecked(true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            dayNightSwitch.setChecked(false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    enableNightMode();
+                } else {
+                    disableNightMode();
+                }
+            }
+        });
+    }
+
+    private void disableNightMode() {
+        config.edit().putBoolean("dayNightMode", false).apply();
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        recreate();
+    }
+
+    private void enableNightMode() {
+        config.edit().putBoolean("dayNightMode", true).apply();
+        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        recreate();
+    }
+
+    private void setNoImageMode() {
         MenuItem noImageItem = navigationView.getMenu().findItem(R.id.noImagesSwitch);
         SwitchCompat noImagesSwitch = (SwitchCompat) MenuItemCompat.getActionView(noImageItem).findViewById(R.id.noImagesSwitch);
         boolean noImagesMode = config.getBoolean("noImagesMode", false);
@@ -142,33 +181,6 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
-
-        MenuItem dayNightItem = navigationView.getMenu().findItem(R.id.dayNightSwitch);
-        SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat.getActionView(dayNightItem).findViewById(R.id.dayNightSwitch);
-        boolean nightMode = config.getBoolean("dayNightMode", false);
-        if (nightMode) {
-            dayNightSwitch.setChecked(true);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            dayNightSwitch.setChecked(false);
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-        dayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    config.edit().putBoolean("dayNightMode", true).apply();
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    recreate();
-                } else {
-                    config.edit().putBoolean("dayNightMode", false).apply();
-                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    recreate();
-                }
-            }
-        });
     }
 
     @Override
@@ -182,7 +194,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -190,9 +202,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
+        if (id == R.id.action_nightMode) {
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -211,7 +222,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
             startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
-            startActivityByName(GithubActivity.class, true);
+            startActivityByName(GithubActivity.class, false);
         } else if (id == R.id.noImagesSwitch) {
             drawerSetting();
         } else if (id == R.id.dayNightSwitch) {
@@ -228,17 +239,11 @@ public class MainActivity extends AppCompatActivity
         if (isFinish) {
             finish();
         }
-        return;
     }
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void errorNotify(ErrorEntity errorEntity) {
         String msg = errorEntity.getMsg();
-//        fragmentList.clear();
-//        List<Fragment> netErroeFragments = new ArrayList<Fragment>(Arrays.asList(new NeterrorFragment(), new NeterrorFragment()));
-//        fragmentList.addAll(netErroeFragments);
-//        viewpagerAdapter.notifyDataSetChanged();
-
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 

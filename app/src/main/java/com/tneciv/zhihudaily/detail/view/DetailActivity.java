@@ -20,12 +20,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
@@ -87,10 +90,11 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         ButterKnife.unbind(this);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initView() {
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        YoYo.with(Techniques.RollIn).playOn(fab);
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         collapsingToolbar.setTitle(title);
@@ -120,6 +124,9 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void showContent(ContentEntity entity) {
         String image = entity.getImage();
+        if (!noImagesMode) {
+            Picasso.with(this).load(image).into(imgContent);
+        }
         String body = entity.getBody();
         title = entity.getTitle();
         custTitle.setText(title);
@@ -128,9 +135,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         StringBuffer stringBuffer = handleHtml(body);
         webView.setDrawingCacheEnabled(true);
         webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
-        if (!noImagesMode) {
-            Picasso.with(this).load(image).into(imgContent);
-        }
     }
 
     @NonNull
@@ -154,7 +158,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
             settings.setLoadsImagesAutomatically(true);
         }
 
-//        String appCachePath = getApplicationContext().getCacheDir().getAbsolutePath();
         String dbPath = this.getApplicationContext().getDir("database", Context.MODE_PRIVATE).getPath();
         settings.setDomStorageEnabled(true);
         settings.setAppCachePath(dbPath);

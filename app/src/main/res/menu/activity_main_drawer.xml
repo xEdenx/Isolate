@@ -9,11 +9,11 @@
         <item
             android:id="@+id/nav_theme"
             android:icon="@drawable/ic_action_mustache"
-            android:title="主题日报" />
+            android:title="@string/allSections" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_action_knight"
-            android:title="历史日报" />
+            android:title="@string/HistoryDaily" />
         <!--<item-->
         <!--android:id="@+id/nav_manage"-->
         <!--android:icon="@drawable/ic_menu_manage"-->
