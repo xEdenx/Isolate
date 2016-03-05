@@ -6,9 +6,6 @@
     <color name="cardBackground">#1E1E1E</color>
     <color name="transBackOfTheme">#80FFFFFF</color>
 
-    <!--<color name="colorPrimaryNight">#212121</color>-->
-    <!--<color name="colorPrimaryDarkNight">#191919</color>-->
-    <!--<color name="colorAccentNight">#c51162</color>-->
     <color name="dayNightBackground">#60FFFFFF</color>
     <color name="colorDivider">#60ffffff</color>
 </resources>

@@ -4,6 +4,7 @@
 
 ### 历史版本：
 
+* [3.38](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.38-20160305-release.apk)
 * [3.36](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.36-20160229-release.apk)
 * [3.35](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.35-20160225-release.apk)
 * [3.33](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.33-20160220-release.apk)
@@ -15,11 +16,11 @@
 #### 部分特性
 
 - Material Design
-- 首页最新消息
-- 启动速度优化
 - 不含多余权限
 - 多种视图模式
 - MVP架构
+- 夜间模式
+- 无图模式
 
 #### 为什么是「壁上观」
 
@@ -36,9 +37,7 @@
 
 #### 为什么要有「壁上观」？
 
-起初「壁上观」只是一个练手项目，只有很简单的网络请求和结果解析加载功能，发布到Google play后意外得到了几个好评，深感愧疚，便有了重构了的念头。
-
-项目重构为MVP架构，第三方库也基本全部更换，为了更深入理解 Material Design , 重新学习 Google guide , 坑挖的太大，仍在努力填坑中。
+官方知乎日报客户端迟迟不见更新为 Material Design ，界面不够美观，内容分类杂乱，一己之力，希望有另一种实现。 
 
 ### 应用预览
 

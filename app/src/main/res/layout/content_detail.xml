@@ -5,7 +5,6 @@
     android:id="@+id/nested"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="28dp"
     android:scrollbarAlwaysDrawVerticalTrack="true"
     android:scrollbarStyle="insideOverlay"
     android:scrollbars="vertical"
@@ -14,9 +13,17 @@
     tools:context="com.tneciv.zhihudaily.detail.view.DetailActivity"
     tools:showIn="@layout/activity_detail">
 
-    <WebView
-        android:id="@+id/webView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="28dp">
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
 </android.support.v4.widget.NestedScrollView>

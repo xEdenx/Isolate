@@ -44,8 +44,9 @@
         android:layout_weight="3"
         android:gravity="center"
         android:paddingLeft="64dp"
+        android:autoLink="web"
         android:paddingRight="64dp"
-        android:text="「壁上观」\n\n @Tneciv"
+        android:text="「壁上观」 Tneciv © \n \n https://github.com/Tneciv/ZhihuDaily "
         android:textColor="#ffffff"
         android:textSize="16sp" />
 
