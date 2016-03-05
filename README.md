@@ -2,7 +2,7 @@
   [![Build Status](https://travis-ci.org/Tneciv/ZhihuDaily.svg?branch=master)](https://travis-ci.org/Tneciv/ZhihuDaily)
 ### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
 
-### 历史版本：
+### [历史版本：](https://github.com/Tneciv/ZhihuDaily/releases)
 
 * [3.38](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.38/com.tneciv.zhihudaily-3.38-20160305-release.apk)
 * [3.36](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.36/com.tneciv.zhihudaily-3.36-20160229-release.apk)
