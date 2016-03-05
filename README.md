@@ -4,12 +4,10 @@
 
 ### 历史版本：
 
-* [3.38](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.38-20160305-release.apk)
-* [3.36](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.36-20160229-release.apk)
-* [3.35](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.35-20160225-release.apk)
-* [3.33](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.33-20160220-release.apk)
-* [3.31](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.31-20160218.apk)
-* [3.2](https://raw.githubusercontent.com/Tneciv/ZhihuDaily/dev/apk/com.tneciv.zhihudaily-3.2-20160212.apk)
+* [3.38](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.38/com.tneciv.zhihudaily-3.38-20160305-release.apk)
+* [3.36](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.36/com.tneciv.zhihudaily-3.36-20160229-release.apk)
+* [3.35](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.35/com.tneciv.zhihudaily-3.35-20160225-release.apk)
+* [3.33]https://github.com/Tneciv/ZhihuDaily/releases/download/v3.33/com.tneciv.zhihudaily-3.33-20160220.apk)
 
 ### 简介
 
