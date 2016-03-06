@@ -32,8 +32,6 @@ public class HistoryFragment extends Fragment {
     Button btnShowTime;
     @Bind(R.id.coordinator_fragment)
     LinearLayout coordinatorFragment;
-    @Bind(R.id.tv_history)
-    TextView tvHistory;
 
     public HistoryFragment() {
     }
