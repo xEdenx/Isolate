@@ -1,35 +1,32 @@
 package com.tneciv.zhihudaily.detail.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.animation.AlphaAnimation;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.squareup.leakcanary.RefWatcher;
 import com.squareup.picasso.Picasso;
+import com.tneciv.zhihudaily.MyApplication;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
 import com.tneciv.zhihudaily.detail.presenter.DetailPresenterCompl;
@@ -63,14 +60,14 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     WebView webView;
     @Bind(R.id.appBarLayout)
     AppBarLayout appBarLayout;
-    @Bind(R.id.nested)
-    NestedScrollView nested;
-    @Bind(R.id.coor)
-    CoordinatorLayout coor;
+
 
     boolean noImagesMode;
 
     boolean nightMode;
+
+//    @Bind(R.id.progress)
+//    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +88,8 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         ButterKnife.unbind(this);
+        RefWatcher watcher = MyApplication.getRefWatcher(this);
+        watcher.watch(this);
     }
 
     private void initView() {
@@ -138,6 +137,15 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         StringBuffer stringBuffer = handleHtml(body);
         webView.setDrawingCacheEnabled(true);
         webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
+        webView.setWebChromeClient(new WebChromeClient() {
+
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                Log.d("DetailActivity", "newProgress:" + newProgress);
+//                progress.setProgress(newProgress);
+            }
+        });
     }
 
     @NonNull

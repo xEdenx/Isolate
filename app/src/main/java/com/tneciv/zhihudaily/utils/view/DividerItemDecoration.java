@@ -1,4 +1,4 @@
-package com.tneciv.zhihudaily.base;
+package com.tneciv.zhihudaily.utils.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

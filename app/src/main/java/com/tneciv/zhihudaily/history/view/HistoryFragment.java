@@ -1,6 +1,7 @@
 package com.tneciv.zhihudaily.history.view;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,8 @@ import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.leakcanary.RefWatcher;
+import com.tneciv.zhihudaily.MyApplication;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.home.view.NewsFragmnt;
@@ -66,4 +69,12 @@ public class HistoryFragment extends Fragment {
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher watcher = MyApplication.getRefWatcher(getActivity());
+        watcher.watch(this);
+    }
+
 }

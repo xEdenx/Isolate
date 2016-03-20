@@ -1,8 +1,9 @@
 package com.tneciv.zhihudaily;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatDelegate;
+import android.content.Context;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import im.fir.sdk.FIR;
 
@@ -11,14 +12,22 @@ import im.fir.sdk.FIR;
  */
 public class MyApplication extends Application {
 
+    public static RefWatcher getRefWatcher(Context context) {
+        MyApplication application = (MyApplication) context.getApplicationContext();
+        return application.refWatcher;
+    }
+
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
         FIR.init(this);
+        refWatcher = LeakCanary.install(this);
     }
 
-    static {
-
+//    static {
 //        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-    }
+//    }
+
 }

@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.florent37.picassopalette.BitmapPalette;
+import com.github.florent37.picassopalette.PicassoPalette;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.view.DetailActivity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
-import com.tneciv.zhihudaily.home.model.NewsEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +32,12 @@ public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.
     Context context;
     List<HotEntity> list = new ArrayList<>();
     LayoutInflater inflater;
+    Boolean isNightMode;
 
-    public HotRecyclerAdapter(Context context, List<HotEntity> list) {
+    public HotRecyclerAdapter(Context context, List<HotEntity> list, Boolean isNightMode) {
         this.context = context;
         this.list = list;
+        this.isNightMode = isNightMode;
         inflater = LayoutInflater.from(context);
     }
 
@@ -49,8 +51,18 @@ public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.
     @Override
     public void onBindViewHolder(HotViewHolder holder, int position) {
         HotEntity entity = list.get(position);
-        holder.titleHot.setText(entity.getTitle());
-        Picasso.with(context).load(entity.getThumbnail()).into(holder.imgHot);
+        String imgUrl = entity.getThumbnail();
+        TextView titleHot = holder.titleHot;
+        titleHot.setText(entity.getTitle());
+        if (isNightMode) {
+            Picasso.with(context).load(imgUrl).into(holder.imgHot);
+        } else {
+            Picasso.with(context).load(imgUrl).into(holder.imgHot, PicassoPalette.with(imgUrl, holder.imgHot)
+                    .use(PicassoPalette.Profile.MUTED_LIGHT)
+                    .intoBackground(titleHot, PicassoPalette.Swatch.RGB)
+                    .intoTextColor(titleHot, PicassoPalette.Swatch.BODY_TEXT_COLOR)
+            );
+        }
     }
 
     @Override

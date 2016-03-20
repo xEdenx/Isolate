@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.about.AboutActivity;
-import com.tneciv.zhihudaily.base.ErrorEntity;
+import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+//        RefWatcher watcher = MyApplication.getRefWatcher(this);
+//        watcher.watch(this);
     }
 
     private void showIntro() {
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initView() {
-        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
+        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotListFragment()));
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {

@@ -1,4 +1,4 @@
-package com.tneciv.zhihudaily.base;
+package com.tneciv.zhihudaily.utils.view;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

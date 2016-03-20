@@ -3,15 +3,11 @@ package com.tneciv.zhihudaily.history.view;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.tneciv.zhihudaily.base.BaseActivity;
+import com.squareup.leakcanary.RefWatcher;
+import com.tneciv.zhihudaily.MyApplication;
 import com.tneciv.zhihudaily.R;
-import com.tneciv.zhihudaily.base.ErrorEntity;
-import com.tneciv.zhihudaily.home.view.MainActivity;
-
-import de.greenrobot.event.Subscribe;
-import de.greenrobot.event.ThreadMode;
+import com.tneciv.zhihudaily.base.BaseActivity;
 
 public class HistoryActivity extends BaseActivity {
 
@@ -40,4 +36,10 @@ public class HistoryActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        RefWatcher watcher = MyApplication.getRefWatcher(this);
+        watcher.watch(this);
+    }
 }

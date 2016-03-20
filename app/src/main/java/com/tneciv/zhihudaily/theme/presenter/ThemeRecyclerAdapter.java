@@ -2,13 +2,16 @@ package com.tneciv.zhihudaily.theme.presenter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.github.florent37.picassopalette.BitmapPalette;
+import com.github.florent37.picassopalette.PicassoPalette;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
@@ -28,11 +31,13 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
     Context context;
     List<ThemeEntity> entities;
     LayoutInflater inflater;
+    Boolean isNightMode;
 
-    public ThemeRecyclerAdapter(Context context, List<ThemeEntity> entities) {
+    public ThemeRecyclerAdapter(Context context, List<ThemeEntity> entities, boolean isNightMode) {
         this.context = context;
         this.entities = entities;
         inflater = LayoutInflater.from(context);
+        this.isNightMode = isNightMode;
     }
 
     @Override
@@ -45,10 +50,20 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
     @Override
     public void onBindViewHolder(ThemeViewHolder holder, int position) {
         ThemeEntity themeEntity = entities.get(position);
+        String thumbnail = themeEntity.getThumbnail();
+        LinearLayout textAera = holder.themeTextAera;
         holder.themeTitle.setText(themeEntity.getName());
         holder.themeDesc.setText(themeEntity.getDescription());
-        Picasso.with(context).load(themeEntity.getThumbnail()).into(holder.imageTheme);
-
+        if (isNightMode) {
+            Picasso.with(context).load(thumbnail).into(holder.imageTheme);
+        } else {
+            Picasso.with(context).load(thumbnail).into(holder.imageTheme, PicassoPalette.with(thumbnail, holder.imageTheme)
+                    .use(PicassoPalette.Profile.MUTED_LIGHT)
+                    .intoBackground(textAera, PicassoPalette.Swatch.RGB)
+                    .intoTextColor(holder.themeTitle, PicassoPalette.Swatch.BODY_TEXT_COLOR)
+                    .intoTextColor(holder.themeDesc, PicassoPalette.Swatch.BODY_TEXT_COLOR)
+            );
+        }
     }
 
     @Override
@@ -63,6 +78,8 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
         TextView themeTitle;
         @Bind(R.id.theme_desc)
         TextView themeDesc;
+        @Bind(R.id.theme_textAera)
+        LinearLayout themeTextAera;
 
         public ThemeViewHolder(View itemView) {
             super(itemView);

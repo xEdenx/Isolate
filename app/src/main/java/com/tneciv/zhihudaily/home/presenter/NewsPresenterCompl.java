@@ -1,15 +1,12 @@
 package com.tneciv.zhihudaily.home.presenter;
 
-import android.content.Intent;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.tneciv.zhihudaily.api.ZhihuApi;
-import com.tneciv.zhihudaily.base.ErrorEntity;
+import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
@@ -20,6 +17,7 @@ import com.tneciv.zhihudaily.utils.OkhttpUtils;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Objects;
 
 import de.greenrobot.event.EventBus;
 import okhttp3.Call;

@@ -139,7 +139,7 @@ ol {
 }
 .content-wrap {
   overflow: hidden;
-  background-color: #EEEEEE;
+  background-color: #f9f9f9;
 }
 .content-wrap a {
   word-break: break-all;
@@ -381,7 +381,7 @@ ol {
 }
 body.night,
 .night .content-wrap {
-  background: #303030;
+  background: #343434;
 }
 .night .answer + .answer {
   border-top: 2px solid #303030;

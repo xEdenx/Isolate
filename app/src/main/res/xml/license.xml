@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <licenses>
+
     <license
         name="butterknife"
         type="file">
@@ -19,6 +20,7 @@
         *limitations under the License.
         */
     </license>
+
     <license
         name="eventbus"
         type="file">

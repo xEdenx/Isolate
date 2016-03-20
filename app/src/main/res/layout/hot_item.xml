@@ -7,7 +7,6 @@
     android:layout_margin="8dp"
     android:background="?android:selectableItemBackground"
     android:orientation="vertical"
-    app:cardBackgroundColor="@color/cardBackground"
     app:cardCornerRadius="3dp">
 
     <LinearLayout
@@ -27,9 +26,9 @@
             android:id="@+id/title_hot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:padding="8dp"
             android:text="测试这里的文字大小"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             android:textColor="?android:attr/textColorPrimary" />
 
     </LinearLayout>
