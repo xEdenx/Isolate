@@ -1,6 +1,7 @@
 ##「壁上观」是一个Material Design知乎日报阅读app 
   [![Build Status](https://travis-ci.org/Tneciv/ZhihuDaily.svg?branch=master)](https://travis-ci.org/Tneciv/ZhihuDaily)
-### [Google play](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily "Google play")
+
+  [![Google play](http://i.imgur.com/OCW17zi.png?1)](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily)
 
 ### [历史版本：](https://github.com/Tneciv/ZhihuDaily/releases)
 
@@ -20,7 +21,7 @@
 - 夜间模式
 - 无图模式
 
-#### 为什么是「壁上观」
+#### 为什么是「壁上观」？
 
 「壁上观」的名字取自成语「作壁上观」，意为：
 > 壁：壁垒，古时军营四周的围墙。观：旁观。原指双方交战，自己站在壁垒上旁观。比喻置身事外，在旁不协助任何一方。含贬义，动宾式，作谓语。

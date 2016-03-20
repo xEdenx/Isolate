@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '24.0.0 rc1'
+    buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.tneciv.zhihudaily"
         minSdkVersion 16
@@ -41,6 +41,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     //animation lib start
+
     //animation lib end
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta1'
