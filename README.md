@@ -5,6 +5,7 @@
 
 ### [历史版本：](https://github.com/Tneciv/ZhihuDaily/releases)
 
+* [3.39](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.39/com.tneciv.zhihudaily-3.39-20160320-release.apk)
 * [3.38](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.38/com.tneciv.zhihudaily-3.38-20160305-release.apk)
 * [3.36](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.36/com.tneciv.zhihudaily-3.36-20160229-release.apk)
 * [3.35](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.35/com.tneciv.zhihudaily-3.35-20160225-release.apk)
