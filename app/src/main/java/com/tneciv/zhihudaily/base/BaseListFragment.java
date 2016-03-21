@@ -48,7 +48,6 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
         init();
         setRecyclerLayout();
         requestUrl();
-        handleListData();
         return view;
     }
 
@@ -73,14 +72,12 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     }
 
     /**
-     * in order to execute
+     * execute by order
      */
     public abstract void init();
 
     public abstract void setRecyclerLayout();
 
     public abstract void requestUrl();
-
-    public abstract void handleListData();
 
 }

@@ -9,5 +9,5 @@ import java.util.List;
  * Created by Tneciv on 1-17-0017.
  */
 public interface IHotView {
-    void showHotResult(HomeEventEntity.HotEntityList hotEntityList);
+    void updateView(HomeEventEntity.HotEntityList hotEntityList);
 }

@@ -25,22 +25,30 @@ import de.greenrobot.event.ThreadMode;
 public class NewsFragmnt extends BaseListFragment implements INewsView {
 
     INewsPresenter iNewsPresenter;
+
     String url;
 
     List<NewsEntity> newsEntityList = new ArrayList<>();
+
     NewsRecyclerAdapter newsRecyclerAdapter;
 
     public NewsFragmnt() {
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void showResult(HomeEventEntity.NewEntityList entityList) {
-        List<NewsEntity> list = entityList.getNewsEntityList();
-        this.newsEntityList.clear();
-        this.newsEntityList.addAll(list);
-        newsRecyclerAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
+    public void init() {
+        iNewsPresenter = new NewsPresenterCompl(this);
+        newsRecyclerAdapter = new NewsRecyclerAdapter(getContext(), newsEntityList);
+        recyclerView.setAdapter(newsRecyclerAdapter);
+    }
+
+    @Override
+    public void setRecyclerLayout() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //添加分割线
+        recyclerView.addItemDecoration(new DividerItemDecoration(
+                getActivity(), DividerItemDecoration.VERTICAL_LIST));
     }
 
     @Override
@@ -58,24 +66,13 @@ public class NewsFragmnt extends BaseListFragment implements INewsView {
     }
 
     @Override
-    public void handleListData() {
-
-    }
-
-    @Override
-    public void setRecyclerLayout() {
-        recyclerView.setAdapter(newsRecyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //添加分割线
-        recyclerView.addItemDecoration(new DividerItemDecoration(
-                getActivity(), DividerItemDecoration.VERTICAL_LIST));
-    }
-
-    @Override
-    public void init() {
-        iNewsPresenter = new NewsPresenterCompl(this);
-        newsRecyclerAdapter = new NewsRecyclerAdapter(getContext(), newsEntityList);
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void updateView(HomeEventEntity.NewEntityList entityList) {
+        List<NewsEntity> list = entityList.getNewsEntityList();
+        this.newsEntityList.clear();
+        this.newsEntityList.addAll(list);
+        newsRecyclerAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
 }

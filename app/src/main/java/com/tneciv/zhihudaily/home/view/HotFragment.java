@@ -20,7 +20,7 @@ import de.greenrobot.event.ThreadMode;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HotListFragment extends BaseListFragment implements IHotView {
+public class HotFragment extends BaseListFragment implements IHotView {
 
     INewsPresenter iNewsPresenter;
 
@@ -29,27 +29,14 @@ public class HotListFragment extends BaseListFragment implements IHotView {
     HotRecyclerAdapter recyclerAdapter;
 
 
-    public HotListFragment() {
+    public HotFragment() {
     }
 
     @Override
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void showHotResult(HomeEventEntity.HotEntityList hotEntityList) {
-        List<HotEntity> hotEntities = hotEntityList.getHotEntities();
-        this.hotEntities.clear();
-        this.hotEntities.addAll(hotEntities);
-        recyclerAdapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
-    }
-
-    @Override
-    public void requestUrl() {
-        iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
-    }
-
-    @Override
-    public void handleListData() {
-
+    public void init() {
+        Boolean nightMode = config.getBoolean("dayNightMode", false);
+        iNewsPresenter = new NewsPresenterCompl(this);
+        recyclerAdapter = new HotRecyclerAdapter(getContext(), hotEntities, nightMode);
     }
 
     @Override
@@ -60,10 +47,18 @@ public class HotListFragment extends BaseListFragment implements IHotView {
     }
 
     @Override
-    public void init() {
-        Boolean nightMode = config.getBoolean("dayNightMode", false);
-        iNewsPresenter = new NewsPresenterCompl(this);
-        recyclerAdapter = new HotRecyclerAdapter(getContext(), hotEntities, nightMode);
+    public void requestUrl() {
+        iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
+    }
+
+    @Override
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void updateView(HomeEventEntity.HotEntityList hotEntityList) {
+        List<HotEntity> hotEntities = hotEntityList.getHotEntities();
+        this.hotEntities.clear();
+        this.hotEntities.addAll(hotEntities);
+        recyclerAdapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
 }

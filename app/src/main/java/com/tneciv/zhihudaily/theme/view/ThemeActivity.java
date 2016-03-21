@@ -17,7 +17,7 @@ public class ThemeActivity extends BaseActivity {
     @Override
     public void initView() {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_base, new ThemeListFragment());
+        transaction.replace(R.id.frame_base, new ThemeFragment());
         transaction.commit();
     }
 

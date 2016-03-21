@@ -10,5 +10,5 @@ import java.util.List;
  * Created by Tneciv on 1-15-0015.
  */
 public interface INewsView {
-    void showResult(HomeEventEntity.NewEntityList newEntityList);
+    void updateView(HomeEventEntity.NewEntityList newEntityList);
 }

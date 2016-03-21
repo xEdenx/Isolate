@@ -23,7 +23,7 @@ import de.greenrobot.event.ThreadMode;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ThemeListFragment extends BaseListFragment implements IThemeView {
+public class ThemeFragment extends BaseListFragment implements IThemeView {
 
 
     List<ThemeEntity> entities = new ArrayList<>();
@@ -32,24 +32,12 @@ public class ThemeListFragment extends BaseListFragment implements IThemeView {
 
     ThemeRecyclerAdapter adapter;
 
-    boolean isNightMode;
-
-    public ThemeListFragment() {
-    }
-
-    @Override
-    @Subscribe(threadMode = ThreadMode.MainThread)
-    public void updateView(ThemeResultEntity.ThemeList themeList) {
-        List<ThemeEntity> themeListEntities = themeList.getEntities();
-        this.entities.clear();
-        this.entities.addAll(themeListEntities);
-        adapter.notifyDataSetChanged();
-        swipeRefresh.setRefreshing(false);
+    public ThemeFragment() {
     }
 
     @Override
     public void init() {
-        isNightMode = config.getBoolean("dayNightMode", false);
+        boolean isNightMode = config.getBoolean("dayNightMode", false);
         iThemePresenter = new ThemePresenterCompl(this);
         adapter = new ThemeRecyclerAdapter(getContext(), entities, isNightMode);
         recyclerView.setAdapter(adapter);
@@ -71,8 +59,13 @@ public class ThemeListFragment extends BaseListFragment implements IThemeView {
     }
 
     @Override
-    public void handleListData() {
-
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void updateView(ThemeResultEntity.ThemeList themeList) {
+        List<ThemeEntity> themeListEntities = themeList.getEntities();
+        this.entities.clear();
+        this.entities.addAll(themeListEntities);
+        adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
 }
