@@ -5,13 +5,13 @@
 
  [![Google play](http://i.imgur.com/OCW17zi.png?1)](https://play.google.com/store/apps/details?id=com.tneciv.zhihudaily)
 
-### [历史版本：](https://github.com/Tneciv/ZhihuDaily/releases)
+### [历史版本：](https://github.com/Tneciv/Isolate/releases)
 
-* [3.39](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.39/com.tneciv.zhihudaily-3.39-20160320-release.apk)
-* [3.38](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.38/com.tneciv.zhihudaily-3.38-20160305-release.apk)
-* [3.36](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.36/com.tneciv.zhihudaily-3.36-20160229-release.apk)
-* [3.35](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.35/com.tneciv.zhihudaily-3.35-20160225-release.apk)
-* [3.33](https://github.com/Tneciv/ZhihuDaily/releases/download/v3.33/com.tneciv.zhihudaily-3.33-20160220.apk)
+* [3.39](https://github.com/Tneciv/Isolate/releases/download/v3.39/com.tneciv.zhihudaily-3.39-20160320-release.apk)
+* [3.38](https://github.com/Tneciv/Isolate/releases/download/v3.38/com.tneciv.zhihudaily-3.38-20160305-release.apk)
+* [3.36](https://github.com/Tneciv/Isolate/releases/download/v3.36/com.tneciv.zhihudaily-3.36-20160229-release.apk)
+* [3.35](https://github.com/Tneciv/Isolate/releases/download/v3.35/com.tneciv.zhihudaily-3.35-20160225-release.apk)
+* [3.33](https://github.com/Tneciv/Isolate/releases/download/v3.33/com.tneciv.zhihudaily-3.33-20160220.apk)
 
 ### 简介
 
@@ -43,10 +43,10 @@
 
 ### 应用预览
 
-![](https://github.com/Tneciv/ZhihuDaily/raw/master/screenshots/main.gif)
+![](https://github.com/Tneciv/Isolate/raw/master/screenshots/main.gif)
 
-![](https://github.com/Tneciv/ZhihuDaily/raw/master/screenshots/second.gif)
+![](https://github.com/Tneciv/Isolate/raw/master/screenshots/second.gif)
 
-![](https://github.com/Tneciv/ZhihuDaily/raw/master/screenshots/third.gif)
+![](https://github.com/Tneciv/Isolate/raw/master/screenshots/third.gif)
 
 
