@@ -7,8 +7,8 @@ android {
         applicationId "com.tneciv.zhihudaily"
         minSdkVersion 16
         targetSdkVersion 23
-        versionCode 20160320
-        versionName '3.39'
+        versionCode 20160323
+        versionName '3.39.1'
         jackOptions {
             enabled false
         }
