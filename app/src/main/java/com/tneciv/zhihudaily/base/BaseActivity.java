@@ -36,7 +36,6 @@ import de.greenrobot.event.ThreadMode;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
     @Bind(R.id.frame_base)
     FrameLayout frameLayout;
     @Bind(R.id.nav_view_base)

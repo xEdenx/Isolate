@@ -10,8 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 
 import butterknife.Bind;
@@ -64,6 +66,11 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
             swipeRefresh.setRefreshing(true);
             onRefresh();
         }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MainThread)
+    public void errorHandler(ErrorEntity errorEntity) {
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override

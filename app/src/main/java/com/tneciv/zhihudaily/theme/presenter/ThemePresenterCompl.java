@@ -63,7 +63,7 @@ public class ThemePresenterCompl implements IThemePresenter {
                 themeEntities = gson.fromJson(jsonElement, type);
                 ThemeResultEntity.ThemeList list = new ThemeResultEntity.ThemeList(themeEntities);
                 EventBus.getDefault().post(list);
-            } catch (JsonSyntaxException e) {
+            } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
                 e.printStackTrace();
                 ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                 EventBus.getDefault().post(entity);

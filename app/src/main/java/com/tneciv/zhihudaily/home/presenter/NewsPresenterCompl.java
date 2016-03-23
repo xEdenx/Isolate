@@ -64,7 +64,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                         JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
                         newsEntities = gson.fromJson(jsonElement, type);
                         EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
-                    } catch (JsonSyntaxException e) {
+                    } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
                         e.printStackTrace();
                         ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                         EventBus.getDefault().post(entity);
@@ -78,7 +78,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                         JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
                         hotEntities = gson.fromJson(jsonElement, type);
                         EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
-                    } catch (JsonSyntaxException e) {
+                    } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
                         e.printStackTrace();
                         ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                         EventBus.getDefault().post(entity);
