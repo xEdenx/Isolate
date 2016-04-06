@@ -5,7 +5,12 @@ import java.util.List;
 /**
  * Created by Tneciv on 2-12-0012.
  */
-public class ThemeResultEntity {
+public final class ThemeResultEntity {
+
+    private ThemeResultEntity() throws InstantiationException{
+        throw new InstantiationException("This class is not for instantiation");
+    }
+
     public static class ThemeList {
         private List<ThemeEntity> entities;
 
