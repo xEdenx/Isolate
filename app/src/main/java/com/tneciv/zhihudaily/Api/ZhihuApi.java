@@ -3,7 +3,7 @@ package com.tneciv.zhihudaily.api;
 /**
  * Created by Tneciv on 1-16-0016.
  */
-public class ZhihuApi {
+public final class ZhihuApi {
 
     public static final String NEWS_CONTENT = "http://dudu.zhihu.com/api/4/news/";
     public static final String NEWS_HOT = "http://dudu.zhihu.com/api/6/news/hot";
@@ -12,6 +12,10 @@ public class ZhihuApi {
     public static final String THEME_NEWS_LIST = "http://dudu.zhihu.com/api/6/section/";
     public static final String NEWS_LATEST = "http://dudu.zhihu.com/api/4/news/latest";
     public static final String NEWS_DETAIL = "http://dudu.zhihu.com/story/";
+
+    private ZhihuApi() throws InstantiationException{
+        throw new InstantiationException("This class is not for instantiation");
+    }
 
     public static String getNewsContentUrl(int id) {
         return NEWS_CONTENT + id;

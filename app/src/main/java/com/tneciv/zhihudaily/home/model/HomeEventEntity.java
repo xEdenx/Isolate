@@ -5,7 +5,12 @@ import java.util.List;
 /**
  * Created by Tneciv on 1-17-0017.
  */
-public class HomeEventEntity {
+public final class HomeEventEntity {
+
+    private HomeEventEntity() throws InstantiationException{
+        throw new InstantiationException("This class is not for instantiation");
+    }
+
     public static class HotEntityList {
         private List<HotEntity> hotEntities;
 
