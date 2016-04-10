@@ -28,8 +28,8 @@ import butterknife.OnClick;
  */
 public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHolder> {
     List<NewsEntity> list = new ArrayList<>();
-    Context context;
-    LayoutInflater inflater;
+    private Context context;
+    private LayoutInflater inflater;
 
     public NewsRecyclerAdapter(Context context, List<NewsEntity> list) {
         this.list = list;

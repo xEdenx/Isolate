@@ -40,11 +40,11 @@ import de.greenrobot.event.ThreadMode;
 
 public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
-    String title;
+    private String title;
 
-    int id;
+    private int id;
 
-    IDetailPresenter iDetailPresenter;
+    private IDetailPresenter iDetailPresenter;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -62,9 +62,9 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     AppBarLayout appBarLayout;
 
 
-    boolean noImagesMode;
+    private boolean noImagesMode;
 
-    boolean nightMode;
+    private boolean nightMode;
 
 //    @Bind(R.id.progress)
 //    ProgressBar progress;

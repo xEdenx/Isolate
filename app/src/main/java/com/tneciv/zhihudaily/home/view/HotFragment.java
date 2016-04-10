@@ -22,11 +22,11 @@ import de.greenrobot.event.ThreadMode;
  */
 public class HotFragment extends BaseListFragment implements IHotView {
 
-    INewsPresenter iNewsPresenter;
+    private INewsPresenter iNewsPresenter;
 
-    List<HotEntity> hotEntities = new ArrayList<>();
+    private List<HotEntity> hotEntities = new ArrayList<>();
 
-    HotRecyclerAdapter recyclerAdapter;
+    private HotRecyclerAdapter recyclerAdapter;
 
 
     public HotFragment() {

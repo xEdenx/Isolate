@@ -30,8 +30,8 @@ import okhttp3.Response;
  */
 public class NewsPresenterCompl implements INewsPresenter {
 
-    INewsView iNewsView;
-    IHotView iHotView;
+    private INewsView iNewsView;
+    private IHotView iHotView;
 
     public NewsPresenterCompl(INewsView iNewsView) {
         this.iNewsView = iNewsView;

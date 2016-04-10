@@ -14,8 +14,8 @@ import java.util.List;
  * Created by Tneciv on 1-15-0015.
  */
 public class ViewpagerAdapter extends FragmentStatePagerAdapter {
-    Context context;
-    List<Fragment> fragments = new ArrayList<>();
+    private Context context;
+    private List<Fragment> fragments = new ArrayList<>();
 
     public ViewpagerAdapter(FragmentManager fm, Context context, List<Fragment> fragments) {
         super(fm);

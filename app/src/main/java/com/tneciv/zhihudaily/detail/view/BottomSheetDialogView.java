@@ -9,8 +9,8 @@ import com.tneciv.zhihudaily.R;
  * Created by Tneciv on 3-8-0008.
  */
 public class BottomSheetDialogView {
-    Context context;
-    Boolean isNightMode;
+    private Context context;
+    private Boolean isNightMode;
 
     public BottomSheetDialogView(Context context, Boolean isNightMode) {
         BottomSheetDialog dialog = new BottomSheetDialog(context);

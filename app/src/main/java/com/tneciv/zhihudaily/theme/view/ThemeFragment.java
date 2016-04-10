@@ -26,11 +26,11 @@ import de.greenrobot.event.ThreadMode;
 public class ThemeFragment extends BaseListFragment implements IThemeView {
 
 
-    List<ThemeEntity> entities = new ArrayList<>();
+    private List<ThemeEntity> entities = new ArrayList<>();
 
-    IThemePresenter iThemePresenter;
+    private IThemePresenter iThemePresenter;
 
-    ThemeRecyclerAdapter adapter;
+    private ThemeRecyclerAdapter adapter;
 
     public ThemeFragment() {
     }

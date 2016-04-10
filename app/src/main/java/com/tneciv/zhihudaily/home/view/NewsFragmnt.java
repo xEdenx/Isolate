@@ -24,13 +24,13 @@ import de.greenrobot.event.ThreadMode;
  */
 public class NewsFragmnt extends BaseListFragment implements INewsView {
 
-    INewsPresenter iNewsPresenter;
+    private INewsPresenter iNewsPresenter;
 
-    String url;
+    private String url;
 
-    List<NewsEntity> newsEntityList = new ArrayList<>();
+    private List<NewsEntity> newsEntityList = new ArrayList<>();
 
-    NewsRecyclerAdapter newsRecyclerAdapter;
+    private NewsRecyclerAdapter newsRecyclerAdapter;
 
     public NewsFragmnt() {
     }

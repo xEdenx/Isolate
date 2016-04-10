@@ -29,10 +29,10 @@ import butterknife.OnClick;
  */
 public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.HotViewHolder> {
 
-    Context context;
-    List<HotEntity> list = new ArrayList<>();
-    LayoutInflater inflater;
-    Boolean isNightMode;
+    private Context context;
+    private List<HotEntity> list = new ArrayList<>();
+    private LayoutInflater inflater;
+    private Boolean isNightMode;
 
     public HotRecyclerAdapter(Context context, List<HotEntity> list, Boolean isNightMode) {
         this.context = context;
