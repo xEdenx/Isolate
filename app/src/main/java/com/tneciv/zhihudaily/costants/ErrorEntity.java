@@ -4,8 +4,8 @@ package com.tneciv.zhihudaily.costants;
  * Created by Tneciv on 2-5-0005.
  */
 public class ErrorEntity {
-    String msg;
-    String type;
+    private String msg;
+    private String type;
 
     public ErrorEntity(String msg, String type) {
         this.msg = msg;

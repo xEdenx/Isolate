@@ -28,10 +28,10 @@ import de.greenrobot.event.EventBus;
  * Created by Tneciv on 2-6-0006.
  */
 public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdapter.ThemeViewHolder> {
-    Context context;
-    List<ThemeEntity> entities;
-    LayoutInflater inflater;
-    Boolean isNightMode;
+    private Context context;
+    private List<ThemeEntity> entities;
+    private LayoutInflater inflater;
+    private Boolean isNightMode;
 
     public ThemeRecyclerAdapter(Context context, List<ThemeEntity> entities, boolean isNightMode) {
         this.context = context;

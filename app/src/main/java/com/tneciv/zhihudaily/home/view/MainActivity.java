@@ -46,7 +46,7 @@ import de.greenrobot.event.ThreadMode;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    List<Fragment> fragmentList;
+    private List<Fragment> fragmentList;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.drawer_layout)
     DrawerLayout drawer;
 
-    SharedPreferences config;
+    private SharedPreferences config;
 
-    ViewpagerAdapter viewpagerAdapter;
+    private ViewpagerAdapter viewpagerAdapter;
 
-    boolean nightMode;
+    private boolean nightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

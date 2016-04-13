@@ -18,7 +18,7 @@ import okhttp3.Response;
  * Created by Tneciv on 1-16-0016.
  */
 public class DetailPresenterCompl implements IDetailPresenter {
-    IDeatilView iDeatilView;
+    private IDeatilView iDeatilView;
 
     public DetailPresenterCompl(IDeatilView iDeatilView) {
         this.iDeatilView = iDeatilView;

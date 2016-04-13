@@ -45,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     @Bind(R.id.toolbar_base)
     Toolbar toolbar;
 
-    SharedPreferences config;
+    private SharedPreferences config;
     public int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
 
     @Override
