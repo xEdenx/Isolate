@@ -84,8 +84,6 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
-//        RefWatcher watcher = MyApplication.getRefWatcher(this);
-//        watcher.watch(this);
     }
 
     private void showIntro() {
@@ -196,17 +194,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-//        if (id == R.id.action_nightMode) {
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 

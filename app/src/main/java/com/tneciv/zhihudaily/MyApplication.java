@@ -26,8 +26,4 @@ public class MyApplication extends Application {
         refWatcher = LeakCanary.install(this);
     }
 
-//    static {
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-//    }
-
 }

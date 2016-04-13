@@ -66,9 +66,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     boolean nightMode;
 
-//    @Bind(R.id.progress)
-//    ProgressBar progress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +140,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
                 Log.d("DetailActivity", "newProgress:" + newProgress);
-//                progress.setProgress(newProgress);
             }
         });
     }
@@ -178,19 +174,11 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-
-//        if (itemId == R.id.action_share) {
-//            share();
-//            return true;
-//        }
-
         return super.onOptionsItemSelected(item);
     }
 
