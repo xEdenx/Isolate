@@ -1,7 +1,7 @@
 package com.tneciv.zhihudaily.theme.view;
 
-import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.api.ZhihuApi;

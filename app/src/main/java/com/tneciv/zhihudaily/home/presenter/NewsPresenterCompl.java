@@ -17,7 +17,6 @@ import com.tneciv.zhihudaily.utils.OkhttpUtils;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Objects;
 
 import de.greenrobot.event.EventBus;
 import okhttp3.Call;

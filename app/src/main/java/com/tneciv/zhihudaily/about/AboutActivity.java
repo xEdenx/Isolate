@@ -3,8 +3,8 @@ package com.tneciv.zhihudaily.about;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.tneciv.zhihudaily.R;

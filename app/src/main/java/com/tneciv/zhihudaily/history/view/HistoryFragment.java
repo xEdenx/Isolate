@@ -1,7 +1,6 @@
 package com.tneciv.zhihudaily.history.view;
 
 
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.squareup.leakcanary.RefWatcher;
 import com.tneciv.zhihudaily.MyApplication;
