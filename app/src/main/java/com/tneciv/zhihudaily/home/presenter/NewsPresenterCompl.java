@@ -1,10 +1,14 @@
 package com.tneciv.zhihudaily.home.presenter;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.jakewharton.disklrucache.DiskLruCache;
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
@@ -12,9 +16,13 @@ import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.view.IHotView;
 import com.tneciv.zhihudaily.home.view.INewsView;
-import com.tneciv.zhihudaily.utils.OkhttpUtils;
+import com.tneciv.zhihudaily.utils.CacheUtil;
+import com.tneciv.zhihudaily.utils.HashUtil;
+import com.tneciv.zhihudaily.utils.OkhttpUtil;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -29,21 +37,22 @@ import okhttp3.Response;
  */
 public class NewsPresenterCompl implements INewsPresenter {
 
-    private INewsView iNewsView;
-    private IHotView iHotView;
+    private Context mContext;
 
-    public NewsPresenterCompl(INewsView iNewsView) {
-        this.iNewsView = iNewsView;
+    public NewsPresenterCompl(INewsView iNewsView, Context context) {
+        INewsView iNewsView1 = iNewsView;
+        this.mContext = context;
     }
 
-    public NewsPresenterCompl(IHotView iHotView) {
-        this.iHotView = iHotView;
+    public NewsPresenterCompl(IHotView iHotView, Context context) {
+        IHotView iHotView1 = iHotView;
+        this.mContext = context;
     }
 
     @Override
     public void requestUrl(final String url) {
         Request build = new Request.Builder().get().url(url).build();
-        OkhttpUtils.getInstance().newCall(build).enqueue(new Callback() {
+        OkhttpUtil.getInstance().newCall(build).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 ErrorEntity entity = new ErrorEntity("网络连接异常", "net error");
@@ -54,8 +63,10 @@ public class NewsPresenterCompl implements INewsPresenter {
             public void onResponse(Call call, Response response) throws IOException {
                 Gson gson = new Gson();
 
-                if (url == ZhihuApi.NEWS_LATEST || url.contains(ZhihuApi.NEWS_HISTORY) || url.contains(ZhihuApi.THEME_NEWS_LIST)) {
+                if (url.equals(ZhihuApi.NEWS_LATEST) || url.contains(ZhihuApi.NEWS_HISTORY) || url.contains(ZhihuApi.THEME_NEWS_LIST)) {
                     String callback = response.body().string();
+                    Log.d("NewsPresenter callback", callback);
+                    cacheJson(url, callback);
                     Type type = new TypeToken<List<NewsEntity>>() {
                     }.getType();
                     List<NewsEntity> newsEntities = null;
@@ -68,7 +79,9 @@ public class NewsPresenterCompl implements INewsPresenter {
                         ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
                         EventBus.getDefault().post(entity);
                     }
-                } else if (url == ZhihuApi.NEWS_HOT) {
+                }
+
+                if (url.equals(ZhihuApi.NEWS_HOT)) {
                     String responseCallback = response.body().string();
                     Type type = new TypeToken<List<HotEntity>>() {
                     }.getType();
@@ -87,6 +100,18 @@ public class NewsPresenterCompl implements INewsPresenter {
 
             }
         });
+    }
+
+    public void cacheJson(String key, String json) {
+        File newsJsonCache = new CacheUtil(mContext).getDiskCacheDir("jsonCache");
+        DiskLruCache diskLruCache = null;
+        try {
+            diskLruCache = DiskLruCache.open(newsJsonCache, CacheUtil.APP_VERSION, CacheUtil.VALUE_COUNT, CacheUtil.MAX_SIZE);
+            DiskLruCache.Editor edit = diskLruCache.edit(HashUtil.hashKeyForDisk(key));
+            OutputStream outputStream = edit.newOutputStream(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 

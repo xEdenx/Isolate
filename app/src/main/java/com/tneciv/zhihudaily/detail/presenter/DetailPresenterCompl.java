@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
 import com.tneciv.zhihudaily.detail.view.IDeatilView;
-import com.tneciv.zhihudaily.utils.OkhttpUtils;
+import com.tneciv.zhihudaily.utils.OkhttpUtil;
 
 import java.io.IOException;
 
@@ -28,7 +28,7 @@ public class DetailPresenterCompl implements IDetailPresenter {
     public void requestNewsContent(int id) {
         String newsContentUrl = ZhihuApi.getNewsContentUrl(id);
         Request request = new Request.Builder().get().url(newsContentUrl).build();
-        OkhttpUtils.getInstance().newCall(request).enqueue(new Callback() {
+        OkhttpUtil.getInstance().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
 

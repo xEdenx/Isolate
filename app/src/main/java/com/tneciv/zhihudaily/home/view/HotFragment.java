@@ -35,7 +35,7 @@ public class HotFragment extends BaseListFragment implements IHotView {
     @Override
     public void init() {
         Boolean nightMode = config.getBoolean("dayNightMode", false);
-        iNewsPresenter = new NewsPresenterCompl(this);
+        iNewsPresenter = new NewsPresenterCompl(this, getContext());
         recyclerAdapter = new HotRecyclerAdapter(getContext(), hotEntities, nightMode);
     }
 

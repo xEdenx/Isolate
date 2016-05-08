@@ -6,10 +6,10 @@ import okhttp3.OkHttpClient;
 /**
  * Created by Tneciv on 1-15-0015.
  */
-public final class OkhttpUtils {
+public final class OkhttpUtil {
     private static volatile OkHttpClient defaultInstance;
 
-    private OkhttpUtils() throws InstantiationException{
+    private OkhttpUtil() throws InstantiationException{
         throw new InstantiationException("This class is not for instantiation");
     }
 

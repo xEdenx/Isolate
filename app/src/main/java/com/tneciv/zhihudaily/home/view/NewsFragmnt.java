@@ -37,7 +37,7 @@ public class NewsFragmnt extends BaseListFragment implements INewsView {
 
     @Override
     public void init() {
-        iNewsPresenter = new NewsPresenterCompl(this);
+        iNewsPresenter = new NewsPresenterCompl(this, getContext());
         newsRecyclerAdapter = new NewsRecyclerAdapter(getContext(), newsEntityList);
         recyclerView.setAdapter(newsRecyclerAdapter);
     }
@@ -73,6 +73,10 @@ public class NewsFragmnt extends BaseListFragment implements INewsView {
         this.newsEntityList.addAll(list);
         newsRecyclerAdapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
+    }
+
+    private void cacheJson(List<NewsEntity> list) {
+
     }
 
 }

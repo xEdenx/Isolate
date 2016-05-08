@@ -10,7 +10,7 @@ import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 import com.tneciv.zhihudaily.theme.view.IThemeView;
-import com.tneciv.zhihudaily.utils.OkhttpUtils;
+import com.tneciv.zhihudaily.utils.OkhttpUtil;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -36,7 +36,7 @@ public class ThemePresenterCompl implements IThemePresenter {
     @Override
     public void handleRequestUrl(final String url) {
         Request request = new Request.Builder().url(url).get().build();
-        OkhttpUtils.getInstance().newCall(request).enqueue(new Callback() {
+        OkhttpUtil.getInstance().newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 ErrorEntity entity = new ErrorEntity("网络连接异常", "net error");
