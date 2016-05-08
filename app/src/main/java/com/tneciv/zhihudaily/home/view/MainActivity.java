@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
             startActivityByName(AboutActivity.class, true);
         } else if (id == R.id.nav_gitHub) {
-            startActivityByName(GithubActivity.class, false);
+            startActivityByName(GithubActivity.class, true);
         } else if (id == R.id.noImagesSwitch) {
             drawerSetting();
         } else if (id == R.id.dayNightSwitch) {

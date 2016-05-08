@@ -21,7 +21,8 @@
         android:id="@+id/title_news"
         android:layout_width="match_parent"
         android:layout_height="@dimen/image_height"
-        android:layout_margin="@dimen/normal_margin"
+        android:layout_marginLeft="@dimen/normal_margin"
+        android:gravity="center_vertical"
         android:text="测试这里的文字大小"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="?android:attr/textColorPrimary" />
