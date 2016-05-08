@@ -38,7 +38,9 @@ public class CacheUtil {
         return cacheDir;
     }
 
-    public void cacheFiles(String key, String json) {
+    public boolean cacheFiles(String key, String json) {
+
+        boolean isCached = false;
         File jsonCache = new CacheUtil(mContext).getDiskCacheDir("json");
         DiskLruCache diskLruCache = null;
         try {
@@ -50,10 +52,13 @@ public class CacheUtil {
                 outputStream.write(json.getBytes());
                 outputStream.close();
                 edit.commit();
+                isCached = true;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return isCached;
     }
 }

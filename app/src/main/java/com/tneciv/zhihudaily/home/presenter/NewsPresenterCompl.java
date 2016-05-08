@@ -8,7 +8,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.jakewharton.disklrucache.DiskLruCache;
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
@@ -17,12 +16,9 @@ import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.view.IHotView;
 import com.tneciv.zhihudaily.home.view.INewsView;
 import com.tneciv.zhihudaily.utils.CacheUtil;
-import com.tneciv.zhihudaily.utils.HashUtil;
 import com.tneciv.zhihudaily.utils.OkhttpUtil;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -66,7 +62,7 @@ public class NewsPresenterCompl implements INewsPresenter {
                 if (url.equals(ZhihuApi.NEWS_LATEST) || url.contains(ZhihuApi.NEWS_HISTORY) || url.contains(ZhihuApi.THEME_NEWS_LIST)) {
                     String callback = response.body().string();
                     Log.d("NewsPresenter callback", callback);
-                    cacheJson(url, callback);
+                    new CacheUtil(mContext).cacheFiles(url, callback);
                     Type type = new TypeToken<List<NewsEntity>>() {
                     }.getType();
                     List<NewsEntity> newsEntities = null;
@@ -101,19 +97,5 @@ public class NewsPresenterCompl implements INewsPresenter {
             }
         });
     }
-
-    public void cacheJson(String key, String json) {
-        File newsJsonCache = new CacheUtil(mContext).getDiskCacheDir("jsonCache");
-        DiskLruCache diskLruCache = null;
-        try {
-            diskLruCache = DiskLruCache.open(newsJsonCache, CacheUtil.APP_VERSION, CacheUtil.VALUE_COUNT, CacheUtil.MAX_SIZE);
-            DiskLruCache.Editor edit = diskLruCache.edit(HashUtil.hashKeyForDisk(key));
-            OutputStream outputStream = edit.newOutputStream(0);
-            outputStream.write(json.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }
