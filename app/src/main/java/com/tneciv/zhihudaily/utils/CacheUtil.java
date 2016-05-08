@@ -38,13 +38,14 @@ public class CacheUtil {
         return cacheDir;
     }
 
-    public void cacheJson(String key, String json) {
-        File jsonCache = new CacheUtil(mContext).getDiskCacheDir("jsonCache");
+    public void cacheFiles(String key, String json, String type) {
+        File jsonCache = new CacheUtil(mContext).getDiskCacheDir(type);
         DiskLruCache diskLruCache = null;
         try {
             diskLruCache = DiskLruCache.open(jsonCache, CacheUtil.APP_VERSION, CacheUtil.VALUE_COUNT, CacheUtil.MAX_SIZE);
             DiskLruCache.Editor edit = diskLruCache.edit(HashUtil.hashKeyForDisk(key));
             OutputStream outputStream = edit.newOutputStream(0);
+            outputStream.write(json.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

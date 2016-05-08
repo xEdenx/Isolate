@@ -109,6 +109,7 @@ public class NewsPresenterCompl implements INewsPresenter {
             diskLruCache = DiskLruCache.open(newsJsonCache, CacheUtil.APP_VERSION, CacheUtil.VALUE_COUNT, CacheUtil.MAX_SIZE);
             DiskLruCache.Editor edit = diskLruCache.edit(HashUtil.hashKeyForDisk(key));
             OutputStream outputStream = edit.newOutputStream(0);
+            outputStream.write(json.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
