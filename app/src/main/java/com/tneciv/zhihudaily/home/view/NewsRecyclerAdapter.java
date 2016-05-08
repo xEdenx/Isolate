@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.view.DetailActivity;

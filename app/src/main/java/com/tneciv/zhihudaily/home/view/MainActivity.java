@@ -1,8 +1,11 @@
 package com.tneciv.zhihudaily.home.view;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -25,6 +28,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Toast;
 
+import com.squareup.leakcanary.RefWatcher;
+import com.tneciv.zhihudaily.MyApplication;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.about.AboutActivity;
 import com.tneciv.zhihudaily.costants.ErrorEntity;
@@ -46,7 +51,7 @@ import de.greenrobot.event.ThreadMode;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private List<Fragment> fragmentList;
+    private static final int PERMISSION_WRITE_EXT = 222;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -63,8 +68,6 @@ public class MainActivity extends AppCompatActivity
 
     private SharedPreferences config;
 
-    private ViewpagerAdapter viewpagerAdapter;
-
     private boolean nightMode;
 
     @Override
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
+        askForPermission();
         config = getSharedPreferences("config", Context.MODE_PRIVATE);
         nightMode = config.getBoolean("dayNightMode", false);
         showIntro();
@@ -84,8 +88,8 @@ public class MainActivity extends AppCompatActivity
         super.onDestroy();
         ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
-//        RefWatcher watcher = MyApplication.getRefWatcher(this);
-//        watcher.watch(this);
+        RefWatcher watcher = MyApplication.getRefWatcher(this);
+        watcher.watch(this);
     }
 
     private void showIntro() {
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initView() {
-        fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
+        List<Fragment> fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -114,10 +118,11 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, fragmentList);
+        ViewpagerAdapter viewpagerAdapter = new ViewpagerAdapter(getSupportFragmentManager(), this, fragmentList);
         viewpagerHome.setAdapter(viewpagerAdapter);
         tabHome.setupWithViewPager(viewpagerHome);
         tabHome.setTabMode(TabLayout.MODE_FIXED);
+        tabHome.setTabGravity(TabLayout.GRAVITY_FILL);
 
         drawerSetting();
 
@@ -273,5 +278,36 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void askForPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //申请写入权限
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                }
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                        PERMISSION_WRITE_EXT);
+            }
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+
+        if (requestCode == PERMISSION_WRITE_EXT) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            } else {
+                Snackbar.make(fab, "读写文件权限被拒绝，将不能缓存数据.", Snackbar.LENGTH_SHORT).setAction("授权", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        askForPermission();
+                    }
+                }).show();
+            }
+        }
+
     }
 }
