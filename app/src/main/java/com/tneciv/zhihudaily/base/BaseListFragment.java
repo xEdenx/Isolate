@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.costants.ErrorEntity;
@@ -41,7 +40,7 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        View view = inflater.inflate(R.layout.recyclerview_list, container, false);
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
         config = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
