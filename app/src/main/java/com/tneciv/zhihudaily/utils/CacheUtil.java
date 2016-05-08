@@ -2,6 +2,7 @@ package com.tneciv.zhihudaily.utils;
 
 import android.content.Context;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 
@@ -23,7 +24,7 @@ public class CacheUtil {
         this.mContext = context;
     }
 
-    public File getDiskCacheDir(String uniqueName) {
+    private File getDiskCacheDir(String uniqueName) {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
@@ -41,10 +42,8 @@ public class CacheUtil {
     public boolean cacheFiles(String key, String json) {
 
         boolean isCached = false;
-        File jsonCache = new CacheUtil(mContext).getDiskCacheDir("json");
-        DiskLruCache diskLruCache = null;
         try {
-            diskLruCache = DiskLruCache.open(jsonCache, CacheUtil.APP_VERSION, CacheUtil.VALUE_COUNT, CacheUtil.MAX_SIZE);
+            DiskLruCache diskLruCache = getDiskLruCache("json");
             DiskLruCache.Editor edit = diskLruCache.edit(HashUtil.hashKeyForDisk(key));
 
             if (edit != null) {
@@ -55,10 +54,23 @@ public class CacheUtil {
                 isCached = true;
             }
 
+            diskLruCache.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         return isCached;
+    }
+
+    @NonNull
+    public DiskLruCache getDiskLruCache(String type) {
+        File jsonCache = new CacheUtil(mContext).getDiskCacheDir(type);
+        DiskLruCache diskLruCache = null;
+        try {
+            diskLruCache = DiskLruCache.open(jsonCache, CacheUtil.APP_VERSION, CacheUtil.VALUE_COUNT, CacheUtil.MAX_SIZE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return diskLruCache;
     }
 }
