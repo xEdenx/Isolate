@@ -2,7 +2,6 @@ package com.tneciv.zhihudaily.utils;
 
 import android.content.Context;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 
@@ -41,7 +40,6 @@ public class CacheUtil {
 
     public boolean cacheFiles(String key, String json) {
 
-        boolean isCached = false;
         try {
             DiskLruCache diskLruCache = getDiskLruCache("json");
             DiskLruCache.Editor edit = diskLruCache.edit(HashUtil.hashKeyForDisk(key));
@@ -51,18 +49,17 @@ public class CacheUtil {
                 outputStream.write(json.getBytes());
                 outputStream.close();
                 edit.commit();
-                isCached = true;
             }
 
             diskLruCache.flush();
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return isCached;
+        return false;
     }
 
-    @NonNull
     public DiskLruCache getDiskLruCache(String type) {
         File jsonCache = new CacheUtil(mContext).getDiskCacheDir(type);
         DiskLruCache diskLruCache = null;

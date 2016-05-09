@@ -37,6 +37,7 @@ import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
+import com.tneciv.zhihudaily.utils.IMMLeaks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        IMMLeaks.fixFocusedViewLeak(getApplication());
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         askForPermission();
@@ -86,8 +88,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
+        ButterKnife.unbind(this);
         RefWatcher watcher = MyApplication.getRefWatcher(this);
         watcher.watch(this);
     }
