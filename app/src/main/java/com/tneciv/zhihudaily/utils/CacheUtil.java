@@ -3,10 +3,13 @@ package com.tneciv.zhihudaily.utils;
 import android.content.Context;
 import android.os.Environment;
 
+import com.google.common.io.CharStreams;
 import com.jakewharton.disklrucache.DiskLruCache;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
@@ -69,5 +72,21 @@ public class CacheUtil {
             e.printStackTrace();
         }
         return diskLruCache;
+    }
+
+    public String loadCache(String key) {
+        DiskLruCache diskLruCache = getDiskLruCache("json");
+        try {
+            DiskLruCache.Snapshot snapshot = diskLruCache.get(HashUtil.hashKeyForDisk(key));
+            if (snapshot != null) {
+                InputStream inputStream = snapshot.getInputStream(0);
+                String s = CharStreams.toString(new InputStreamReader(inputStream, "UTF-8"));
+                snapshot.close();
+                return s;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

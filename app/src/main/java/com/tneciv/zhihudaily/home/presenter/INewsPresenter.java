@@ -6,4 +6,8 @@ package com.tneciv.zhihudaily.home.presenter;
  */
 public interface INewsPresenter {
     void requestUrl(String url);
+
+    void parseJsonOfHots(String responseCallback);
+
+    void parseJsonOfNews(String callback);
 }

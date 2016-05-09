@@ -1,7 +1,6 @@
 package com.tneciv.zhihudaily.home.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -57,45 +56,56 @@ public class NewsPresenterCompl implements INewsPresenter {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Gson gson = new Gson();
+
 
                 if (url.equals(ZhihuApi.NEWS_LATEST) || url.contains(ZhihuApi.NEWS_HISTORY) || url.contains(ZhihuApi.THEME_NEWS_LIST)) {
                     String callback = response.body().string();
-                    Log.d("NewsPresenter callback", callback);
                     new CacheUtil(mContext).cacheFiles(url, callback);
-                    Type type = new TypeToken<List<NewsEntity>>() {
-                    }.getType();
-                    List<NewsEntity> newsEntities = null;
-                    try {
-                        JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
-                        newsEntities = gson.fromJson(jsonElement, type);
-                        EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
-                    } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
-                        e.printStackTrace();
-                        ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
-                        EventBus.getDefault().post(entity);
-                    }
+                    parseJsonOfNews(callback);
                 }
 
                 if (url.equals(ZhihuApi.NEWS_HOT)) {
                     String responseCallback = response.body().string();
-                    Type type = new TypeToken<List<HotEntity>>() {
-                    }.getType();
-                    List<HotEntity> hotEntities = null;
-                    try {
-                        JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
-                        hotEntities = gson.fromJson(jsonElement, type);
-                        EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
-                    } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
-                        e.printStackTrace();
-                        ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
-                        EventBus.getDefault().post(entity);
-                    }
-
+                    new CacheUtil(mContext).cacheFiles(ZhihuApi.NEWS_HOT, responseCallback);
+                    parseJsonOfHots(responseCallback);
                 }
 
             }
         });
+    }
+
+    @Override
+    public void parseJsonOfHots(String responseCallback) {
+        Type type = new TypeToken<List<HotEntity>>() {
+        }.getType();
+        List<HotEntity> hotEntities = null;
+        try {
+            JsonElement jsonElement = new JsonParser().parse(responseCallback).getAsJsonObject().get("recent");
+            Gson gson = new Gson();
+            hotEntities = gson.fromJson(jsonElement, type);
+            EventBus.getDefault().post(new HomeEventEntity.HotEntityList(hotEntities));
+        } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
+            e.printStackTrace();
+            ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
+            EventBus.getDefault().post(entity);
+        }
+    }
+
+    @Override
+    public void parseJsonOfNews(String callback) {
+        Type type = new TypeToken<List<NewsEntity>>() {
+        }.getType();
+        List<NewsEntity> newsEntities = null;
+        try {
+            JsonElement jsonElement = new JsonParser().parse(callback).getAsJsonObject().get("stories");
+            Gson gson = new Gson();
+            newsEntities = gson.fromJson(jsonElement, type);
+            EventBus.getDefault().post(new HomeEventEntity.NewEntityList(newsEntities));
+        } catch (JsonSyntaxException | IllegalStateException | NullPointerException e) {
+            e.printStackTrace();
+            ErrorEntity entity = new ErrorEntity("服务器返回数据异常", "server error");
+            EventBus.getDefault().post(entity);
+        }
     }
 
 }

@@ -10,6 +10,7 @@ import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
 import com.tneciv.zhihudaily.home.presenter.NewsPresenterCompl;
+import com.tneciv.zhihudaily.utils.CacheUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,10 @@ public class HotFragment extends BaseListFragment implements IHotView {
 
     @Override
     public void requestUrl() {
+        String cache = new CacheUtil(getContext()).loadCache(ZhihuApi.NEWS_HOT);
+        if (!cache.equals("")) {
+            iNewsPresenter.parseJsonOfHots(cache);
+        }
         iNewsPresenter.requestUrl(ZhihuApi.NEWS_HOT);
     }
 

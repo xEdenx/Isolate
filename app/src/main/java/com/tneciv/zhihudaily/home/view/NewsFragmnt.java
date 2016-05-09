@@ -11,6 +11,7 @@ import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
 import com.tneciv.zhihudaily.home.presenter.NewsPresenterCompl;
+import com.tneciv.zhihudaily.utils.CacheUtil;
 import com.tneciv.zhihudaily.utils.view.DividerItemDecoration;
 
 import java.util.ArrayList;
@@ -62,6 +63,10 @@ public class NewsFragmnt extends BaseListFragment implements INewsView {
                 url = this.getArguments().getString("themeIdUrl");
             }
         }
+        String cache = new CacheUtil(getContext()).loadCache(url);
+        if (!cache.equals("")) {
+            iNewsPresenter.parseJsonOfNews(cache);
+        }
         iNewsPresenter.requestUrl(url);
     }
 
@@ -73,10 +78,6 @@ public class NewsFragmnt extends BaseListFragment implements INewsView {
         this.newsEntityList.addAll(list);
         newsRecyclerAdapter.notifyDataSetChanged();
         swipeRefresh.setRefreshing(false);
-    }
-
-    private void cacheJson(List<NewsEntity> list) {
-
     }
 
 }
