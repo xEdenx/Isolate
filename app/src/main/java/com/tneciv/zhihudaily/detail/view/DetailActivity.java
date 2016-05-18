@@ -10,11 +10,9 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -22,6 +20,7 @@ import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+import com.google.gson.Gson;
 import com.squareup.leakcanary.RefWatcher;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.MyApplication;
@@ -29,6 +28,7 @@ import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
 import com.tneciv.zhihudaily.detail.presenter.DetailPresenterCompl;
 import com.tneciv.zhihudaily.detail.presenter.IDetailPresenter;
+import com.tneciv.zhihudaily.utils.CacheUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,10 +39,10 @@ import de.greenrobot.event.ThreadMode;
 public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     private String title;
-
     private int id;
-
     private IDetailPresenter iDetailPresenter;
+    private boolean noImagesMode;
+    private boolean nightMode;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -59,14 +59,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     @Bind(R.id.appBarLayout)
     AppBarLayout appBarLayout;
 
-
-    private boolean noImagesMode;
-
-    private boolean nightMode;
-
-//    @Bind(R.id.progress)
-//    ProgressBar progress;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +70,14 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         nightMode = preferences.getBoolean("dayNightMode", false);
         initView();
         iDetailPresenter = new DetailPresenterCompl(this);
-        iDetailPresenter.requestNewsContent(id);
+        String cache = new CacheUtil(this).loadCache(String.valueOf(id));
+        if (cache == null || "".equals(cache)) {
+            iDetailPresenter.requestNewsContent(id);
+        } else {
+            Gson gson = new Gson();
+            ContentEntity entity = gson.fromJson(cache, ContentEntity.class);
+            showContent(entity);
+        }
     }
 
     @Override
@@ -135,15 +134,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         StringBuffer stringBuffer = handleHtml(body);
         webView.setDrawingCacheEnabled(true);
         webView.loadDataWithBaseURL("file:///android_asset/", stringBuffer.toString(), "text/html", "utf-8", null);
-        webView.setWebChromeClient(new WebChromeClient() {
-
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                super.onProgressChanged(view, newProgress);
-                Log.d("DetailActivity", "newProgress:" + newProgress);
-//                progress.setProgress(newProgress);
-            }
-        });
     }
 
     @NonNull
@@ -157,7 +147,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     }
 
     private void webviewSettings(WebSettings settings) {
-        settings.setJavaScriptEnabled(true);
         settings.setDatabaseEnabled(true);
 
         if (noImagesMode) {
@@ -176,7 +165,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
+        //        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -184,10 +173,10 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
 
-//        if (itemId == R.id.action_share) {
-//            share();
-//            return true;
-//        }
+        //        if (itemId == R.id.action_share) {
+        //            share();
+        //            return true;
+        //        }
 
         return super.onOptionsItemSelected(item);
     }

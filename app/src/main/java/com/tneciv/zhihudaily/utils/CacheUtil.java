@@ -18,7 +18,7 @@ import java.io.OutputStream;
 public class CacheUtil {
     public static final int APP_VERSION = 1;
     public static final int VALUE_COUNT = 1;
-    public static final long MAX_SIZE = 10 * 1024 * 1024;
+    public static final long MAX_SIZE = 30 * 1024 * 1024;
 
     private Context mContext;
 

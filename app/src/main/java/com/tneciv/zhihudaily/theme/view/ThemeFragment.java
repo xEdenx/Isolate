@@ -38,7 +38,7 @@ public class ThemeFragment extends BaseListFragment implements IThemeView {
     @Override
     public void init() {
         boolean isNightMode = config.getBoolean("dayNightMode", false);
-        iThemePresenter = new ThemePresenterCompl(this);
+        iThemePresenter = new ThemePresenterCompl(getContext());
         adapter = new ThemeRecyclerAdapter(getContext(), entities, isNightMode);
         recyclerView.setAdapter(adapter);
     }

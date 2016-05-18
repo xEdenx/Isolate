@@ -1,5 +1,7 @@
 package com.tneciv.zhihudaily.theme.presenter;
 
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -9,7 +11,7 @@ import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
-import com.tneciv.zhihudaily.theme.view.IThemeView;
+import com.tneciv.zhihudaily.utils.CacheUtil;
 import com.tneciv.zhihudaily.utils.OkhttpUtil;
 
 import java.io.IOException;
@@ -27,10 +29,11 @@ import okhttp3.Response;
  * Created by Tneciv on 1-31-0031.
  */
 public class ThemePresenterCompl implements IThemePresenter {
-    private IThemeView iThemeView;
 
-    public ThemePresenterCompl(IThemeView iThemeView) {
-        this.iThemeView = iThemeView;
+    private Context mContext;
+
+    public ThemePresenterCompl(Context context) {
+        this.mContext = context;
     }
 
     @Override
@@ -46,6 +49,7 @@ public class ThemePresenterCompl implements IThemePresenter {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String string = response.body().string();
+                new CacheUtil(mContext).cacheFiles(url, string);
                 handleResponse(string, url);
             }
         });
@@ -53,7 +57,7 @@ public class ThemePresenterCompl implements IThemePresenter {
 
     private void handleResponse(String response, String url) {
         Gson gson = new Gson();
-        if (url == ZhihuApi.THEME_LIST) {
+        if (url.equals(ZhihuApi.THEME_LIST)) {
             Type type = new TypeToken<List<ThemeEntity>>() {
             }.getType();
             List<ThemeEntity> themeEntities = new ArrayList<>();
