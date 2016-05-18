@@ -1,5 +1,6 @@
 package com.tneciv.zhihudaily.about;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,9 @@ public class AboutActivity extends AppIntro {
 
         setSkipText("忽略");
         setDoneText("开始");
+
+        askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        askForPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 2);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.google.gson.Gson;
+import com.jude.swipbackhelper.SwipeBackHelper;
 import com.squareup.leakcanary.RefWatcher;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.MyApplication;
@@ -64,6 +66,7 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
+        SwipeBackHelper.onCreate(this);
         EventBus.getDefault().register(this);
         SharedPreferences preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
         noImagesMode = preferences.getBoolean("noImagesMode", false);
@@ -84,9 +87,16 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        SwipeBackHelper.onDestroy(this);
         ButterKnife.unbind(this);
         RefWatcher watcher = MyApplication.getRefWatcher(this);
         watcher.watch(this);
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        SwipeBackHelper.onPostCreate(this);
     }
 
     private void initView() {

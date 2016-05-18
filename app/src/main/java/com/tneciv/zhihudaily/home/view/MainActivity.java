@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
+        //        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -211,8 +211,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-//        if (id == R.id.action_nightMode) {
-//        }
+        //        if (id == R.id.action_nightMode) {
+        //        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 }
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         PERMISSION_WRITE_EXT);
             }
 

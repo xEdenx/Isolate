@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tneciv.zhihudaily">
+          package="com.tneciv.zhihudaily">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".MyApplication"
@@ -22,9 +22,9 @@
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
@@ -34,16 +34,16 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity"/>
         </activity>
         <activity
             android:name=".history.view.HistoryActivity"
             android:label="@string/HistoryDaily"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".theme.view.ThemeActivity"
             android:label="@string/allSections"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".about.AboutActivity"
             android:label="Welcome"
@@ -57,13 +57,21 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tneciv.zhihudaily.home.view.MainActivity" />
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity"/>
         </activity>
 
         <meta-data
             android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="f6ca063d703f8e69a7a6f501de3373fc" />
+            android:value="f6ca063d703f8e69a7a6f501de3373fc"/>
 
+        <activity
+            android:name=".setting.view.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".home.view.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tneciv.zhihudaily.home.view.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
