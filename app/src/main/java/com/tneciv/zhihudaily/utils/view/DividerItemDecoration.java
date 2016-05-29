@@ -11,8 +11,9 @@ import android.view.View;
 
 /**
  * This class is from the v7 samples of the Android SDK. It's not by me!
- * <p/>
- * See the license above for details.
+ * https://android.googlesource.com/platform/development/+/
+ * master/samples/Support7Demos/src/com/example/android/supportv7/
+ * widget/decorator/DividerItemDecoration.java?autodive=0
  */
 public class DividerItemDecoration extends RecyclerView.ItemDecoration {
 

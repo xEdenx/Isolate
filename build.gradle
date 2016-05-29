@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.2.0-alpha1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -20,4 +20,23 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+// Define versions in a single place
+ext {
+    // Sdk and tools
+    compileSdkVersion = 23
+    minSdkVersion = 16
+    targetSdkVersion = 23
+    buildToolsVersion = '23.0.3'
+    versionCode = 20160518
+    versionName = 'hello google io'
+
+    // App dependencies
+    supportLibraryVersion = '23.4.0'
+    leakcanaryVersion = '1.4-beta2'
+    okhttpVersion = '3.2.0'
+    eventbusVersion = '3.0.0-beta1'
+    gsonVersion = '2.5'
+    guavaVersion = 'r03'
 }
