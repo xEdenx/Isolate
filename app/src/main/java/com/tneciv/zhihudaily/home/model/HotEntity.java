@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class HotEntity implements Serializable {
 
+    private static final long serialVersionUID = -7507137328585675881L;
     /**
      * news_id : 7741804
      * url : http://news-at.zhihu.com/api/2/news/7741804

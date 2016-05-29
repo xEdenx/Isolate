@@ -1,11 +1,14 @@
 package com.tneciv.zhihudaily.theme.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Tneciv on 2-12-0012.
  */
-public final class ThemeResultEntity {
+public final class ThemeResultEntity implements Serializable {
+
+    private static final long serialVersionUID = -4321779320129795368L;
 
     private ThemeResultEntity() throws InstantiationException{
         throw new InstantiationException("This class is not for instantiation");

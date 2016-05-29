@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class NewsEntity implements Serializable {
 
+    private static final long serialVersionUID = -2272364171423006034L;
     /**
      * title : 他经常被嘲笑长得太可爱，慢慢就想成为女孩子
      * ga_prefix : 011521

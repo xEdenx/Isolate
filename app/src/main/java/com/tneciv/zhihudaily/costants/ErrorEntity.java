@@ -1,9 +1,12 @@
 package com.tneciv.zhihudaily.costants;
 
+import java.io.Serializable;
+
 /**
  * Created by Tneciv on 2-5-0005.
  */
-public class ErrorEntity {
+public class ErrorEntity implements Serializable {
+    private static final long serialVersionUID = 1699151516860204090L;
     private String msg;
     private String type;
 

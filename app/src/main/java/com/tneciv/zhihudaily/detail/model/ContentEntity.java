@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class ContentEntity implements Serializable {
 
+    private static final long serialVersionUID = 1689584107217793961L;
     private String body;
     private String image_source;
     private String title;

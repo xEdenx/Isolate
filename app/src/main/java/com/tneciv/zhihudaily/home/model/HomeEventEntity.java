@@ -1,11 +1,14 @@
 package com.tneciv.zhihudaily.home.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Tneciv on 1-17-0017.
  */
-public final class HomeEventEntity {
+public final class HomeEventEntity implements Serializable {
+
+    private static final long serialVersionUID = -7457366706193360685L;
 
     private HomeEventEntity() throws InstantiationException{
         throw new InstantiationException("This class is not for instantiation");

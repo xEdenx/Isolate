@@ -7,6 +7,7 @@ import java.io.Serializable;
  */
 public class ThemeEntity implements Serializable {
 
+    private static final long serialVersionUID = 982090588082197902L;
     /**
      * color : 15007
      * thumbnail : http://pic3.zhimg.com/0e71e90fd6be47630399d63c58beebfc.jpg
