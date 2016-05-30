@@ -37,6 +37,6 @@ ext {
     leakcanaryVersion = '1.4-beta2'
     okhttpVersion = '3.2.0'
     eventbusVersion = '3.0.0-beta1'
-    gsonVersion = '2.5'
+    gsonVersion = '2.6.2'
     guavaVersion = 'r03'
 }
