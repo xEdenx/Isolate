@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_container"
-    android:layout_width="match_parent"
-    android:layout_height="112dp"
-    android:background="?android:selectableItemBackground"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/normal_8dp"
-    android:paddingLeft="@dimen/normal_margin"
-    android:paddingRight="@dimen/normal_margin"
-    android:paddingTop="@dimen/normal_8dp">
+              android:id="@+id/item_container"
+              android:layout_width="match_parent"
+              android:layout_height="112dp"
+              android:background="?android:selectableItemBackground"
+              android:orientation="horizontal"
+              android:paddingBottom="@dimen/normal_8dp"
+              android:paddingLeft="@dimen/normal_12dp"
+              android:paddingRight="@dimen/normal_12dp"
+              android:paddingTop="@dimen/normal_8dp">
 
     <ImageView
         android:id="@+id/img_news"
         android:layout_width="@dimen/image_height"
         android:layout_height="@dimen/image_height"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_action_github" />
+        android:src="@drawable/ic_action_github"/>
 
     <TextView
         android:id="@+id/title_news"
@@ -23,8 +23,9 @@
         android:layout_height="@dimen/image_height"
         android:layout_marginLeft="@dimen/normal_margin"
         android:gravity="center_vertical"
+        android:maxLines="4"
         android:text="测试这里的文字大小"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:textColor="?android:attr/textColorPrimary" />
+        android:textColor="?android:attr/textColorPrimary"/>
 
 </LinearLayout>

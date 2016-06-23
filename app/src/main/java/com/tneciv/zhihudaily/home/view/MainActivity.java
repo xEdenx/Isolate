@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -36,6 +35,7 @@ import com.tneciv.zhihudaily.costants.ErrorEntity;
 import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
+import com.tneciv.zhihudaily.setting.view.SettingsActivity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 import com.tneciv.zhihudaily.utils.IMMLeaks;
 
@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity
     TabLayout tabHome;
     @Bind(R.id.viewpager_home)
     ViewPager viewpagerHome;
-    @Bind(R.id.fab)
-    FloatingActionButton fab;
+    //@Bind(R.id.fab)
+    //FloatingActionButton fab;
     @Bind(R.id.nav_view)
     NavigationView navigationView;
     @Bind(R.id.drawer_layout)
@@ -107,13 +107,6 @@ public class MainActivity extends AppCompatActivity
         List<Fragment> fragmentList = new ArrayList<Fragment>(Arrays.asList(new NewsFragmnt(), new HotFragment()));
         setSupportActionBar(toolbar);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                EventBus.getDefault().post(new HomeEventEntity.OperatorType("refresh"));
-            }
-        });
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -131,9 +124,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void drawerSetting() {
-
         setNoImageMode();
-
         setNightMode();
     }
 
@@ -203,7 +194,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -211,8 +202,12 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //        if (id == R.id.action_nightMode) {
-        //        }
+        if (id == R.id.action_renew) {
+            EventBus.getDefault().post(new HomeEventEntity.OperatorType("refresh"));
+        } else if (id == R.id.action_settings) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -267,7 +262,7 @@ public class MainActivity extends AppCompatActivity
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
 
             if ((System.currentTimeMillis() - exitTime) > 3000) {
-                Snackbar.make(fab, "再按一次退出", Snackbar.LENGTH_SHORT).setAction("立即退出", new View.OnClickListener() {
+                Snackbar.make(toolbar, "再按一次退出", Snackbar.LENGTH_SHORT).setAction("立即退出", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         finish();
@@ -302,7 +297,7 @@ public class MainActivity extends AppCompatActivity
         if (requestCode == PERMISSION_WRITE_EXT) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             } else {
-                Snackbar.make(fab, "读写文件权限被拒绝，将不能缓存数据.", Snackbar.LENGTH_SHORT).setAction("授权", new View.OnClickListener() {
+                Snackbar.make(toolbar, "读写文件权限被拒绝，将不能缓存数据.", Snackbar.LENGTH_SHORT).setAction("授权", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         askForPermission();

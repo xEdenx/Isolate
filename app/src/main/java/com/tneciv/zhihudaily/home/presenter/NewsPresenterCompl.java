@@ -28,7 +28,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Tneciv on 1-15-0015.
+ * Created by Tneciv
+ * on 2016-06-23 17:23 .
  */
 public class NewsPresenterCompl implements INewsPresenter {
 

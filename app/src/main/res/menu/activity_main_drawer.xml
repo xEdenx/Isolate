@@ -40,13 +40,13 @@
         <item xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/noImagesSwitch"
             android:title="@string/noImages"
-            app:actionLayout="@layout/drawer_setting"
+            app:actionLayout="@layout/drawer_switchcompat"
             app:showAsAction="always" />
 
         <item xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/dayNightSwitch"
             android:title="@string/dayNightMode"
-            app:actionLayout="@layout/drawer_setting"
+            app:actionLayout="@layout/drawer_switchcompat"
             app:showAsAction="always" />
     </group>
 

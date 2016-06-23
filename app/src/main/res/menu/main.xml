@@ -7,10 +7,10 @@
         android:title="@string/action_settings"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_nightMode"
+        android:id="@+id/action_renew"
         android:orderInCategory="100"
-        android:title="@string/dayNightMode"
-        android:icon="@drawable/ic_action_bulb"
-        app:showAsAction="never" />
+        android:title="@string/renew"
+        android:icon="@drawable/ic_autorenew"
+        app:showAsAction="always" />
 
 </menu>
