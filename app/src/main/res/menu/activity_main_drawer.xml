@@ -9,11 +9,11 @@
         <item
             android:id="@+id/nav_theme"
             android:icon="@drawable/ic_action_mustache"
-            android:title="@string/allSections" />
+            android:title="@string/all_sections" />
         <item
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/ic_action_knight"
-            android:title="@string/HistoryDaily" />
+            android:title="@string/history_daily" />
         <!--<item-->
         <!--android:id="@+id/nav_manage"-->
         <!--android:icon="@drawable/ic_menu_manage"-->
@@ -39,13 +39,13 @@
 
         <item xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/noImagesSwitch"
-            android:title="@string/noImages"
+            android:title="@string/no_image_mode"
             app:actionLayout="@layout/drawer_switchcompat"
             app:showAsAction="always" />
 
         <item xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/dayNightSwitch"
-            android:title="@string/dayNightMode"
+            android:title="@string/day_night_mode"
             app:actionLayout="@layout/drawer_switchcompat"
             app:showAsAction="always" />
     </group>

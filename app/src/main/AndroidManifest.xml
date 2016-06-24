@@ -38,11 +38,11 @@
         </activity>
         <activity
             android:name=".history.view.HistoryActivity"
-            android:label="@string/HistoryDaily"
+            android:label="@string/history_daily"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".theme.view.ThemeActivity"
-            android:label="@string/allSections"
+            android:label="@string/all_sections"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".about.AboutActivity"
@@ -65,12 +65,9 @@
             android:value="f6ca063d703f8e69a7a6f501de3373fc"/>
 
         <activity
-            android:name=".setting.view.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".home.view.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tneciv.zhihudaily.home.view.MainActivity"/>
+            android:name=".setting.view.SettingActivity"
+            android:label="@string/action_settings"
+            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 

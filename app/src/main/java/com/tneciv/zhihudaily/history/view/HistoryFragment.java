@@ -17,7 +17,7 @@ import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.home.view.NewsFragmnt;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -27,11 +27,11 @@ import butterknife.OnClick;
 public class HistoryFragment extends Fragment {
 
 
-    @Bind(R.id.datePicker)
+    @BindView(R.id.datePicker)
     DatePicker datePicker;
-    @Bind(R.id.btn_showTime)
+    @BindView(R.id.btn_showTime)
     Button btnShowTime;
-    @Bind(R.id.coordinator_fragment)
+    @BindView(R.id.coordinator_fragment)
     LinearLayout coordinatorFragment;
 
     public HistoryFragment() {
@@ -65,7 +65,6 @@ public class HistoryFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

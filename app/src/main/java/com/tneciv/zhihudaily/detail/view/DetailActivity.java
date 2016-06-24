@@ -27,12 +27,13 @@ import com.squareup.leakcanary.RefWatcher;
 import com.squareup.picasso.Picasso;
 import com.tneciv.zhihudaily.MyApplication;
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.constants.Constants;
 import com.tneciv.zhihudaily.detail.model.ContentEntity;
 import com.tneciv.zhihudaily.detail.presenter.DetailPresenterCompl;
 import com.tneciv.zhihudaily.detail.presenter.IDetailPresenter;
 import com.tneciv.zhihudaily.utils.CacheUtil;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -46,19 +47,19 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
     private boolean noImagesMode;
     private boolean nightMode;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.fab)
+    @BindView(R.id.fab)
     FloatingActionButton fab;
-    @Bind(R.id.imgContent)
+    @BindView(R.id.imgContent)
     ImageView imgContent;
-    @Bind(R.id.collapsingToolbar)
+    @BindView(R.id.collapsingToolbar)
     CollapsingToolbarLayout collapsingToolbar;
-    @Bind(R.id.custTitle)
+    @BindView(R.id.custTitle)
     TextView custTitle;
-    @Bind(R.id.webView)
+    @BindView(R.id.webView)
     WebView webView;
-    @Bind(R.id.appBarLayout)
+    @BindView(R.id.appBarLayout)
     AppBarLayout appBarLayout;
 
     @Override
@@ -68,9 +69,9 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         ButterKnife.bind(this);
         SwipeBackHelper.onCreate(this);
         EventBus.getDefault().register(this);
-        SharedPreferences preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
-        noImagesMode = preferences.getBoolean("noImagesMode", false);
-        nightMode = preferences.getBoolean("dayNightMode", false);
+        SharedPreferences preferences = getSharedPreferences(Constants.PREF_CONFIG_KEY, Context.MODE_PRIVATE);
+        noImagesMode = preferences.getBoolean(Constants.NO_IMAGE_MODE, false);
+        nightMode = preferences.getBoolean(Constants.DAY_NIGHT_MODE, false);
         initView();
         iDetailPresenter = new DetailPresenterCompl(this);
         String cache = new CacheUtil(this).loadCache(String.valueOf(id));
@@ -88,7 +89,6 @@ public class DetailActivity extends AppCompatActivity implements IDeatilView {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         SwipeBackHelper.onDestroy(this);
-        ButterKnife.unbind(this);
         RefWatcher watcher = MyApplication.getRefWatcher(this);
         watcher.watch(this);
     }

@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Tneciv on 1-15-0015.
+ * Created by Tneciv
+ * on 2016-06-24 17:56 .
  */
 public class NewsEntity implements Serializable {
 

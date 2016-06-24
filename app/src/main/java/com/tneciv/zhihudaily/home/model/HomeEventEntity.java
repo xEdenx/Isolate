@@ -4,7 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Tneciv on 1-17-0017.
+ * Created by Tneciv
+ * on 2016-06-24 17:55 .
  */
 public final class HomeEventEntity implements Serializable {
 

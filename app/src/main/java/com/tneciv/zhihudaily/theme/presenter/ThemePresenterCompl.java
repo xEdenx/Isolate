@@ -8,7 +8,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.tneciv.zhihudaily.api.ZhihuApi;
-import com.tneciv.zhihudaily.costants.ErrorEntity;
+import com.tneciv.zhihudaily.constants.ErrorEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 import com.tneciv.zhihudaily.utils.CacheUtil;
@@ -26,7 +26,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Tneciv on 1-31-0031.
+ * Created by Tneciv
+ * on 2016-06-24 17:03 .
  */
 public class ThemePresenterCompl implements IThemePresenter {
 

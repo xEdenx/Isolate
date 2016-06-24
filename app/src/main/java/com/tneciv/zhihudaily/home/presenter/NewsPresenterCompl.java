@@ -8,7 +8,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.tneciv.zhihudaily.api.ZhihuApi;
-import com.tneciv.zhihudaily.costants.ErrorEntity;
+import com.tneciv.zhihudaily.constants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.model.NewsEntity;

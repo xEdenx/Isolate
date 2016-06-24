@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.base.BaseListFragment;
+import com.tneciv.zhihudaily.constants.Constants;
 import com.tneciv.zhihudaily.theme.model.ThemeEntity;
 import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 import com.tneciv.zhihudaily.theme.presenter.IThemePresenter;
@@ -37,7 +38,7 @@ public class ThemeFragment extends BaseListFragment implements IThemeView {
 
     @Override
     public void init() {
-        boolean isNightMode = config.getBoolean("dayNightMode", false);
+        boolean isNightMode = config.getBoolean(Constants.DAY_NIGHT_MODE, false);
         iThemePresenter = new ThemePresenterCompl(getContext());
         adapter = new ThemeRecyclerAdapter(getContext(), entities, isNightMode);
         recyclerView.setAdapter(adapter);

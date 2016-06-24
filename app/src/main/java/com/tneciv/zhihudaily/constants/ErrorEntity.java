@@ -1,4 +1,4 @@
-package com.tneciv.zhihudaily.costants;
+package com.tneciv.zhihudaily.constants;
 
 import java.io.Serializable;
 

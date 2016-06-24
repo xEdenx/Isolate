@@ -1,38 +1,22 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:key="login"
+        android:key="basic"
         android:title="基本设置">
         <SwitchPreference
+            android:defaultValue="false"
             android:key="noImageMode"
             android:summary="开启后内容详情页无图，节省流量"
             android:title="无图模式"/>
         <SwitchPreference
+            android:defaultValue="false"
             android:key="dayNightMode"
             android:title="夜间模式"/>
-        <SwitchPreference
-            android:key="enable_force_touch"
-            android:summary="sdasdd"
-            android:title="sdasdd"/>
-        <SwitchPreference
-            android:key="content_selectable"
-            android:summary="sdasdd"
-            android:title="sdasdd"/>
-
     </PreferenceCategory>
     <PreferenceCategory
-        android:key="user"
-        android:title="sdasdd">
-        <Preference android:key="user_info"/>
-        <SwitchPreference
-            android:key="receive_notifications"
-            android:summary="sdasdd"
-            android:title="sdasdd"/>
-        <SwitchPreference
-            android:key="enable_undo"
-            android:summary="sdasdd"
-            android:title="sdasdd"/>
+        android:key="other"
+        android:title="其他">
         <Preference
-            android:key="logout"
-            android:title="sdasdd"/>
+            android:key="cacheClean"
+            android:title="清除缓存"/>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -17,13 +17,14 @@ import com.tneciv.zhihudaily.theme.model.ThemeResultEntity;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by Tneciv on 2-6-0006.
+ * Created by Tneciv
+ * on 2016-06-24 17:03 .
  */
 public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdapter.ThemeViewHolder> {
     private Context context;
@@ -70,13 +71,13 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
     }
 
     public class ThemeViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.image_theme)
+        @BindView(R.id.image_theme)
         ImageView imageTheme;
-        @Bind(R.id.theme_title)
+        @BindView(R.id.theme_title)
         TextView themeTitle;
-        @Bind(R.id.theme_desc)
+        @BindView(R.id.theme_desc)
         TextView themeDesc;
-        @Bind(R.id.theme_textAera)
+        @BindView(R.id.theme_textAera)
         LinearLayout themeTextAera;
 
         public ThemeViewHolder(View itemView) {

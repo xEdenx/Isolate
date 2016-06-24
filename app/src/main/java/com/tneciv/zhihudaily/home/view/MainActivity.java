@@ -31,11 +31,12 @@ import com.squareup.leakcanary.RefWatcher;
 import com.tneciv.zhihudaily.MyApplication;
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.about.AboutActivity;
-import com.tneciv.zhihudaily.costants.ErrorEntity;
+import com.tneciv.zhihudaily.constants.Constants;
+import com.tneciv.zhihudaily.constants.ErrorEntity;
 import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
-import com.tneciv.zhihudaily.setting.view.SettingsActivity;
+import com.tneciv.zhihudaily.setting.view.SettingActivity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 import com.tneciv.zhihudaily.utils.IMMLeaks;
 
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -54,17 +55,15 @@ public class MainActivity extends AppCompatActivity
 
     private static final int PERMISSION_WRITE_EXT = 222;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.tab_home)
+    @BindView(R.id.tab_home)
     TabLayout tabHome;
-    @Bind(R.id.viewpager_home)
+    @BindView(R.id.viewpager_home)
     ViewPager viewpagerHome;
-    //@Bind(R.id.fab)
-    //FloatingActionButton fab;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navigationView;
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
 
     private SharedPreferences config;
@@ -79,8 +78,8 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         askForPermission();
-        config = getSharedPreferences("config", Context.MODE_PRIVATE);
-        nightMode = config.getBoolean("dayNightMode", false);
+        config = getSharedPreferences(Constants.PREF_CONFIG_KEY, Context.MODE_PRIVATE);
+        nightMode = config.getBoolean(Constants.DAY_NIGHT_MODE, false);
         showIntro();
         initView();
     }
@@ -89,7 +88,6 @@ public class MainActivity extends AppCompatActivity
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        ButterKnife.unbind(this);
         RefWatcher watcher = MyApplication.getRefWatcher(this);
         watcher.watch(this);
     }
@@ -151,13 +149,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void disableNightMode() {
-        config.edit().putBoolean("dayNightMode", false).apply();
+        config.edit().putBoolean(Constants.DAY_NIGHT_MODE, false).apply();
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         recreate();
     }
 
     private void enableNightMode() {
-        config.edit().putBoolean("dayNightMode", true).apply();
+        config.edit().putBoolean(Constants.DAY_NIGHT_MODE, true).apply();
         getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         recreate();
     }
@@ -165,7 +163,7 @@ public class MainActivity extends AppCompatActivity
     private void setNoImageMode() {
         MenuItem noImageItem = navigationView.getMenu().findItem(R.id.noImagesSwitch);
         SwitchCompat noImagesSwitch = (SwitchCompat) MenuItemCompat.getActionView(noImageItem).findViewById(R.id.noImagesSwitch);
-        boolean noImagesMode = config.getBoolean("noImagesMode", false);
+        boolean noImagesMode = config.getBoolean(Constants.NO_IMAGE_MODE, false);
         if (noImagesMode) {
             noImagesSwitch.setChecked(true);
         } else {
@@ -175,9 +173,9 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    config.edit().putBoolean("noImagesMode", true).apply();
+                    config.edit().putBoolean(Constants.NO_IMAGE_MODE, true).apply();
                 } else {
-                    config.edit().putBoolean("noImagesMode", false).apply();
+                    config.edit().putBoolean(Constants.NO_IMAGE_MODE, false).apply();
                 }
             }
         });
@@ -205,7 +203,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_renew) {
             EventBus.getDefault().post(new HomeEventEntity.OperatorType("refresh"));
         } else if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
+            Intent intent = new Intent(this, SettingActivity.class);
             startActivity(intent);
         }
 
@@ -307,4 +305,5 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
 }

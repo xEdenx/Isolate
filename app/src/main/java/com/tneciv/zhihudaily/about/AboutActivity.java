@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 
 import com.github.paolorotolo.appintro.AppIntro;
 import com.tneciv.zhihudaily.R;
+import com.tneciv.zhihudaily.constants.Constants;
 import com.tneciv.zhihudaily.home.view.MainActivity;
 
 public class AboutActivity extends AppIntro {
@@ -24,11 +25,11 @@ public class AboutActivity extends AppIntro {
         setZoomAnimation();
         showSkipButton(true);
 
-        setSkipText("忽略");
-        setDoneText("开始");
-
         askForPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         askForPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 2);
+
+        setSkipText("忽略");
+        setDoneText("开始");
     }
 
     @Override
@@ -55,7 +56,7 @@ public class AboutActivity extends AppIntro {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
-        SharedPreferences preferences = getSharedPreferences("config", Context.MODE_PRIVATE);
+        SharedPreferences preferences = getSharedPreferences(Constants.PREF_CONFIG_KEY, Context.MODE_PRIVATE);
         preferences.edit().putBoolean("showIntro", true).apply();
 
         finish();

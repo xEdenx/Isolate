@@ -6,6 +6,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.tneciv.zhihudaily.api.ZhihuApi;
 import com.tneciv.zhihudaily.base.BaseListFragment;
+import com.tneciv.zhihudaily.constants.Constants;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.home.model.HotEntity;
 import com.tneciv.zhihudaily.home.presenter.INewsPresenter;
@@ -35,7 +36,7 @@ public class HotFragment extends BaseListFragment implements IHotView {
 
     @Override
     public void init() {
-        Boolean nightMode = config.getBoolean("dayNightMode", false);
+        Boolean nightMode = config.getBoolean(Constants.DAY_NIGHT_MODE, false);
         iNewsPresenter = new NewsPresenterCompl(this, getContext());
         recyclerAdapter = new HotRecyclerAdapter(getContext(), hotEntities, nightMode);
     }

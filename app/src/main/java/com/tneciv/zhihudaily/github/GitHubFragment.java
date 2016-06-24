@@ -1,7 +1,6 @@
 package com.tneciv.zhihudaily.github;
 
 
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.tneciv.zhihudaily.base.BaseListFragment;
@@ -13,9 +12,6 @@ import net.yslibrary.licenseadapter.Licenses;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class GitHubFragment extends BaseListFragment {
 
     private List<LicenseEntry> licenses = new ArrayList<>();

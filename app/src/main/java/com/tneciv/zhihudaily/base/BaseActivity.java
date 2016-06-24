@@ -22,13 +22,14 @@ import android.widget.Toast;
 
 import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.about.AboutActivity;
-import com.tneciv.zhihudaily.costants.ErrorEntity;
+import com.tneciv.zhihudaily.constants.Constants;
+import com.tneciv.zhihudaily.constants.ErrorEntity;
 import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.view.MainActivity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -36,14 +37,14 @@ import de.greenrobot.event.ThreadMode;
 
 public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    @Bind(R.id.frame_base)
-    FrameLayout frameLayout;
-    @Bind(R.id.nav_view_base)
-    NavigationView navigationView;
-    @Bind(R.id.drawer_layout_base)
-    DrawerLayout drawerLayout;
-    @Bind(R.id.toolbar_base)
+    @BindView(R.id.toolbar_base)
     Toolbar toolbar;
+    @BindView(R.id.frame_base)
+    FrameLayout frameLayout;
+    @BindView(R.id.nav_view_base)
+    NavigationView navigationView;
+    @BindView(R.id.drawer_layout_base)
+    DrawerLayout drawerLayout;
 
     private SharedPreferences config;
     public int mDayNightMode = AppCompatDelegate.MODE_NIGHT_AUTO;
@@ -54,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
-        config = getSharedPreferences("config", Context.MODE_PRIVATE);
+        config = getSharedPreferences(Constants.PREF_CONFIG_KEY, Context.MODE_PRIVATE);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -85,7 +86,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
         EventBus.getDefault().unregister(this);
     }
 
@@ -161,8 +161,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
 
         MenuItem noImageItem = navigationView.getMenu().findItem(R.id.noImagesSwitch);
         SwitchCompat noImagesSwitch = (SwitchCompat) MenuItemCompat.getActionView(noImageItem).findViewById(R.id.noImagesSwitch);
-        boolean noImagesMode = config.getBoolean("noImagesMode", false);
-        if (noImagesMode) {
+        boolean noImageMode = config.getBoolean(Constants.NO_IMAGE_MODE, false);
+        if (noImageMode) {
             noImagesSwitch.setChecked(true);
         } else {
             noImagesSwitch.setChecked(false);
@@ -171,16 +171,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    config.edit().putBoolean("noImagesMode", true).apply();
+                    config.edit().putBoolean(Constants.NO_IMAGE_MODE, true).apply();
                 } else {
-                    config.edit().putBoolean("noImagesMode", false).apply();
+                    config.edit().putBoolean(Constants.NO_IMAGE_MODE, false).apply();
                 }
             }
         });
 
         MenuItem dayNightItem = navigationView.getMenu().findItem(R.id.dayNightSwitch);
         SwitchCompat dayNightSwitch = (SwitchCompat) MenuItemCompat.getActionView(dayNightItem).findViewById(R.id.dayNightSwitch);
-        boolean nightMode = config.getBoolean("dayNightMode", false);
+        boolean nightMode = config.getBoolean(Constants.DAY_NIGHT_MODE, false);
         if (nightMode) {
             dayNightSwitch.setChecked(true);
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -192,11 +192,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    config.edit().putBoolean("dayNightMode", true).apply();
+                    config.edit().putBoolean(Constants.DAY_NIGHT_MODE, true).apply();
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     recreate();
                 } else {
-                    config.edit().putBoolean("dayNightMode", false).apply();
+                    config.edit().putBoolean(Constants.DAY_NIGHT_MODE, false).apply();
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     recreate();
                 }

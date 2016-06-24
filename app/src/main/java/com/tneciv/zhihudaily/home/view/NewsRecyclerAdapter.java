@@ -17,12 +17,13 @@ import com.tneciv.zhihudaily.home.model.NewsEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Tneciv on 1-15-0015.
+ * Created by Tneciv
+ * on 2016-06-24 16:57 .
  */
 public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapter.NewsViewHolder> {
     List<NewsEntity> list = new ArrayList<>();
@@ -38,8 +39,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.news_item, parent, false);
-        NewsViewHolder newsViewHolder = new NewsViewHolder(view);
-        return newsViewHolder;
+        return new NewsViewHolder(view);
     }
 
     @Override
@@ -59,9 +59,9 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     }
 
     class NewsViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.img_news)
+        @BindView(R.id.img_news)
         ImageView imgNews;
-        @Bind(R.id.title_news)
+        @BindView(R.id.title_news)
         TextView titleNews;
 
         public NewsViewHolder(View itemView) {

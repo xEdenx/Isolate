@@ -18,12 +18,13 @@ import com.tneciv.zhihudaily.home.model.HotEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by Tneciv on 1-17-0017.
+ * Created by Tneciv
+ * on 2016-06-24 16:55 .
  */
 public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.HotViewHolder> {
 
@@ -42,8 +43,7 @@ public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.
     @Override
     public HotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.hot_item, parent, false);
-        HotViewHolder hotViewHolder = new HotViewHolder(view);
-        return hotViewHolder;
+        return new HotViewHolder(view);
     }
 
     @Override
@@ -69,9 +69,9 @@ public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.
     }
 
     class HotViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.img_hot)
+        @BindView(R.id.img_hot)
         ImageView imgHot;
-        @Bind(R.id.title_hot)
+        @BindView(R.id.title_hot)
         TextView titleHot;
 
         public HotViewHolder(View itemView) {

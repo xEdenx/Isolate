@@ -12,10 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tneciv.zhihudaily.R;
-import com.tneciv.zhihudaily.costants.ErrorEntity;
+import com.tneciv.zhihudaily.constants.Constants;
+import com.tneciv.zhihudaily.constants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -26,9 +27,9 @@ import de.greenrobot.event.ThreadMode;
  */
 public abstract class BaseListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    @Bind(R.id.home_container)
+    @BindView(R.id.home_container)
     public RecyclerView recyclerView;
-    @Bind(R.id.swipeRefresh)
+    @BindView(R.id.swipeRefresh)
     public SwipeRefreshLayout swipeRefresh;
 
     public SharedPreferences config;
@@ -43,7 +44,8 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
         View view = inflater.inflate(R.layout.recyclerview_list, container, false);
         ButterKnife.bind(this, view);
         EventBus.getDefault().register(this);
-        config = getActivity().getSharedPreferences("config", Context.MODE_PRIVATE);
+        config = getActivity().getSharedPreferences(Constants.PREF_CONFIG_KEY, Context.MODE_PRIVATE);
+        swipeRefresh.setRefreshing(true);
         swipeRefresh.setOnRefreshListener(this);
         swipeRefresh.setColorSchemeResources(R.color.accent, R.color.primary);
         init();
@@ -56,12 +58,11 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
-        ButterKnife.unbind(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void operator(HomeEventEntity.OperatorType type) {
-        if (type.getOperatorType() == "refresh") {
+        if (type.getOperatorType().equals("refresh")) {
             swipeRefresh.setRefreshing(true);
             onRefresh();
         }
@@ -69,6 +70,12 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
 
     @Subscribe(threadMode = ThreadMode.MainThread)
     public void errorHandler(ErrorEntity errorEntity) {
+        swipeRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         swipeRefresh.setRefreshing(false);
     }
 
