@@ -32,10 +32,10 @@ android {
         variant.outputs[0].outputFile = new File(file.parent, file.name.replace("app-release.apk", defaultConfig.applicationId + "-" + defaultConfig.versionName + "-" + defaultConfig.versionCode + "-release" + ".apk"))
     }
 
-    compileOptions {
-        targetCompatibility JavaVersion.VERSION_1_7
-        sourceCompatibility JavaVersion.VERSION_1_7
-    }
+//    compileOptions {
+//        targetCompatibility JavaVersion.VERSION_1_8
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//    }
 }
 
 dependencies {
