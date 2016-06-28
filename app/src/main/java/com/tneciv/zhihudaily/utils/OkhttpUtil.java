@@ -4,7 +4,8 @@ package com.tneciv.zhihudaily.utils;
 import okhttp3.OkHttpClient;
 
 /**
- * Created by Tneciv on 1-15-0015.
+ * Created by Tneciv
+ * on 2016-06-28 11:20 .
  */
 public final class OkhttpUtil {
     private static volatile OkHttpClient defaultInstance;
