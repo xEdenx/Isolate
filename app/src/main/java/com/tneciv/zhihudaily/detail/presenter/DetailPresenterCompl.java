@@ -23,7 +23,7 @@ public class DetailPresenterCompl implements IDetailPresenter {
     private Context mContext;
 
     public DetailPresenterCompl(Context context) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
     }
 
     @Override

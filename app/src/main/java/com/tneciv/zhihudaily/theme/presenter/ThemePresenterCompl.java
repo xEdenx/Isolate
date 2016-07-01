@@ -34,7 +34,7 @@ public class ThemePresenterCompl implements IThemePresenter {
     private Context mContext;
 
     public ThemePresenterCompl(Context context) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
     }
 
     @Override

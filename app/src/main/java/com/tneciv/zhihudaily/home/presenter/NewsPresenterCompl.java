@@ -37,7 +37,7 @@ public class NewsPresenterCompl implements INewsPresenter {
 
     public NewsPresenterCompl(INewsView iNewsView, Context context) {
         INewsView iNewsView1 = iNewsView;
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
     }
 
     public NewsPresenterCompl(IHotView iHotView, Context context) {
