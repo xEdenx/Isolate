@@ -33,7 +33,7 @@ public class ThemeRecyclerAdapter extends RecyclerView.Adapter<ThemeRecyclerAdap
     private Boolean isNightMode;
 
     public ThemeRecyclerAdapter(Context context, List<ThemeEntity> entities, boolean isNightMode) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         this.entities = entities;
         inflater = LayoutInflater.from(context);
         this.isNightMode = isNightMode;

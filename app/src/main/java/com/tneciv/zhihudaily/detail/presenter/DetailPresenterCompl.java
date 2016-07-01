@@ -17,7 +17,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Tneciv on 1-16-0016.
+ * Created by Tneciv
+ * on 2016-07-01 13:58 .
  */
 public class DetailPresenterCompl implements IDetailPresenter {
     private Context mContext;

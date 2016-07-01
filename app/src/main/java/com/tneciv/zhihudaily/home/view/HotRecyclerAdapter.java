@@ -34,7 +34,7 @@ public class HotRecyclerAdapter extends RecyclerView.Adapter<HotRecyclerAdapter.
     private Boolean isNightMode;
 
     public HotRecyclerAdapter(Context context, List<HotEntity> list, Boolean isNightMode) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         this.list = list;
         this.isNightMode = isNightMode;
         inflater = LayoutInflater.from(context);

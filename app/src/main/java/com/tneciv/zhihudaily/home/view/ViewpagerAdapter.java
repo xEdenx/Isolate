@@ -20,7 +20,7 @@ public class ViewpagerAdapter extends FragmentStatePagerAdapter {
 
     public ViewpagerAdapter(FragmentManager fm, Context context, List<Fragment> fragments) {
         super(fm);
-        this.context = context;
+        this.context = context.getApplicationContext();
         this.fragments = fragments;
     }
 
