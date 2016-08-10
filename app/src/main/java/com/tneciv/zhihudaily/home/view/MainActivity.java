@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        IMMLeaks.fixFocusedViewLeak(getApplication());
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
         askForPermission();
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity
         nightMode = config.getBoolean(Constants.DAY_NIGHT_MODE, false);
         showIntro();
         initView();
+        IMMLeaks.fixFocusedViewLeak(getApplication());
     }
 
     @Override

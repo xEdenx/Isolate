@@ -136,12 +136,12 @@ public class IMMLeaks {
 
     /**
      * Fix for https://code.google.com/p/android/issues/detail?id=171190 .
-     * <p/>
+     * <p>
      * When a view that has focus gets detached, we wait for the main thread to be idle and then
      * check if the InputMethodManager is leaking a view. If yes, we tell it that the decor view got
      * focus, which is what happens if you press home and come back from recent apps. This replaces
      * the reference to the detached view with a reference to the decor view.
-     * <p/>
+     * <p>
      * Should be called from {@link Activity#onCreate(android.os.Bundle)} )}.
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)

@@ -9,7 +9,8 @@ import com.squareup.leakcanary.RefWatcher;
 import im.fir.sdk.FIR;
 
 /**
- * Created by Tneciv on 2-19-0019.
+ * Created by Tneciv
+ * on 2016-07-15 15:05 .
  */
 public class MyApplication extends Application {
 
@@ -26,9 +27,5 @@ public class MyApplication extends Application {
         FIR.init(this);
         refWatcher = LeakCanary.install(this);
     }
-
-//    static {
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-//    }
 
 }

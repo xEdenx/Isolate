@@ -43,10 +43,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile files('libs/Bughd_android_sdk_v1.3.7.jar')
 
-    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${project.ext.leakcanaryVersion}"
-    debugCompile "com.squareup.leakcanary:leakcanary-android:${project.ext.leakcanaryVersion}"
-    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${project.ext.leakcanaryVersion}"
-
     compile "com.android.support:appcompat-v7:${project.ext.supportLibraryVersion}"
     compile "com.android.support:design:${project.ext.supportLibraryVersion}"
     compile "com.android.support:recyclerview-v7:${project.ext.supportLibraryVersion}"
@@ -56,6 +52,10 @@ dependencies {
 
     compile "com.google.code.gson:gson:${project.ext.gsonVersion}"
     compile "com.google.guava:guava-io:${project.ext.guavaVersion}"
+
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:${project.ext.leakcanaryVersion}"
+    debugCompile "com.squareup.leakcanary:leakcanary-android:${project.ext.leakcanaryVersion}"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:${project.ext.leakcanaryVersion}"
 
     compile "com.squareup.okhttp3:okhttp:${project.ext.okhttpVersion}"
     compile "com.squareup.okhttp3:okhttp-urlconnection:${project.ext.okhttpVersion}"

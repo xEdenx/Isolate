@@ -13,7 +13,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 /**
- * Created by Tneciv on 5-8-0008 .
+ * Created by Tneciv
+ * on 2016-07-06 22:14 .
  */
 public class CacheUtil {
     public static final int APP_VERSION = 1;
@@ -23,7 +24,7 @@ public class CacheUtil {
     private Context mContext;
 
     public CacheUtil(Context context) {
-        this.mContext = context;
+        this.mContext = context.getApplicationContext();
     }
 
     private File getDiskCacheDir(String uniqueName) {

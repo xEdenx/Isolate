@@ -15,6 +15,7 @@ import com.tneciv.zhihudaily.R;
 import com.tneciv.zhihudaily.constants.Constants;
 import com.tneciv.zhihudaily.constants.ErrorEntity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
+import com.tneciv.zhihudaily.utils.IMMLeaks;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +52,7 @@ public abstract class BaseListFragment extends Fragment implements SwipeRefreshL
         init();
         setRecyclerLayout();
         requestUrl();
+        IMMLeaks.fixFocusedViewLeak(getActivity().getApplication());
         return view;
     }
 
