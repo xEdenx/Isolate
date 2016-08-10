@@ -59,6 +59,7 @@ public class GitHubFragment extends BaseListFragment {
         licenses.add(Licenses.fromGitHub("square/leakcanary"));
         licenses.add(Licenses.fromGitHub("square/okhttp"));
         licenses.add(Licenses.fromGitHub("square/picasso"));
+        licenses.add(Licenses.fromGitHub("hugeterry/UpdateDemo"));
 
         // library that is hosted on GitHub, but does not provide license text
         // licenses.add(Licenses.fromGitHub("gabrielemariotti/changeloglib", Licenses.LICENSE_APACHE_V2));

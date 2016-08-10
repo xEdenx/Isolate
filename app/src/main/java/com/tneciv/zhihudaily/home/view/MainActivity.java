@@ -46,6 +46,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.hugeterry.updatefun.UpdateFunGO;
+import cn.hugeterry.updatefun.config.UpdateKey;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
 import de.greenrobot.event.ThreadMode;
@@ -94,11 +96,20 @@ public class MainActivity extends AppCompatActivity
 
     private void showIntro() {
         Boolean flag = config.getBoolean("showIntro", false);
+        Boolean isUpdate = config.getBoolean(Constants.IS_AUTO_UPDATE, false);
+
         if (!flag) {
             Intent intent = new Intent(this, AboutActivity.class);
             startActivity(intent);
             finish();
         }
+
+        if (isUpdate) {
+            UpdateKey.API_TOKEN = "635e91599f0d542f5aaa7c5719563b55";
+            UpdateKey.APP_ID = getPackageName();
+            UpdateFunGO.init(this);
+        }
+
     }
 
     private void initView() {

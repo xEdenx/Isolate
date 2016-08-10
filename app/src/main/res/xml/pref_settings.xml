@@ -2,21 +2,28 @@
     <PreferenceCategory
         android:key="basic"
         android:title="基本设置">
+        <!--<SwitchPreference-->
+        <!--android:defaultValue="false"-->
+        <!--android:key="noImageMode"-->
+        <!--android:summary="开启后内容详情页无图，节省流量"-->
+        <!--android:title="无图模式"/>-->
+        <!--<SwitchPreference-->
+        <!--android:defaultValue="false"-->
+        <!--android:key="dayNightMode"-->
+        <!--android:title="夜间模式"/>-->
         <SwitchPreference
             android:defaultValue="false"
-            android:key="noImageMode"
-            android:summary="开启后内容详情页无图，节省流量"
-            android:title="无图模式"/>
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="dayNightMode"
-            android:title="夜间模式"/>
+            android:key="isAutoUpdate"
+            android:title="应用内自动更新"/>
     </PreferenceCategory>
     <PreferenceCategory
         android:key="other"
         android:title="其他">
+        <!--<Preference-->
+        <!--android:key="cacheClean"-->
+        <!--android:title="清除缓存"/>-->
         <Preference
-            android:key="cacheClean"
-            android:title="清除缓存"/>
+            android:key="version"
+            android:title="当前版本"/>
     </PreferenceCategory>
 </PreferenceScreen>

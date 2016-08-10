@@ -10,4 +10,5 @@ public class Constants {
     public static final String DAY_NIGHT_MODE = "dayNightMode";
     public static final String CACHE_CLEAN = "cacheClean";
     public static final String CACHE_DIR = "json";
+    public static final String IS_AUTO_UPDATE = "isAutoUpdate";
 }
