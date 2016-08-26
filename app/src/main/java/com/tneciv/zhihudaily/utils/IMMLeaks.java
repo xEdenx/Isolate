@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 import static android.os.Build.VERSION.SDK_INT;
-import static android.os.Build.VERSION_CODES.KITKAT;
 
 /**
  * https://gist.github.com/pyricau/4df64341cc978a7de414
@@ -148,7 +147,7 @@ public class IMMLeaks {
     public static void fixFocusedViewLeak(Application application) {
 
         // Don't know about other versions yet.
-        if (SDK_INT < KITKAT || SDK_INT > 22) {
+        if (SDK_INT < 19 || SDK_INT > 23) {
             return;
         }
 
