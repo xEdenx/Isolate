@@ -38,7 +38,6 @@ import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.model.HomeEventEntity;
 import com.tneciv.zhihudaily.setting.view.SettingActivity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
-import com.tneciv.zhihudaily.utils.IMMLeaks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity
         nightMode = config.getBoolean(Constants.DAY_NIGHT_MODE, false);
         showIntro();
         initView();
-        IMMLeaks.fixFocusedViewLeak(getApplication());
     }
 
     @Override

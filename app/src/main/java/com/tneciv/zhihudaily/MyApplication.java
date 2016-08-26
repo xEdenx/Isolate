@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tneciv.zhihudaily.utils.IMMLeaks;
 
 import im.fir.sdk.FIR;
 
@@ -26,6 +27,7 @@ public class MyApplication extends Application {
         super.onCreate();
         FIR.init(this);
         refWatcher = LeakCanary.install(this);
+        IMMLeaks.fixFocusedViewLeak(this);
     }
 
 }

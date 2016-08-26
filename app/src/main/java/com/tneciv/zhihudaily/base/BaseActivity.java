@@ -28,7 +28,6 @@ import com.tneciv.zhihudaily.github.GithubActivity;
 import com.tneciv.zhihudaily.history.view.HistoryActivity;
 import com.tneciv.zhihudaily.home.view.MainActivity;
 import com.tneciv.zhihudaily.theme.view.ThemeActivity;
-import com.tneciv.zhihudaily.utils.IMMLeaks;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,7 +64,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         navigationView.setNavigationItemSelectedListener(this);
         drawerSetting();
         initView();
-        IMMLeaks.fixFocusedViewLeak(getApplication());
     }
 
     @Override
