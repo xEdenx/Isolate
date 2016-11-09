@@ -2,11 +2,15 @@ package com.tneciv.zhihudaily.module.main;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
 import com.tneciv.zhihudaily.R;
 
@@ -16,12 +20,14 @@ import butterknife.ButterKnife;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    //@BindView(R.id.toolbar)
-    //Toolbar mToolbar;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     @BindView(R.id.nav_view)
     NavigationView mNavView;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
+    @BindView(R.id.content_home)
+    FrameLayout mContentHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,20 +35,23 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         initView();
-        replaceFragment();
     }
 
-    private void replaceFragment() {
-
+    private void replaceFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_home, fragment)
+                .addToBackStack("fragment")
+                .commit();
     }
 
     private void initView() {
-        //setSupportActionBar(mToolbar);
-        //
-        //ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-        //        this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        //mDrawerLayout.addDrawerListener(toggle);
-        //toggle.syncState();
+        setSupportActionBar(mToolbar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         mNavView.setNavigationItemSelectedListener(this);
     }
