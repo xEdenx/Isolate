@@ -1,0 +1,71 @@
+// 读取签名配置文件
+ext.getSigningProperties = {
+
+    def propFile = file('signing.properties')
+    if (propFile.canRead()) {
+        def Properties props = new Properties()
+        props.load(new FileInputStream(propFile))
+        if (props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+            android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+            android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+            android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+            android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+        } else {
+            println 'signing.properties found but some entries are missing'
+            android.buildTypes.release.signingConfig = null
+        }
+    } else {
+        println 'signing.properties not found'
+        android.buildTypes.release.signingConfig = null
+    }
+
+}
+
+// 获取版本号
+ext.getVersionCode = {
+
+    def versionFile = file('version.properties')
+    if (versionFile.canRead()) {
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionFile))
+        def versionCode = versionProps['VERSION_CODE'].toInteger()
+        def runTasks = gradle.startParameter.taskNames
+        //仅在assembleRelease任务是增加版本号
+        if ('assembleRelease' in runTasks) {
+            versionProps['VERSION_CODE'] = (++versionCode).toString()
+            versionProps.store(versionFile.newWriter(), null)
+        }
+        return versionCode
+    } else {
+        throw new Exception("Could not find version.properties!")
+    }
+
+}
+
+// 读取 token 配置文件
+ext.getTokenProperties = {
+
+    def token
+    def propFile = file('token.properties')
+    if (propFile.canRead()) {
+        def Properties props = new Properties()
+        props.load(new FileInputStream(propFile))
+        if (props != null && props.containsKey('TOKEN')) {
+            token = props['TOKEN']
+        } else {
+            println 'token.properties found but some entries are missing'
+            token = null
+        }
+    } else {
+        println 'signing.properties not found'
+        token = null
+    }
+    return token
+
+}
+
+// 获取当前日期
+ext.createDate = {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC")).toInteger()
+}

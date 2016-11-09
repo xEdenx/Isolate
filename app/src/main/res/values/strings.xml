@@ -1,28 +1,11 @@
 <resources>
-    <string name="app_name">壁上观</string>
+    <string name="app_name">ZhihuDaily</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="action_settings">Settings</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string-array name="title_tab">
-        <item>最新日报</item>
-        <item>热门消息</item>
-    </string-array>
-    <string name="title_activity_detail">日报详情</string>
-    <string name="share">分享</string>
-    <string name="about">关于</string>
-    <string name="action_settings">设置</string>
-    <string name="history_daily">历史日报</string>
-    <string name="title_activity_drawer">DrawerActivity</string>
-    <string name="theme_list">主题日报</string>
-
-    <string name="title_activity_opensource">开源协议</string>
-    <string name="no_image_mode">无图模式</string>
-    <string name="day_night_mode">夜间模式</string>
-    <string name="renew">刷新</string>
-    <string name="all_sections">栏目概览</string>
-    <string name="title_activity_settings">Settings</string>
-
 </resources>

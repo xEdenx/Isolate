@@ -2,23 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.tneciv.zhihudaily">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
     <application
-        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".home.view.MainActivity"
+            android:name=".module.main.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,48 +17,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".detail.view.DetailActivity"
-            android:label="@string/title_activity_detail"
-            android:parentActivityName=".home.view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tneciv.zhihudaily.home.view.MainActivity"/>
-        </activity>
-        <activity
-            android:name=".history.view.HistoryActivity"
-            android:label="@string/history_daily"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".theme.view.ThemeActivity"
-            android:label="@string/all_sections"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-            android:name=".about.AboutActivity"
-            android:label="Welcome"
-            android:parentActivityName=".home.view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-            android:name=".github.GithubActivity"
-            android:label="@string/title_activity_opensource"
-            android:parentActivityName=".home.view.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.tneciv.zhihudaily.home.view.MainActivity"/>
-        </activity>
-
-        <meta-data
-            android:name="BUG_HD_SDK_GENERAL_KEY"
-            android:value="f6ca063d703f8e69a7a6f501de3373fc"/>
-
-        <activity
-            android:name=".setting.view.SettingActivity"
-            android:label="@string/action_settings"
-            android:theme="@style/AppTheme.NoActionBar">
         </activity>
     </application>
 
