@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         initView();
+        replaceFragment(new HomeFragment());
     }
 
     private void replaceFragment(Fragment fragment) {
