@@ -24,7 +24,9 @@ public class HomeFragment extends Fragment implements HomeContract.View {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mPresenter.subscribe();
+        return view;
     }
 
     @Override

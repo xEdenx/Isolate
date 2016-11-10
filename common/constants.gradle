@@ -1,5 +1,5 @@
 project.ext.supportLibraryVersion = '25.0.0'
-project.ext.leakcanaryVersion = '1.4-beta2'
+project.ext.leakcanaryVersion = '1.5'
 project.ext.okhttpVersion = '3.4.2'
 project.ext.butterknifeVersion = '8.4.0'
 project.ext.retrofitVersion = '2.1.0'

@@ -48,12 +48,10 @@ public class HomeActivity extends AppCompatActivity
 
     private void initView() {
         setSupportActionBar(mToolbar);
-
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-
         mNavView.setNavigationItemSelectedListener(this);
     }
 

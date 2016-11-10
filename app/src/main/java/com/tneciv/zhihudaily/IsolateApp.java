@@ -15,6 +15,9 @@ public class IsolateApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
         LeakCanary.install(this);
         CrashReport.initCrashReport(getApplicationContext(), "900053273", BuildConfig.DEBUG);
     }

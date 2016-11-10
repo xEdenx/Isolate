@@ -37,8 +37,8 @@ public class ApiServiceFactory {
 
                     defaultInstance = new Retrofit.Builder()
                             .baseUrl(DEFAULT_BASE_URL)
-                            .addConverterFactory(GsonConverterFactory.create())
                             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                            .addConverterFactory(GsonConverterFactory.create())
                             .client(okHttpClient)
                             .build();
 
