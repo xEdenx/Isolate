@@ -6,7 +6,7 @@ package com.tneciv.zhihudaily.base;
  */
 
 public interface BasePresenter {
-    void subscribe(String... state);
+    void subscribe(Object... state);
 
     void unSubscribe();
 }

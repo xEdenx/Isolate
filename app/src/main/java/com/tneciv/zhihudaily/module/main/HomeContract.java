@@ -13,5 +13,7 @@ public interface HomeContract {
     }
 
     interface View extends BaseView<Presenter> {
+        void showError(Throwable e);
     }
+
 }

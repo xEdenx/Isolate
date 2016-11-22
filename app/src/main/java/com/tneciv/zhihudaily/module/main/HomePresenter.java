@@ -27,7 +27,7 @@ public class HomePresenter implements HomeContract.Presenter {
     }
 
     @Override
-    public void subscribe(String... state) {
+    public void subscribe(Object... state) {
         ZhihuService service = ApiServiceFactory.getInstance().create(ZhihuService.class);
         Observable<NewsEntity> detail = service.getDetail(8959706);
         detail.subscribeOn(Schedulers.io())
@@ -45,7 +45,8 @@ public class HomePresenter implements HomeContract.Presenter {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mView.showError(e);
+                        Log.d("HomePresenter", e.getMessage() + "");
                     }
 
                     @Override
@@ -58,7 +59,7 @@ public class HomePresenter implements HomeContract.Presenter {
         list.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(hotEntity -> {
-                    Log.d("HomePresenter", "hotEntity.getRecent().size():" + hotEntity.getRecent().size());
+
                 });
     }
 
