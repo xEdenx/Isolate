@@ -1,6 +1,7 @@
 package com.tneciv.zhihudaily.module.main;
 
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -8,9 +9,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.tneciv.zhihudaily.R;
 
@@ -28,6 +31,10 @@ public class HomeActivity extends AppCompatActivity
     DrawerLayout mDrawerLayout;
     @BindView(R.id.content_home)
     FrameLayout mContentHome;
+    @BindView(R.id.bottom_navi_view)
+    BottomNavigationView mBottomNaviView;
+    @BindView(R.id.content_layout)
+    RelativeLayout mContentLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +42,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
         initView();
-        replaceFragment(new HomeFragment());
+        //replaceFragment(new HomeFragment());
     }
 
     private void replaceFragment(Fragment fragment) {
@@ -53,6 +60,19 @@ public class HomeActivity extends AppCompatActivity
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         mNavView.setNavigationItemSelectedListener(this);
+        mBottomNaviView.setOnNavigationItemSelectedListener(item -> {
+            Log.d("HomeActivity", "item.getItemId():" + item.getItemId());
+            switch (item.getItemId()) {
+                case R.id.nav_add:
+                    replaceFragment(new HomeFragment());
+                    break;
+                case R.id.nav_setting:
+                    replaceFragment(new HomeFragment());
+                default:
+                    break;
+            }
+            return true;
+        });
     }
 
     @Override

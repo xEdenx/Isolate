@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_add"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="call"/>
+    <item
+        android:id="@+id/nav_delete"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="message"/>
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="setting"/>
+
+    <item
+        android:id="@+id/nav_me"
+        android:icon="@drawable/ic_menu_send"
+        android:title="me"/>
+</menu>

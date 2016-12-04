@@ -7,11 +7,11 @@ import com.tneciv.zhihudaily.entity.NewsEntity;
 import com.tneciv.zhihudaily.retrofit.ApiServiceFactory;
 import com.tneciv.zhihudaily.retrofit.ZhihuService;
 
-import io.reactivex.Observable;
-import io.reactivex.Observer;
+import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
+import io.reactivex.subscribers.ResourceSubscriber;
 
 /**
  * Created by Tneciv
@@ -20,51 +20,64 @@ import io.reactivex.schedulers.Schedulers;
 
 public class HomePresenter implements HomeContract.Presenter {
     private HomeContract.View mView;
+    private CompositeDisposable mCompositeDisposable;
 
     public HomePresenter(HomeContract.View view) {
         mView = view;
         mView.setPresenter(this);
+        mCompositeDisposable = new CompositeDisposable();
     }
 
     @Override
     public void subscribe(Object... state) {
         ZhihuService service = ApiServiceFactory.getInstance().create(ZhihuService.class);
-        Observable<NewsEntity> detail = service.getDetail(8959706);
-        detail.subscribeOn(Schedulers.io())
+        Flowable<NewsEntity> detail = service.getDetail(8959706);
+
+        Log.d("HomePresenter", "wth");
+
+        mCompositeDisposable.add(detail.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<NewsEntity>() {
+                .subscribeWith(new ResourceSubscriber<NewsEntity>() {
                     @Override
-                    public void onSubscribe(Disposable d) {
-
+                    public void onNext(NewsEntity newsEntity) {
+                        Log.d("HomePresenter", newsEntity.getTitle());
                     }
 
                     @Override
-                    public void onNext(NewsEntity value) {
-                        Log.d("HomePresenter", value.getTitle());
-                    }
+                    public void onError(Throwable t) {
 
-                    @Override
-                    public void onError(Throwable e) {
-                        mView.showError(e);
-                        Log.d("HomePresenter", e.getMessage() + "");
                     }
 
                     @Override
                     public void onComplete() {
 
                     }
-                });
+                }));
 
-        Observable<HotEntity> list = service.getHotList();
-        list.subscribeOn(Schedulers.io())
+        Flowable<HotEntity> list = service.getHotList();
+        mCompositeDisposable.add(list.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(hotEntity -> {
+                .subscribeWith(new ResourceSubscriber<HotEntity>() {
+                    @Override
+                    public void onNext(HotEntity hotEntity) {
 
-                });
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+
     }
 
     @Override
     public void unSubscribe() {
-
+        mCompositeDisposable.clear();
     }
 }
