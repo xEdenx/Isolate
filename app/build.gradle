@@ -81,7 +81,7 @@ dependencies {
     compile "com.squareup.retrofit2:converter-gson:${project.ext.retrofitVersion}"
     compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
-    compile "io.reactivex.rxjava2:rxandroid:${project.ext.rxjavaVersion}"
+    compile "io.reactivex.rxjava2:rxandroid:${project.ext.rxandroidVersion}"
     compile "io.reactivex.rxjava2:rxjava:${project.ext.rxjavaVersion}"
 
     testCompile 'junit:junit:4.12'
